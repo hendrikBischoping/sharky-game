@@ -1,7 +1,7 @@
 class JellyFish extends MovableObject {
     x = 180;
-    y = 160;
-    width = 100;
+    y = 140;
+    width = 150;
     height = 100;
 
     constructor(){
