@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sharky-Spiel</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    
+<body onload="init()">
+    <header>
+        <h1>Sharky</h1>
+    </header>
+    <main>
+        <canvas id="canvas" height="480px" width="720px"></canvas>
+    </main>
+
+    <script src="classes/movable-object.class.js"></script>
+    <script src="classes/terrain/barrier-1.class.js"></script>
+    <script src="classes/characters/character.class.js"></script>
+    <script src="classes/characters/jelly-fish.class.js"></script>
+    <script src="classes/characters/puffer-fish.class.js"></script>
+    <script src="classes/world.class.js"></script>
+    <script src="classes/background-object.class.js"></script>
+    <script src="js/game.js"></script>
 </body>
 </html>
