@@ -50,14 +50,14 @@ class Character extends MovableObject {
             if(this.world.keyboard.right){
                 this.x += this.speed;
                 this.otherDirection = false;
-                if(this.x > 501)
-                    {this.x = 500}
+                //if(this.x > 501)
+                //    {this.x = 500}
             }
             if (this.world.keyboard.left){
                 this.x -= this.speed;
                 this.otherDirection = true;
-                if(this.x < -130)
-                    {this.x = -131}
+                if(this.x < 1)
+                    {this.x = 0}
             }
             if (this.world.keyboard.up){
                 this.y -= this.speed;
@@ -69,6 +69,7 @@ class Character extends MovableObject {
                 if(this.y > 270)
                     {this.y = 270}
             }
+            this.world.camera_x = -this.x;
         }, 1000 / 60)
 
         this.SHARKY_SWIMMING.forEach((path) => {

@@ -1,27 +1,13 @@
 class World {
-    backgrounds = [
-        new BackgroundObject('./content/Alternative Grafiken - Sharkie/3. Background/Layers/5. Water/L.png', 0, 0, 0.01),
-        new BackgroundObject('./content/Alternative Grafiken - Sharkie/3. Background/Layers/4.Fondo 2/L.png', 0, 0, 0.02),
-        new BackgroundObject('./content/Alternative Grafiken - Sharkie/3. Background/Layers/3.Fondo 1/L.png', 0, 0, 0.03),
-        new BackgroundObject('./content/Alternative Grafiken - Sharkie/3. Background/Layers/2. Floor/D.png', 0, 0, 0.04),
-        new BackgroundObject('./content/Alternative Grafiken - Sharkie/3. Background/Layers/1. Light/COMPLETO.png', 0, 0, 0.035),
-    ];
-    barriers = [
-        new BarrierOne()
-    ]
+    backgrounds = level1.backgrounds;
+    barriers = level1.barriers;
+    enemies = level1.enemies;
     character = new Character();
-    enemies = [
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish(),
-        new JellyFish(),
-        new JellyFish(),
-        new JellyFish(),
-    ];
 
     canvas;
     ctx;    //definiert die Variable für den Context
     keyboard;  // wird später genauer zugewiesen
+    camera_x = 0;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext("2d"); //implementiert den 2-D-Context ist das canvas
@@ -37,10 +23,15 @@ class World {
 
     draw(){        
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // löscht dein vormaligen Inhalt (frame/Bild) des Canvas, bevor der neue Inhalt geladen wird
+
+        this.ctx.translate(this.camera_x, 0)
+
         this.addObjectsToMap(this.backgrounds);
         this.addObjectsToMap(this.barriers);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
+
+        this.ctx.translate(-this.camera_x, 0)
 
         let self = this;
         requestAnimationFrame(function() {  //läd die Funktion "draw()" relativ zur Leistung der Grafikkarte neu (FPS)
