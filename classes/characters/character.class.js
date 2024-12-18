@@ -43,6 +43,7 @@ class Character extends MovableObject {
         this.loadImages(this.SHARKY_SWIMMING);
 
         this.animate()
+        //this.checkPositionX()
     }
 
     animate(){
@@ -50,8 +51,8 @@ class Character extends MovableObject {
             if(this.world.keyboard.right){
                 this.x += this.speed;
                 this.otherDirection = false;
-                //if(this.x > 501)
-                //    {this.x = 500}
+                if(this.x >= 2001)
+                    {this.x = 2000}
             }
             if (this.world.keyboard.left){
                 this.x -= this.speed;
@@ -86,20 +87,18 @@ class Character extends MovableObject {
         
         setInterval(() => {
             if (this.world.keyboard.right || this.world.keyboard.left || this.world.keyboard.up || this.world.keyboard.down) {
-                let i = this.currentImage % this.SHARKY_SWIMMING.length;
-                let path = this.SHARKY_SWIMMING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+               this.playAnimation(this.SHARKY_SWIMMING)
             } else {
-                let j = this.currentImage % this.SHARKY_STAYING.length;
-                let path = this.SHARKY_STAYING[j];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                this.playAnimation(this.SHARKY_STAYING)
             }
         }, 140);
     }
-    jump(){
-        console.log('jump!');
-        
-    }
+    // checkPositionX(){
+    //     if (this.x = 1300) {
+    //         characterPosition = this.x;
+    //         console.log(characterPosition);
+            
+    //         return {characterPosition}
+    //     }
+    // }
 } 

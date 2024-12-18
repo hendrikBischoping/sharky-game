@@ -6,6 +6,7 @@ const level1 = new Level (
         new JellyFish(),
         new JellyFish(),
         new JellyFish(),
+        new Endboss()
     ],
     [
         new BarrierOne()
