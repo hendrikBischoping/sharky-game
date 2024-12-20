@@ -1,8 +1,8 @@
 class Endboss extends MovableObject {
     x = 0;
     y = 0;
-    width = 300 * 1.2;
-    height = 235 * 1.2;
+    width = 300 * 1.5;
+    height = 235 * 1.5;
     ENDBOSS_SPAWNING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/2.png',

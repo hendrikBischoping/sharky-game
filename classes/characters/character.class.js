@@ -1,10 +1,11 @@
 class Character extends MovableObject {
-    x = 15;
-    y = 100;
-    width = 280;
-    height = 320;
+    x = 0;
+    y = -80;
+    width = 180;
+    height = 200;
     speed = 8;
     imgStay;
+    healthPoints = 100;
     SHARKY_SWIMMING = [                                                               //nach erstem 'super()' reicht für jedes weitere 'super()' ein 'this.'
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/1.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/2.png',
@@ -43,7 +44,7 @@ class Character extends MovableObject {
         this.loadImages(this.SHARKY_SWIMMING);
 
         this.animate()
-        //this.checkPositionX()
+        this.applyGravity()
     }
 
     animate(){
@@ -62,13 +63,13 @@ class Character extends MovableObject {
             }
             if (this.world.keyboard.up){
                 this.y -= this.speed;
-                if(this.y < -125)
-                    {this.y = -126}
+                if(this.y < -80)
+                    {this.y = -81}
             }
             if (this.world.keyboard.down){
                 this.y += this.speed;
-                if(this.y > 270)
-                    {this.y = 270}
+                if(this.y > 340)
+                    {this.y = 339}
             }
             this.world.camera_x = -this.x;
         }, 1000 / 60)
