@@ -3,6 +3,7 @@ class JellyFish extends MovableObject {
     y = 140;
     width = 80;
     height = 60;
+    attackPoints = 5;
     JELLYFISH_SWIMMING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 2.png',

@@ -12,7 +12,7 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/3.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/4.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/5.png',
-        './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/6.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/6.png'
     ];
 
     SHARKY_STAYING = [                                                               //nach erstem 'super()' reicht für jedes weitere 'super()' ein 'this.'
@@ -33,8 +33,30 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/15.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/16.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/17.png',
-        './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/18.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/18.png'
     ];
+    POISON_HIT = [
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/1.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/3.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/4.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/5.png'
+    ];
+
+    DIES_OF_POISON = [
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00000.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00001.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00002.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00003.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00004.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00005.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00006.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00007.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00008.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00009.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00010.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png'
+    ];
+
     currentImage = 0;
     currentImageStay = 0;
     world;
@@ -42,6 +64,9 @@ class Character extends MovableObject {
     constructor(){
         super().loadImage('./content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.SHARKY_SWIMMING);
+        this.loadImages(this.SHARKY_STAYING);
+        this.loadImages(this.DIES_OF_POISON);
+        this.loadImages(this.POISON_HIT);
 
         this.animate()
         this.applyGravity()
@@ -87,7 +112,11 @@ class Character extends MovableObject {
         });
         
         setInterval(() => {
-            if (this.world.keyboard.right || this.world.keyboard.left || this.world.keyboard.up || this.world.keyboard.down) {
+            if (this.isDead()) {
+                this.playAnimation(this.DIES_OF_POISON)
+            } else if(this.isHurt()) {
+                this.playAnimation(this.POISON_HIT)
+            }else if (this.world.keyboard.right || this.world.keyboard.left || this.world.keyboard.up || this.world.keyboard.down) {
                this.playAnimation(this.SHARKY_SWIMMING)
             } else {
                 this.playAnimation(this.SHARKY_STAYING)

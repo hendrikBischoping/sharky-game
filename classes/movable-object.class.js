@@ -1,18 +1,12 @@
-class MovableObject {
-    x;
-    y;
-    img;
-    height;
-    width;
-    imageCache = {};
-    imageCacheStay = {};
+class MovableObject extends DrawableObject{
     speed;
     otherDirection = false;
     speedY = 0.1;
     healthPoints;
-    attackPoints
+    attackPoints;
+    lastHit = 0;
     //acceleration = 0.0005;
-
+    
     applyGravity(){
         setInterval(() => {
             if (this.isAboveGropund()) {
@@ -24,32 +18,6 @@ class MovableObject {
 
     isAboveGropund(){
         return (this.y < 330)
-    }
-
-    loadImage(path) {
-        this.img = new Image(); //'Image()' ist bereits vordefiniert von JS
-        this.img.src = path;
-    }
-
-    draw(ctx){
-        ctx.drawImage(this.img, this.x, this.y, this.height, this.width)
-    }
-    drawFrame(ctx){
-        if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss) { //Zeichnet die Object.border nur noch bei den ausgewählten objekten
-            ctx.beginPath();
-            ctx.lineWidth = "2";
-            ctx.strokeStyle = "red";
-            ctx.rect(this.x, this.y, this.height, this.width);
-            ctx.stroke();
-        }
-    }
-
-    loadImages(arr){                // läd alle Bilder in den Chache (Object)
-        arr.forEach((path) => {                     // Funktion von ChatGPT erklären lassen
-            let img = new Image()
-        img.src = path;
-        this.imageCache[path] = img;
-        })
     }
         
     playAnimation(images){
@@ -67,7 +35,26 @@ class MovableObject {
         console.log('Moves left!');
     }
     isColliding(mo){
-        return  (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) && 
+        return  (this.x + this.width) >= mo.x &&
+                this.x <= (mo.x + mo.width) && 
                 (this.y + this.height) >= mo.y &&
-                (this.y) <= (mo.y + mo.height);}
+                (this.y) <= (mo.y + mo.height);
+    }
+
+    hit(){
+        this.healthPoints -= 5;
+        if (this.healthPoints > 0) {
+            this.lastHit = new Date().getTime(); // speichert Zeit in Zahlenform 
+        }
+    }
+
+    isHurt(){
+        let timePassed = new Date().getTime() - this.lastHit; // Differenz in ms
+        timePassed = timePassed / 1000; // ms => s
+        return timePassed < 0.2;  // returnd true, wenn letzter Hit innerhalb der letzten 5 s stattfand
+    }
+
+    isDead(){
+        return this.healthPoints == 0;
+    }
 }

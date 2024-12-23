@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
     y = 0;
     width = 300 * 1.5;
     height = 235 * 1.5;
+    attackPoints = 15;
     ENDBOSS_SPAWNING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/2.png',
@@ -44,16 +45,15 @@ class Endboss extends MovableObject {
     spawnEndboss() {
         //console.log('hello'+characterPosition);
         let currentFrame = 0;
-        let intervalId = setInterval(() => {
+        let spawningBoss = setInterval(() => {
             this.playAnimation(this.ENDBOSS_SPAWNING);
             currentFrame++;
             if (currentFrame >= this.ENDBOSS_SPAWNING.length) {
-                clearInterval(intervalId);
+                clearInterval(spawningBoss);
                 console.log('spawned');
                 this.animate()
             }
         }, 10000 / 120);
-        
     }
 
     animate(){

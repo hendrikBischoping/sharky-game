@@ -4,6 +4,7 @@ class World {
     enemies = level1.enemies;
     level = level1;
     character = new Character();
+    statusBar = new StatusBar();
 
     canvas;
     ctx;    //definiert die Variable für den Context
@@ -23,13 +24,13 @@ class World {
         let loosesHp = setInterval(()=> {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.healthPoints > 0) {
-                    this.character.healthPoints -= 5;
-                    console.log(this.character.healthPoints);    
-                }
-                
+                    this.character.hit();
+                    console.log('Sharky-HP:'+this.character.healthPoints);  
+                    this.statusBar.setPercentage(this.character.healthPoints)  
+                }                
                 this.characterDied(loosesHp)
                 });
-        }, 200);
+        }, 500);
     }
 
     characterDied(loosesHp){
@@ -37,7 +38,6 @@ class World {
             clearInterval(loosesHp);
             console.log('Sharky died!');
     }
-    //    this.animateDeath()
     }
 
     setWorld(){
@@ -52,8 +52,11 @@ class World {
         this.addObjectsToMap(this.backgrounds);
         this.addObjectsToMap(this.barriers);
         this.addToMap(this.character);
+        this.ctx.translate(-this.camera_x, 0)
+        // Space for fixed objects
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.enemies);
-
         this.ctx.translate(-this.camera_x, 0)
 
         let self = this;
