@@ -5,6 +5,7 @@ class World {
     level = level1;
     character = new Character();
     statusBar = new StatusBar();
+    shootableObjects = [];
 
     canvas;
     ctx;    //definiert die Variable für den Context
@@ -17,11 +18,24 @@ class World {
         this.keyboard = keyboard;
         this.draw(); //führt die funktion 'draw()' von weiter unter aus
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
-    checkCollisions() {
+    run(){
         let loosesHp = setInterval(()=> {
+            this.checkShootObject();
+            this.checkCollisions(loosesHp);
+        }, 500);
+    }
+
+    checkShootObject(){
+        if (this.keyboard.b) {
+            let bubble = new ShootableObject(this.character.x, this.character.y);
+            this.shootableObjects.push(bubble);
+        }
+    }
+
+    checkCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.healthPoints > 0) {
                     this.character.hit();
@@ -30,7 +44,6 @@ class World {
                 }                
                 this.characterDied(loosesHp)
                 });
-        }, 500);
     }
 
     characterDied(loosesHp){
@@ -57,6 +70,8 @@ class World {
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.shootableObjects);
+
         this.ctx.translate(-this.camera_x, 0)
 
         let self = this;

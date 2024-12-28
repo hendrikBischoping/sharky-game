@@ -1,8 +1,8 @@
 class Character extends MovableObject {
     x = 0;
     y = -80;
-    width = 180;
-    height = 200;
+    width = 230;
+    height = 250;
     speed = 8;
     imgStay;
     healthPoints = 100;

@@ -7,6 +7,8 @@ function init(){
     world = new World(canvas, keyboard);
     
     window.addEventListener('keydown', (e) => {
+        console.log(e.keyCode);
+        
         if (e.keyCode == 39) {
             keyboard.right = true;        
         }
@@ -21,6 +23,9 @@ function init(){
         }
         if (e.keyCode == 32) {
             keyboard.space = true;
+        }
+        if (e.keyCode == 66) {
+            keyboard.b = true;
         }
         
     })
@@ -40,6 +45,8 @@ function init(){
         if (e.keyCode == 32) {
             keyboard.space = false;
         }
-        
+        if (e.keyCode == 66) {
+            keyboard.b = false;
+        }        
     })
 }
