@@ -7,7 +7,8 @@ class PufferFish extends MovableObject {
     height = 60;
     hitboxWidth = 60;
     hitboxHeigth = 60;
-    attackPoints = 5;
+    healthPoints = 20;
+    attackPoints = 4;
     PUFFERFISH_SWIMMING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png',

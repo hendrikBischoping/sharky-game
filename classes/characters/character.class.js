@@ -9,7 +9,7 @@ class Character extends MovableObject {
     hitboxHeigth = 153;
     speed = 8;
     imgStay;
-    healthPoints = 200;
+    healthPoints = 100;
     SHARKY_SWIMMING = [                                                               //nach erstem 'super()' reicht für jedes weitere 'super()' ein 'this.'
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/1.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/2.png',
@@ -45,6 +45,15 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/4.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/5.png'
     ];
+    FIN_HIT = [
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/1.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/3.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/4.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/5.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/6.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/7.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/8.png',
+    ];
 
     DIES_OF_POISON = [
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00000.png',
@@ -58,7 +67,19 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00008.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00009.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00010.png',
-        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png'
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00006.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00007.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00008.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00009.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00010.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00006.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00007.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00008.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00009.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00010.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
     ];
 
     currentImage = 0;
@@ -71,6 +92,7 @@ class Character extends MovableObject {
         this.loadImages(this.SHARKY_STAYING);
         this.loadImages(this.DIES_OF_POISON);
         this.loadImages(this.POISON_HIT);
+        this.loadImages(this.FIN_HIT);
 
         this.animate()
         this.applyGravity()

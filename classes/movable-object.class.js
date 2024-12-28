@@ -35,7 +35,7 @@ class MovableObject extends DrawableObject{
     hit(attackPoints){
         this.healthPoints -= attackPoints;
         if (this.healthPoints > 0) {
-            this.lastHit = new Date().getTime(); // speichert Zeit in Zahlenform 
+            this.lastHit = new Date().getTime(); // speichert Zeit in Zahlenform                         
         }
     }
 

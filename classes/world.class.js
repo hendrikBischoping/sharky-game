@@ -5,6 +5,7 @@ class World {
     level = level1;
     character = new Character();
     statusBar = new StatusBar();
+    bubble = new ShootableObject();
     shootableObjects = [];
 
     canvas;
@@ -24,7 +25,8 @@ class World {
     run(){
         let loosesHp = setInterval(()=> {
             this.checkShootObject();
-            this.checkCollisions(loosesHp);
+            this.checkCharakterCollisions(loosesHp);
+            this.checkBubbleCollision();
         }, 500);
     }
 
@@ -35,22 +37,32 @@ class World {
         }
     }
 
-    checkCollisions(loosesHp) {
+    checkCharakterCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.healthPoints > 0) {
                     this.character.hit(enemy.attackPoints);
                     console.log('Sharky-HP:'+this.character.healthPoints);  
                     this.statusBar.setPercentage(this.character.healthPoints)  
-                }                
+                }
                 this.characterDied(loosesHp)
                 });
+    }
+
+    checkBubbleCollision() {
+        this.level.enemies.forEach((enemy) => {
+            if (enemy.isColliding(this.bubble)) {
+                enemy.hit(this.bubble.attackPoints);
+                console.log(enemy.healthPoints);
+                
+            }
+        }, 200);
     }
 
     characterDied(loosesHp){
         if (this.character.healthPoints <= 0) {
             clearInterval(loosesHp);
             console.log('Sharky died!');
-    }
+        }
     }
 
     setWorld(){
