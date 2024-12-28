@@ -1,9 +1,13 @@
 class DrawableObject {
     x;
     y;
+    offsetX;
+    offsetY;
     img;
     height;
     width;
+    hitboxWidth;
+    hitboxHeigth;
     imageCache = {};
     imageCacheStay = {};
 
@@ -24,8 +28,9 @@ class DrawableObject {
         this.imageCache[path] = img;
         })
     }
+
     drawFrame(ctx){
-        if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss) { //Zeichnet die Object.border nur noch bei den ausgewählten objekten
+        if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss || this instanceof ShootableObject) { //Zeichnet die Object.border nur noch bei den ausgewählten objekten
             ctx.beginPath();
             ctx.lineWidth = "2";
             ctx.strokeStyle = "red";

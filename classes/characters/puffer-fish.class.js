@@ -1,8 +1,12 @@
 class PufferFish extends MovableObject {
     x = 180;
     y = 140;
+    offsetX = 180;
+    offsetY = 140;
     width = 60;
     height = 60;
+    hitboxWidth = 60;
+    hitboxHeigth = 60;
     attackPoints = 5;
     PUFFERFISH_SWIMMING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
@@ -17,7 +21,7 @@ class PufferFish extends MovableObject {
         super().loadImage('./content/Alternative Grafiken - Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
 
         this.x = 300 + Math.random() * 600;
-        this.y = 0 + Math.random() * 800;
+        this.y = 0 + Math.random() * 400;
         this.loadImages(this.PUFFERFISH_SWIMMING);
 
         this.animate()

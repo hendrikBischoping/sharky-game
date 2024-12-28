@@ -38,7 +38,7 @@ class World {
     checkCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.healthPoints > 0) {
-                    this.character.hit();
+                    this.character.hit(enemy.attackPoints);
                     console.log('Sharky-HP:'+this.character.healthPoints);  
                     this.statusBar.setPercentage(this.character.healthPoints)  
                 }                
@@ -47,7 +47,7 @@ class World {
     }
 
     characterDied(loosesHp){
-        if (this.character.healthPoints == 0) {
+        if (this.character.healthPoints <= 0) {
             clearInterval(loosesHp);
             console.log('Sharky died!');
     }
