@@ -1,4 +1,4 @@
-class JellyFish extends MovableObject {
+class JellyFish extends Enemy {
     x = 180;
     y = 140;
     offsetX = 180;
@@ -7,8 +7,9 @@ class JellyFish extends MovableObject {
     height = 60;
     hitboxWidth = 80;
     hitboxHeigth = 60;
-    healthPoints = 20;
+    healthPoints = 10;
     attackPoints = 6;
+    name = 'Jelly Fish';
     JELLYFISH_SWIMMING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 2.png',
@@ -36,20 +37,30 @@ class JellyFish extends MovableObject {
 
     animate(){
 
+        this.swimLeft()
         setInterval(() => {
-            if (this.isHurt()) {
-                this.playAnimation(this.JELLYFISH_DEAD)
+            if (this.isDead()) {
+                //this.applyBuoyancy();     swimLeft interval vorher beenden ?
+                this.playAnimation(this.JELLYFISH_DEAD);
+                this.raise()
             } else {
             this.playAnimation(this.JELLYFISH_SWIMMING)
         }
         }, 10000 / 30);
 
-        this.swimLeft()
+    }
+
+    raise(){
+        setInterval(() => {{
+                this.y -=1
+                this.x *=0.9999999
+            }
+        }, 1000 / 25);
     }
 
     swimLeft(){
         setInterval(() => {
-            this.x -= 0;
+            this.x -= 1;
         }, 1000 / 30)
     }
 }

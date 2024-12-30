@@ -1,6 +1,6 @@
 class ShootableObject extends MovableObject {
     acceleration = 0.8;
-    attackPoints = 20;
+    attackPoints = 10;
 
     constructor(x, y){
         super().loadImage('./content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
@@ -8,7 +8,7 @@ class ShootableObject extends MovableObject {
         this.y = y+150;
         this.height = 60;
         this.width = 60;
-        this.shoot();
+        this.shoot()
     }
 
     shoot(){
@@ -16,7 +16,7 @@ class ShootableObject extends MovableObject {
         this.applyBuoyancy();
         setInterval(() => {
             this.x +=8;
-        }, 40)
+        }, 1000 / 25)
     }
 
     applyBuoyancy(){

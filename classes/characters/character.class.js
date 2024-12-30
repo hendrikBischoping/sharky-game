@@ -10,6 +10,9 @@ class Character extends MovableObject {
     speed = 8;
     imgStay;
     healthPoints = 100;
+    attackPoints = 0;
+    name = 'Sharky';
+
     SHARKY_SWIMMING = [                                                               //nach erstem 'super()' reicht für jedes weitere 'super()' ein 'this.'
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/1.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/2.png',
