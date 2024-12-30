@@ -33,12 +33,47 @@ class Endboss extends Enemy {
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/2.floating/12.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/2.floating/13.png'
     ];
+    ENDBOSS_HURT = [
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Hurt/1.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Hurt/2.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Hurt/3.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Hurt/4.png',
+    ];
+    ENDBOSS_DEAD = [
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+    ]
 
     constructor(){
         super().loadImage(this.ENDBOSS_SPAWNING[0]);
         this.loadImages(this.ENDBOSS_SPAWNING);
         this.loadImages(this.ENDBOSS_SWIMMING);
-        this.x = 1500;
+        this.loadImages(this.ENDBOSS_HURT);
+        this.loadImages(this.ENDBOSS_DEAD);
+        this.x = 400;
         
         this.spawnEndboss()
     }
@@ -53,12 +88,18 @@ class Endboss extends Enemy {
                 console.log('spawned');
                 this.animate()
             }
-        }, 10000 / 120);
+        }, 10000 / 140);
     }
 
     animate(){
         setInterval(() => {
-            this.playAnimation(this.ENDBOSS_SWIMMING)
+            if (this.isDead()) {
+                this.playAnimation(this.ENDBOSS_DEAD)
+                this.y -= 20;
+            } else if (this.isHurt()) {
+                this.playAnimation(this.ENDBOSS_HURT)                
+            }else {this.playAnimation(this.ENDBOSS_SWIMMING)}
+            
         }, 10000 / 70);
     }
 }

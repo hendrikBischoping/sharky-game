@@ -8,7 +8,7 @@ class World {
     statusBar = new StatusBar();
     movableObject = new MovableObject();
     canShoot = true;
-    canSpawn = true;
+    canSpawn = true;bb
     bubbleItem = new BubbleItem();
     bubble = new ShootableObject();
     shootableObjects = [];
@@ -77,7 +77,7 @@ class World {
             this.shootableObjects.forEach((bubble) => {
                 if (bubble.isColliding(enemy)) {
                     enemy.hit(bubble.attackPoints);
-                    console.log(enemy.healthPoints);
+                    console.log('Enemy-HP:', enemy.healthPoints);
                     
                 }
             });

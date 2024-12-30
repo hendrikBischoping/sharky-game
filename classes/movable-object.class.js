@@ -33,7 +33,6 @@ class MovableObject extends DrawableObject{
 
     hit(attackPoints){
         this.healthPoints -= attackPoints;
-        console.log(this.healthPoints);
         
         if (this.healthPoints > 0) {
             this.lastHit = new Date().getTime(); // speichert Zeit in Zahlenform                         
@@ -53,6 +52,13 @@ class MovableObject extends DrawableObject{
         return this.healthPoints <= 0;
     }
 
+    startAnimation() {
+        console.log("Animation gestartet");
+        setTimeout(() => {
+
+            console.log("Animation Blow starten");
+        }, 200);
+    }
     // despawnDeadEmeny(enemy){
     //     this.level.enemies.splice(enemy, 1)
     // }
