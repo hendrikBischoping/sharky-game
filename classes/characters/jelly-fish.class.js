@@ -27,7 +27,7 @@ class JellyFish extends Enemy {
     constructor(){
         super().loadImage('./content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png');
         
-        this.x = 300 + Math.random() * 600;
+        this.x = 300 + Math.random() * 1200;
         this.y = 0 + Math.random() * 400;
         this.loadImages(this.JELLYFISH_SWIMMING);
         this.loadImages(this.JELLYFISH_DEAD);
@@ -52,13 +52,6 @@ class JellyFish extends Enemy {
 
     }
 
-    raise(){
-        setInterval(() => {{
-                this.y -=1
-                this.x *=0.9999999
-            }
-        }, 1000 / 25);
-    }
 
     swimLeft(){
         setInterval(() => {

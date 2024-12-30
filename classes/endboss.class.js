@@ -73,7 +73,7 @@ class Endboss extends Enemy {
         this.loadImages(this.ENDBOSS_SWIMMING);
         this.loadImages(this.ENDBOSS_HURT);
         this.loadImages(this.ENDBOSS_DEAD);
-        this.x = 400;
+        this.x = 1600;
         
         this.spawnEndboss()
     }
