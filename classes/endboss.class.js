@@ -5,6 +5,7 @@ class Endboss extends Enemy {
     height = 235 * 1.5;
     attackPoints = 15;
     healthPoints = 200;
+    currentImage = 0;
     ENDBOSS_SPAWNING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/2.png',
@@ -17,7 +18,6 @@ class Endboss extends Enemy {
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/9.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/10.png'
     ];
-    currentImage = 0;
     ENDBOSS_SWIMMING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/2.floating/1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -33,13 +33,12 @@ class Endboss extends Enemy {
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/2.floating/12.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/2.floating/13.png'
     ];
-    currentImage = 0;
 
     constructor(){
         super().loadImage(this.ENDBOSS_SPAWNING[0]);
         this.loadImages(this.ENDBOSS_SPAWNING);
         this.loadImages(this.ENDBOSS_SWIMMING);
-        this.x = 500;
+        this.x = 1500;
         
         this.spawnEndboss()
     }

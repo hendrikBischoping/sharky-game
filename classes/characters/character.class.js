@@ -11,7 +11,8 @@ class Character extends MovableObject {
     imgStay;
     healthPoints = 100;
     attackPoints = 0;
-    name = 'Sharky';
+    animationRunning = false;
+
 
     SHARKY_SWIMMING = [                                                               //nach erstem 'super()' reicht für jedes weitere 'super()' ein 'this.'
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/1.png',
@@ -57,7 +58,16 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/7.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/8.png',
     ];
-
+    BLOWS_BUBBLE = [
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+    ]
     DIES_OF_POISON = [
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00000.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00001.png',
@@ -96,6 +106,7 @@ class Character extends MovableObject {
         this.loadImages(this.DIES_OF_POISON);
         this.loadImages(this.POISON_HIT);
         this.loadImages(this.FIN_HIT);
+        this.loadImages(this.BLOWS_BUBBLE);
 
         this.animate()
         this.applyGravity()
@@ -124,7 +135,7 @@ class Character extends MovableObject {
                 if(this.y > 310)
                     {this.y = 309}
             }
-            if (this.world.keyboard.b) {
+            if (this.world.keyboard.b && this.world.canShoot) {
                 this.world.createShootableObject()
             }
             this.world.camera_x = -this.x;
@@ -143,6 +154,21 @@ class Character extends MovableObject {
         });
         
         setInterval(() => {
+
+
+                //here animationRunning is true
+
+
+            // if (this.animationRunning) {
+            //     console.log('BLOOOW');
+            //     //this.startAnimation()
+            //    // this.playAnimation(this.BLOWS_BUBBLE)
+            // }
+
+
+
+
+
             if (this.isDead()) {
                 this.playAnimation(this.DIES_OF_POISON)
             } else if(this.isHurt()) {

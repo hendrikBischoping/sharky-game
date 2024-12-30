@@ -43,10 +43,12 @@ class JellyFish extends Enemy {
                 //this.applyBuoyancy();     swimLeft interval vorher beenden ?
                 this.playAnimation(this.JELLYFISH_DEAD);
                 this.raise()
+                setTimeout(() => {
+                }, 200);
             } else {
             this.playAnimation(this.JELLYFISH_SWIMMING)
         }
-        }, 10000 / 30);
+        }, 10000 / 40);
 
     }
 

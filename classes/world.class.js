@@ -6,9 +6,13 @@ class World {
     level = level1;
     character = new Character();
     statusBar = new StatusBar();
-
+    movableObject = new MovableObject();
+    canShoot = true;
+    canSpawn = true;
+    bubbleItem = new BubbleItem();
     bubble = new ShootableObject();
     shootableObjects = [];
+    bubbleItems = [];
 
     canvas;
     ctx;    //definiert die Variable für den Context
@@ -22,6 +26,7 @@ class World {
         this.draw(); //führt die funktion 'draw()' von weiter unter aus
         this.setWorld();
         this.run();
+        this.createBubbleItem();
     }
 
     run(){
@@ -31,31 +36,40 @@ class World {
         let hitEnemy = setInterval(() => {
             this.checkBubbleCollision(hitEnemy);
         }, 500);
-        
     }
 
     createShootableObject(){
+            this.canShoot = false;
             let bubble = new ShootableObject(this.character.x, this.character.y);
             this.shootableObjects.push(bubble);
+            setTimeout(() => {
+                this.canShoot = true;
+            }, 500);
+    }
+    createBubbleItem(){
+            this.canSpawn = false;
+            let bubbleItem = new BubbleItem(200, 200);
+            this.bubbleItems.push(bubbleItem);
+            setTimeout(() => {
+                this.canSpawn = true;
+            }, 500);
     }
 
     checkCharakterCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
-                if (this.keyboard.b) {
-                // if (this.character.isColliding(enemy) && this.character.healthPoints > 0) {                 //!!!!!!!!!!!  
-                //     this.character.hit(enemy.attackPoints);
-                //     console.log('Sharky-HP:'+this.character.healthPoints);  
-                //     enemy.hit(this.character.attackPoints);
-                //     console.log('Enemy hp', enemy.healthPoints, 'and Sharky ap', this.character.attackPoints);
-                //     
-                //     this.statusBar.setPercentage(this.character.healthPoints)  
-                }
-                if (this.bubble.isColliding(enemy) && enemy.healthPoints > 0) {
-                    console.log('crash');
+                if (this.character.isColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {                 //!!!!!!!!!!!  
+                    this.character.hit(enemy.attackPoints);
+                    console.log('Sharky-HP:'+this.character.healthPoints);  
+                    enemy.hit(this.character.attackPoints);
+                    console.log('Enemy hp', enemy.healthPoints, 'and Sharky ap', this.character.attackPoints);
                     
+                    this.statusBar.setPercentage(this.character.healthPoints)  
                 }
+                // if (this.bubble.isColliding(enemy) && enemy.healthPoints > 0) {
+                //     console.log('crash');
+                //     
                 this.characterDied(loosesHp)
-                });
+            });
     }
 
     checkBubbleCollision(bubble, hitEnemy) {
@@ -71,7 +85,7 @@ class World {
                 enemy.hit(bubble.attackPoints);
                 console.log(bubble.x);
             }
-        }, 200);
+        }, 1000);
         this.enemyDied(hitEnemy)
     }
 
@@ -105,6 +119,7 @@ class World {
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.bubbleItems);
         this.addObjectsToMap(this.shootableObjects);
 
         this.ctx.translate(-this.camera_x, 0)
