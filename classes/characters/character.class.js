@@ -124,6 +124,9 @@ class Character extends MovableObject {
                 if(this.y > 310)
                     {this.y = 309}
             }
+            if (this.world.keyboard.b) {
+                this.world.createShootableObject()
+            }
             this.world.camera_x = -this.x;
         }, 1000 / 60)
 

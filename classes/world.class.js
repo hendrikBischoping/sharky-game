@@ -29,29 +29,19 @@ class World {
             this.checkCharakterCollisions(loosesHp);
         }, 500);
         let hitEnemy = setInterval(() => {
-            this.checkShootObject(hitEnemy);
+            this.checkBubbleCollision(hitEnemy);
         }, 500);
         
     }
 
-    checkShootObject(hitEnemy){
-        if (this.keyboard.b) {
+    createShootableObject(){
             let bubble = new ShootableObject(this.character.x, this.character.y);
             this.shootableObjects.push(bubble);
-            this.checkBubbleCollision(bubble, hitEnemy);
-        }
     }
 
     checkCharakterCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
                 if (this.keyboard.b) {
-                    this.shootableObjects.forEach((bubble) => {
-                        if (bubble.isColliding(enemy)) {
-                            enemy.hit(bubble.attackPoints);
-                            console.log(enemy.healthPoints);
-                            
-                        }
-                    });
                 // if (this.character.isColliding(enemy) && this.character.healthPoints > 0) {                 //!!!!!!!!!!!  
                 //     this.character.hit(enemy.attackPoints);
                 //     console.log('Sharky-HP:'+this.character.healthPoints);  
@@ -70,10 +60,13 @@ class World {
 
     checkBubbleCollision(bubble, hitEnemy) {
         this.level.enemies.forEach((enemy) => {
-            if (bubble.x <= 20) {
-                console.log('lol');
-                
-            }
+            this.shootableObjects.forEach((bubble) => {
+                if (bubble.isColliding(enemy)) {
+                    enemy.hit(bubble.attackPoints);
+                    console.log(enemy.healthPoints);
+                    
+                }
+            });
             if (enemy.isColliding(bubble) && enemy.healthPoints > 0) {
                 enemy.hit(bubble.attackPoints);
                 console.log(bubble.x);

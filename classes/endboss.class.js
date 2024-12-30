@@ -4,6 +4,7 @@ class Endboss extends Enemy {
     width = 300 * 1.5;
     height = 235 * 1.5;
     attackPoints = 15;
+    healthPoints = 200;
     ENDBOSS_SPAWNING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/2.png',
