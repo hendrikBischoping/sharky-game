@@ -5,10 +5,11 @@ class World {
     enemy = new Enemy();
     level = level1;
     character = new Character();
-    statusBar = new StatusBar();
+    lifeBar = new LifeBar();
+    bubbleBar = new BubbleBar();
     movableObject = new MovableObject();
     canShoot = true;
-    canSpawn = true;bb
+    canSpawn = true;
     bubbleItem = new BubbleItem();
     bubble = new ShootableObject();
     shootableObjects = [];
@@ -26,30 +27,46 @@ class World {
         this.draw(); //führt die funktion 'draw()' von weiter unter aus
         this.setWorld();
         this.run();
-        this.createBubbleItem();
+        this.spawnBubbleItems();
     }
 
     run(){
         let loosesHp = setInterval(() => {
             this.checkCharakterCollisions(loosesHp);
-        }, 500);
+        }, 1000);
         let hitEnemy = setInterval(() => {
             this.checkBubbleCollision(hitEnemy);
-        }, 500);
+        }, 1000);
+        let collectBubbleItem = setInterval(() => {
+            this.checkItemCollisions(collectBubbleItem)
+        }, 200)
     }
+    spawnBubbleItems(){
+            setInterval(() => {
+                this.createBubbleItem()
+            }, 500);
+            
+        }
 
     createShootableObject(){
+        if (this.bubbleBar.percentage > 0) {
+            this.bubbleBar.percentage -= 10
+            console.log("bubbles sind", this.bubbleBar.percentage);
+            
             this.canShoot = false;
             let bubble = new ShootableObject(this.character.x, this.character.y);
             this.shootableObjects.push(bubble);
             setTimeout(() => {
                 this.canShoot = true;
             }, 500);
+        }
     }
-    createBubbleItem(){
+
+    createBubbleItem(){            
             this.canSpawn = false;
             let bubbleItem = new BubbleItem(200, 200);
             this.bubbleItems.push(bubbleItem);
+            
             setTimeout(() => {
                 this.canSpawn = true;
             }, 500);
@@ -59,18 +76,31 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {                 //!!!!!!!!!!!  
                     this.character.hit(enemy.attackPoints);
-                    console.log('Sharky-HP:'+this.character.healthPoints);  
-                    enemy.hit(this.character.attackPoints);
-                    console.log('Enemy hp', enemy.healthPoints, 'and Sharky ap', this.character.attackPoints);
-                    
-                    this.statusBar.setPercentage(this.character.healthPoints)  
+                    // console.log(this.lifeBar.percentage);
+                    // enemy.hit(this.character.attackPoints);
+                    this.lifeBar.setPercentage(this.character.healthPoints)  
                 }
-                // if (this.bubble.isColliding(enemy) && enemy.healthPoints > 0) {
-                //     console.log('crash');
-                //     
                 this.characterDied(loosesHp)
             });
     }
+    
+    checkItemCollisions(collectBubbleItem){
+        this.bubbleItems.forEach((obj) => {
+            if (obj.isColliding(this.character)){
+                this.character.bubbles += 10
+                if (this.character.bubbles >= 100) {
+                    this.character.bubbles = 100
+                }
+                this.bubbleBar.percentage += 10
+                if (this.bubbleBar.percentage >= 100) {
+                    this.bubbleBar.percentage = 100
+                }
+                this.bubbleItems.splice(obj);
+                this.bubbleBar.setPercentage(this.character.bubbles)
+                console.log('Bubbles sine '+this.character.bubbles);
+            }
+        })
+    }    
 
     checkBubbleCollision(bubble, hitEnemy) {
         this.level.enemies.forEach((enemy) => {
@@ -116,7 +146,8 @@ class World {
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0)
         // Space for fixed objects
-        this.addToMap(this.statusBar);
+        this.addToMap(this.lifeBar);
+        this.addToMap(this.bubbleBar);
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.bubbleItems);

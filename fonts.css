@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'Luckiest Guy'; /* Name der Schriftart */
+    src: url('./content/Alternative Grafiken - Sharkie/5.Font/Luckiest_Guy/LuckiestGuy-Regular.ttf') format('truetype'); /* Pfad zur Datei und Formatangabe */
+    font-weight: 400; /* Schriftstärke */
+    font-style: normal; /* Stil */
+  }

@@ -1,4 +1,5 @@
 class Character extends MovableObject {
+    name = 'Sharky';
     x = 0;
     y = -80;
     offsetX = 107;
@@ -11,6 +12,7 @@ class Character extends MovableObject {
     imgStay;
     healthPoints = 100;
     attackPoints = 0;
+    bubbles = 40;
     animationRunning = false;
 
 
@@ -67,7 +69,7 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
-    ]
+    ];
     DIES_OF_POISON = [
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00000.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00001.png',
@@ -93,6 +95,21 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00009.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00010.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
+        './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
     ];
 
     currentImage = 0;
@@ -113,29 +130,29 @@ class Character extends MovableObject {
     }
     animate(){
         setInterval(() => {
-            if(this.world.keyboard.right){
+            if(this.world.keyboard.right && this.healthPoints > 0){
                 this.x += this.speed;
                 this.otherDirection = false;
                 if(this.x >= 2001)
                     {this.x = 2000}
             }
-            if (this.world.keyboard.left){
+            if (this.world.keyboard.left && this.healthPoints > 0){
                 this.x -= this.speed;
                 this.otherDirection = true;
                 if(this.x < 1)
                     {this.x = 0}
             }
-            if (this.world.keyboard.up){
+            if (this.world.keyboard.up && this.healthPoints > 0){
                 this.y -= this.speed;
                 if(this.y < -80)
                     {this.y = -81}
             }
-            if (this.world.keyboard.down){
+            if (this.world.keyboard.down && this.healthPoints > 0){
                 this.y += this.speed;
                 if(this.y > 310)
                     {this.y = 309}
             }
-            if (this.world.keyboard.b && this.world.canShoot) {
+            if (this.world.keyboard.b && this.world.canShoot && this.healthPoints > 0) {
                 this.world.createShootableObject()
             }
             this.world.camera_x = -this.x;

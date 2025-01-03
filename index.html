@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sharky-Spiel</title>
+    <title>Sharky</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="shortcut icon" href="./content/Alternative Grafiken - Sharkie/Favicon/favicon.ico" type="image/x-icon">
 </head>
 <body onload="init()">
     <header>
@@ -13,6 +15,7 @@
     <main>
         <canvas id="canvas" height="480px" width="720px"></canvas>
     </main>
+    <img id="instructions" src="content/Alternative Grafiken - Sharkie/6.Botones/Instructions 1.png" alt="instructions">
 
     <script src="classes/drawable-object.class.js"></script>
     <script src="classes/movable-object.class.js"></script>
@@ -21,12 +24,15 @@
     <script src="classes/characters/enemy.class.js"></script>
     <script src="classes/characters/jelly-fish.class.js"></script>
     <script src="classes/characters/puffer-fish.class.js"></script>
-    <script src="classes/endboss.class.js"></script>
+    <script src="classes/characters/endboss.class.js"></script>
     <script src="classes/characters/character.class.js"></script>
     <script src="classes/world.class.js"></script>
     <script src="classes/background-object.class.js"></script>
     <script src="classes/level.class.js"></script>
     <script src="classes/status-bar.class.js"></script>
+    <script src="classes/life-bar.class.js"></script>
+    <script src="classes/bubble-bar.class.js"></script>
+    <script src="classes/collectable-item.class.js"></script>
     <script src="classes/bubble-item.class.js"></script>
     <script src="classes/shootable-object.class.js "></script>
     <script src="levels/level1.js"></script>

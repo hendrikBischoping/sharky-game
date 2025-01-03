@@ -73,7 +73,7 @@ class Endboss extends Enemy {
         this.loadImages(this.ENDBOSS_SWIMMING);
         this.loadImages(this.ENDBOSS_HURT);
         this.loadImages(this.ENDBOSS_DEAD);
-        this.x = 1600;
+        this.x = 2000;
         
         this.spawnEndboss()
     }
@@ -95,7 +95,7 @@ class Endboss extends Enemy {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.ENDBOSS_DEAD)
-                this.y -= 20;
+                this.y -= 30;
             } else if (this.isHurt()) {
                 this.playAnimation(this.ENDBOSS_HURT)                
             }else {this.playAnimation(this.ENDBOSS_SWIMMING)}

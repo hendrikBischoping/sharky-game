@@ -2,8 +2,25 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('content/Alternative Grafiken - Sharkie/3. Background/Dark/1.png');
+    font-family: 'Luckiest Guy';
+    color: white;
+}
+
+h1 {
+    font-size: 48px;
+    margin: 64px;
 }
 
 canvas {
     background-color: black;
+    border: 10px, solid, darkblue;
+    border-radius: 32px;
+    margin: 0px;
+}
+
+#instructions {
+    height: 256px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 32px;
 }
