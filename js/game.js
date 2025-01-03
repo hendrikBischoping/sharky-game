@@ -2,12 +2,20 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+function startGame(){
+    let startScreen = document.getElementById('startScreen');
+    let startButton = document.getElementById('startButton');
+
+    startScreen.classList.add ('d_none');
+    startButton.classList.add ('d_none');
+}
+
 function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     
     window.addEventListener('keydown', (e) => {     
-        console.log(e.keyCode);   
+        //console.log(e.keyCode);   
         if (e.keyCode == 39) {
             keyboard.right = true;        
         }

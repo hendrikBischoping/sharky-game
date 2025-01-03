@@ -85,7 +85,7 @@ class World {
     }
     
     checkItemCollisions(collectBubbleItem){
-        this.bubbleItems.forEach((obj) => {
+        this.bubbleItems.forEach((obj, index) => {
             if (obj.isColliding(this.character)){
                 this.character.bubbles += 10
                 if (this.character.bubbles >= 100) {
@@ -95,7 +95,7 @@ class World {
                 if (this.bubbleBar.percentage >= 100) {
                     this.bubbleBar.percentage = 100
                 }
-                this.bubbleItems.splice(obj);
+                this.bubbleItems.splice(index, 1);
                 this.bubbleBar.setPercentage(this.character.bubbles)
                 console.log('Bubbles sine '+this.character.bubbles);
             }
