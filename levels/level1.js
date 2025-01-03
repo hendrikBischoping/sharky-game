@@ -1,18 +1,18 @@
 const level1 = new Level (
     enemies = [
-        // new PufferFish(),
-        // new PufferFish(),
-        // new PufferFish(),
-        // new PufferFish(),
-        // new PufferFish(),
-        // new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
         new JellyFish(),
-        // new JellyFish(),
-        // new JellyFish(),
-        // new JellyFish(),
-        // new JellyFish(),
-        // new JellyFish(),
-        // new Endboss()
+        new JellyFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new Endboss()
     ],
     [
         new BarrierOne()

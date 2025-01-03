@@ -34,23 +34,24 @@ class World {
         let loosesHp = setInterval(() => {
             this.checkCharakterCollisions(loosesHp);
         }, 1000);
-        let hitEnemy = setInterval(() => {
-            this.checkBubbleCollision(hitEnemy);
-        }, 1000);
-        let collectBubbleItem = setInterval(() => {
-            this.checkItemCollisions(collectBubbleItem)
+        setInterval(() => {
+            this.checkBubbleCollision(this.bubble);
+        }, 100);
+        setInterval(() => {
+            this.checkItemCollisions()
         }, 200)
     }
+
     spawnBubbleItems(){
             setInterval(() => {
                 this.createBubbleItem()
             }, 500);
             
-        }
+    }
 
     createShootableObject(){
         if (this.bubbleBar.percentage > 0) {
-            this.bubbleBar.percentage -= 10
+            this.bubbleBar.setPercentage(this.bubbleBar.percentage -= 10);
             console.log("bubbles sind", this.bubbleBar.percentage);
             
             this.canShoot = false;
@@ -84,39 +85,66 @@ class World {
             });
     }
     
-    checkItemCollisions(collectBubbleItem){
-        this.bubbleItems.forEach((obj, index) => {
-            if (obj.isColliding(this.character)){
+
+
+
+    checkItemCollisions(){
+        this.bubbleItems.forEach((item, index) => {
+            if (item.isColliding(this.character)){
                 this.character.bubbles += 10
-                if (this.character.bubbles >= 100) {
-                    this.character.bubbles = 100
-                }
                 this.bubbleBar.percentage += 10
-                if (this.bubbleBar.percentage >= 100) {
-                    this.bubbleBar.percentage = 100
-                }
+                this.checkMaximumValue()
                 this.bubbleItems.splice(index, 1);
                 this.bubbleBar.setPercentage(this.character.bubbles)
                 console.log('Bubbles sine '+this.character.bubbles);
             }
         })
-    }    
+    }
 
-    checkBubbleCollision(bubble, hitEnemy) {
-        this.level.enemies.forEach((enemy) => {
-            this.shootableObjects.forEach((bubble) => {
-                if (bubble.isColliding(enemy)) {
-                    enemy.hit(bubble.attackPoints);
-                    console.log('Enemy-HP:', enemy.healthPoints);
-                    
+    checkMaximumValue(){
+        if (this.character.bubbles >= 100) {
+            this.character.bubbles = 100
+        }
+        if (this.bubbleBar.percentage >= 100) {
+            this.bubbleBar.percentage = 100
+        }
+    }
+
+    despawnFloatingObjects(objArr, obj, index, value){
+        if (obj.y <= value) {
+            objArr.splice(index, 1)
+        }
+    }
+
+    // checkBubbleCollision(bubble) {
+    //     this.level.enemies.forEach((enemy, index) => {
+    //         this.shootableObjects.forEach((bubble, index) => {
+    //             if (bubble.isColliding(enemy)) {
+    //                 enemy.hit(bubble.attackPoints);
+    //                 console.log('Enemy-HP:', enemy.healthPoints);
+    //                 this.despawnFloatingObjects(this.shootableObjects, bubble, index, bubble.y)
+    //             }
+    //         });
+    //         if (enemy.isColliding(bubble, index) && enemy.healthPoints > 0) {
+    //             enemy.hit(bubble.attackPoints);
+    //             console.log('test');
+    //         }
+    //         this.enemyDied(enemy, index)
+    //     });
+    // }
+
+    checkBubbleCollision(bubble) {
+        for (let i = this.level.enemies.length - 1; i >= 0; i--) {
+            let enemy = this.level.enemies[i];
+            for (let j = this.shootableObjects.length - 1; j >= 0; j--) {
+                let currentBubble = this.shootableObjects[j];
+                if (currentBubble.isColliding(enemy)) {
+                    enemy.hit(currentBubble.attackPoints);
+                    this.despawnFloatingObjects(this.shootableObjects, currentBubble, j, currentBubble.y);
                 }
-            });
-            if (enemy.isColliding(bubble) && enemy.healthPoints > 0) {
-                enemy.hit(bubble.attackPoints);
-                console.log(bubble.x);
             }
-        }, 1000);
-        this.enemyDied(hitEnemy)
+            this.enemyDied(enemy, i);
+        }
     }
 
     characterDied(loosesHp){
@@ -126,10 +154,14 @@ class World {
         }
     }
 
-    enemyDied(hitEnemy){
-        if (this.enemy.healthPoints <= 0) {
-            clearInterval(hitEnemy);
-            console.log('Enemy died!');
+    enemyDied(enemy, index){
+        if (enemy.healthPoints <= 0) {
+            setTimeout(() => {
+                this.despawnFloatingObjects(this.level.enemies, enemy, index, 300)
+                console.log('Enemy died!');
+            }, 5000);
+
+            //this.enemies.splice(index, 1)
         }
     }
     setWorld(){
