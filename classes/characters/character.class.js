@@ -126,7 +126,7 @@ class Character extends MovableObject {
         this.loadImages(this.BLOWS_BUBBLE);
 
         this.animate()
-        this.applyGravity()
+        this.applyGravity(310)
     }
     animate(){
         setInterval(() => {

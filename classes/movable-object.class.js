@@ -6,16 +6,16 @@ class MovableObject extends DrawableObject{
     attackPoints;
     lastHit = 0;
     
-    applyGravity(){
+    applyGravity(heightDiff){
         setInterval(() => {
-            if (this.isAboveGropund()) {
+            if (this.isAboveGropund(heightDiff)) {
                 this.y += this.speedY;
             }
         }), 1000 / 4
     }
 
-    isAboveGropund(){
-        return (this.y < 310)
+    isAboveGropund(heightDiff){
+        return (this.y < heightDiff)
     }
         
     playAnimation(images){

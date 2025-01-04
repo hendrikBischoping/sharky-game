@@ -11,9 +11,6 @@ class World {
     canShoot = true;
     canSpawn = true;
     dropIndex = 1;
-    // canDrop = true;
-    // bubbleItem = new BubbleItem();
-    // heartItem = new HeartItem();
     bubble = new ShootableObject();
     shootableObjects = [];
     bubbleItems = [];
@@ -76,23 +73,26 @@ class World {
     }
 
     dropRandomItem(enemy){
-        let randomChoice = Math.random() < 0.5;
-        if (randomChoice) {
+        let randomChoice = Math.random();
+        
+        if (randomChoice >= 0.8) {
             this.createHeartItem(enemy);
-        } else {
+        } else if(randomChoice >= 0.6 && randomChoice <= 0.8) {
             this.createPoisonItem(enemy);
         }
     }
     
     createHeartItem(enemy) {
-        let heartItem = new BubbleItem(enemy.x, enemy.y);
+        let heartItem = new HeartItem(enemy.x, enemy.y);
         this.droppedItems.push(heartItem);
-        console.log(enemy, 'dropped heart');
-        //push heartItem to droppedItems
+        //console.log(enemy, 'dropped heart');
+        console.log(this.droppedItems[0]);
     }
 
     createPoisonItem(enemy){
-        console.log(enemy, 'dropped nothing');
+        let poisonItem = new PoisonItem(enemy.x, enemy.y);
+        this.droppedItems.push(poisonItem);
+       //console.log(enemy, 'dropped poison');
         
     }
 
@@ -113,7 +113,6 @@ class World {
     
     enemyDied(enemy, index){
         if (enemy.healthPoints <= 0 && !enemy.itemSpawned) {
-            console.log('Item spawned (first time)');
             this.dropRandomItem(enemy)
             enemy.itemSpawned = true;
         }
