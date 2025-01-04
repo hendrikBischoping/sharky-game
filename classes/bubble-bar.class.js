@@ -17,7 +17,7 @@ class BubbleBar extends StatusBar{
         this.y = 35
         this.width = 50;
         this.height = 180;
-        this.setPercentage(0, this.BUBBLE_BAR_IMAGES);
+        this.setPercentage(40, this.BUBBLE_BAR_IMAGES);
     }
     
     setPercentage(percentage, imageSet = this.BUBBLE_BAR_IMAGES){ //imageSet = this.IMAGES setzt "this.IMAGES" als default ein

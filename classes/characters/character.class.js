@@ -12,7 +12,7 @@ class Character extends MovableObject {
     imgStay;
     healthPoints = 100;
     attackPoints = 0;
-    bubbles = 0;
+    bubbles = 40;
     animationRunning = false;
 
 
