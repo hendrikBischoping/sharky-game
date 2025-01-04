@@ -1,5 +1,5 @@
 class BubbleItem extends CollectableItem{
-    x = 0 + Math.random() * 4000;
+    x = 0 + Math.random() * 2000;
     y = 470;
     width = 20;
     height = 20;

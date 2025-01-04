@@ -1,6 +1,6 @@
 class JellyFish extends Enemy {
-    x = 180;
-    y = 140;
+    x;
+    y;
     offsetX = 180;
     offsetY = 140;
     width = 80;
@@ -27,7 +27,7 @@ class JellyFish extends Enemy {
     constructor(){
         super().loadImage('./content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png');
         
-        this.x = 300 + Math.random() * 2000;
+        this.x = 400 + Math.random() * 2000;
         this.y = 0 + Math.random() * 400;
         this.loadImages(this.JELLYFISH_SWIMMING);
         this.loadImages(this.JELLYFISH_DEAD);

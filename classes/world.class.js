@@ -45,7 +45,7 @@ class World {
     spawnBubbleItems(){
             setInterval(() => {
                 this.createBubbleItem()
-            }, 500);
+            }, 1000);
             
     }
 
@@ -84,9 +84,6 @@ class World {
                 this.characterDied(loosesHp)
             });
     }
-    
-
-
 
     checkItemCollisions(){
         this.bubbleItems.forEach((item, index) => {
@@ -116,24 +113,7 @@ class World {
         }
     }
 
-    // checkBubbleCollision(bubble) {
-    //     this.level.enemies.forEach((enemy, index) => {
-    //         this.shootableObjects.forEach((bubble, index) => {
-    //             if (bubble.isColliding(enemy)) {
-    //                 enemy.hit(bubble.attackPoints);
-    //                 console.log('Enemy-HP:', enemy.healthPoints);
-    //                 this.despawnFloatingObjects(this.shootableObjects, bubble, index, bubble.y)
-    //             }
-    //         });
-    //         if (enemy.isColliding(bubble, index) && enemy.healthPoints > 0) {
-    //             enemy.hit(bubble.attackPoints);
-    //             console.log('test');
-    //         }
-    //         this.enemyDied(enemy, index)
-    //     });
-    // }
-
-    checkBubbleCollision(bubble) {
+    checkBubbleCollision() {
         for (let i = this.level.enemies.length - 1; i >= 0; i--) {
             let enemy = this.level.enemies[i];
             for (let j = this.shootableObjects.length - 1; j >= 0; j--) {
@@ -156,14 +136,13 @@ class World {
 
     enemyDied(enemy, index){
         if (enemy.healthPoints <= 0) {
-            setTimeout(() => {
-                this.despawnFloatingObjects(this.level.enemies, enemy, index, 300)
+            //setTimeout(() => {
+                this.despawnFloatingObjects(this.level.enemies, enemy, index, 10)
                 console.log('Enemy died!');
-            }, 5000);
-
-            //this.enemies.splice(index, 1)
+            //}, 5000);
         }
     }
+    
     setWorld(){
         this.character.world = this; // übergibt den Wert der Welt (in welcher sich "character" befindet, an "character", um auf dieser Ebene auf Informationen aus "world" zugreifen zu können, wie zb. "keyboard")
     }
