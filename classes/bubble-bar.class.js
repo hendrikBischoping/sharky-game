@@ -1,6 +1,6 @@
 class BubbleBar extends StatusBar{
     y = 30;
-    percentage = 0;
+    percentage = 60;
 
     BUBBLE_BAR_IMAGES = [
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/normal bubbles/100_ copia 4.png',
@@ -17,7 +17,7 @@ class BubbleBar extends StatusBar{
         this.y = 35
         this.width = 50;
         this.height = 180;
-        this.setPercentage(40, this.BUBBLE_BAR_IMAGES);
+        this.setPercentage(this.percentage, this.BUBBLE_BAR_IMAGES);
     }
     
     setPercentage(percentage, imageSet = this.BUBBLE_BAR_IMAGES){ //imageSet = this.IMAGES setzt "this.IMAGES" als default ein

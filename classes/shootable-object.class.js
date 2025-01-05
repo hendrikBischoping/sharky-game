@@ -1,6 +1,6 @@
 class ShootableObject extends MovableObject {
     acceleration = 0.8;
-    attackPoints = 10;
+    attackPoints = 20;
 
     constructor(x, y){
         super().loadImage('./content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/Bubble.png');

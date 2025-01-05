@@ -13,6 +13,7 @@ class Character extends MovableObject {
     healthPoints = 100;
     attackPoints = 0;
     bubbles = 40;
+    poisonBubbles = 0
     animationRunning = false;
 
 
@@ -176,11 +177,11 @@ class Character extends MovableObject {
                 //here animationRunning is true
 
 
-            // if (this.animationRunning) {
-            //     console.log('BLOOOW');
-            //     //this.startAnimation()
-            //    // this.playAnimation(this.BLOWS_BUBBLE)
-            // }
+            if (this.animationRunning) {
+                console.log('BLOOOW');
+                this.startAnimation()
+                this.playAnimation(this.BLOWS_BUBBLE)
+            }
 
 
 

@@ -21,7 +21,7 @@ class LifeBar extends StatusBar {
         this.y = 0;
         this.width = 50;
         this.height = 180;
-        this.setPercentage(100, this.LIFE_BAR_IMAGES);
+        this.setPercentage(this.percentage, this.LIFE_BAR_IMAGES);
     }
     
     setPercentage(percentage, imageSet = this.LIFE_BAR_IMAGES){ //imageSet = this.IMAGES setzt "this.IMAGES" als default ein

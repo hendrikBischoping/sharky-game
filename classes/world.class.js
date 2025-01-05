@@ -7,6 +7,7 @@ class World {
     character = new Character();
     lifeBar = new LifeBar();
     bubbleBar = new BubbleBar();
+    poisonBubbleBar = new PoisonBubbleBar();
     movableObject = new MovableObject();
     canShoot = true;
     canSpawn = true;
@@ -14,7 +15,8 @@ class World {
     bubble = new ShootableObject();
     shootableObjects = [];
     bubbleItems = [];
-    droppedItems = [];
+    heartItems = [];
+    poisonBubbleItems = [];
 
     canvas;
     ctx;    //definiert die Variable für den Context
@@ -39,8 +41,8 @@ class World {
             this.checkBubbleCollision(this.bubble);
         }, 100);
         setInterval(() => {
-            this.checkItemCollisions()
-        }, 200)
+            this.checkBubbleItemCollisions();
+        }, 200);
     }
 
     spawnBubbleItems(){
@@ -50,9 +52,44 @@ class World {
             
     }
 
+    checkBubbleItemCollisions(){    // wenn funktion veraltet => löschen (neue = checkItemCollisions())
+        this.bubbleItems.forEach((item, index) => {
+            if (item.isColliding(this.character) && this.character.bubbles < 100 && this.bubbleBar.percentage < 100){
+                this.character.bubbles += 20
+                this.bubbleBar.percentage += 20
+                this.bubbleItems.splice(index, 1);
+                this.bubbleBar.setPercentage(this.bubbleBar.percentage)
+            }
+        })
+    }
+
+    checkPoisonBubbleItemCollisions(){    // wenn funktion veraltet => löschen (neue = checkItemCollisions())
+        this.poisonBubbleItems.forEach((item, index) => {
+            if (item.isColliding(this.character) && this.character.poisonBubbles < 100 && this.poisonBubbleBar.percentage < 100){
+                this.character.poisonBubbles += 20
+                this.poisonBubbleBar.percentage += 20
+                this.poisonBubbleItems.splice(index, 1);
+                this.poisonBubbleBar.setPercentage(this.poisonBubbleBar.percentage)
+            }
+        })
+    }
+
+    checkHeartItemCollisions(){    // wenn funktion veraltet => löschen (neue = checkItemCollisions())
+        this.heartItems.forEach((item, index) => {
+            if (item.isColliding(this.character) && this.character.healthPoints < 100 && this.lifeBar.percentage < 100){
+                this.character.healthPoints += 20
+                this.lifeBar.percentage += 20
+                this.heartItems.splice(index, 1);
+                this.lifeBar.setPercentage(this.lifeBar.percentage)
+            }
+        })
+    }
+
     createShootableObject(){
         if (this.bubbleBar.percentage > 0) {
-            this.bubbleBar.setPercentage(this.bubbleBar.percentage -= 10);
+            this.bubbleBar.percentage -= 20;
+            this.character.bubbles -= 20;
+            this.bubbleBar.setPercentage(this.bubbleBar.percentage);
             this.canShoot = false;
             let bubble = new ShootableObject(this.character.x, this.character.y);
             this.shootableObjects.push(bubble);
@@ -69,31 +106,37 @@ class World {
             
             setTimeout(() => {
                 this.canSpawn = true;
-            }, 500);
+            }, 100);
     }
 
-    dropRandomItem(enemy){
+    createRandomItem(enemy){
         let randomChoice = Math.random();
+        console.log(randomChoice);
         
-        if (randomChoice >= 0.8) {
+        if (randomChoice <= 0.3) {
             this.createHeartItem(enemy);
-        } else if(randomChoice >= 0.6 && randomChoice <= 0.8) {
+        }
+        if(randomChoice >= 0.7) {
             this.createPoisonItem(enemy);
         }
     }
     
     createHeartItem(enemy) {
         let heartItem = new HeartItem(enemy.x, enemy.y);
-        this.droppedItems.push(heartItem);
-        //console.log(enemy, 'dropped heart');
-        console.log(this.droppedItems[0]);
+        this.heartItems.push(heartItem);
+        
+        setInterval(() => {
+            this.checkHeartItemCollisions()
+        }, 200);
     }
 
     createPoisonItem(enemy){
         let poisonItem = new PoisonItem(enemy.x, enemy.y);
-        this.droppedItems.push(poisonItem);
-       //console.log(enemy, 'dropped poison');
+        this.poisonBubbleItems.push(poisonItem);
         
+       setInterval(() => {
+        this.checkPoisonBubbleItemCollisions()
+        }, 200);
     }
 
     checkBubbleCollision() {
@@ -113,7 +156,7 @@ class World {
     
     enemyDied(enemy, index){
         if (enemy.healthPoints <= 0 && !enemy.itemSpawned) {
-            this.dropRandomItem(enemy)
+            this.createRandomItem(enemy)
             enemy.itemSpawned = true;
         }
         if (enemy.healthPoints <= 0) {
@@ -124,7 +167,6 @@ class World {
     characterDied(loosesHp){
         if (this.character.healthPoints <= 0) {
             clearInterval(loosesHp);
-            console.log('Sharky died!');
         }
     }
 
@@ -132,34 +174,12 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {                 //!!!!!!!!!!!  
                     this.character.hit(enemy.attackPoints);
-                    // console.log(this.lifeBar.percentage);
-                    // enemy.hit(this.character.attackPoints);
                     this.lifeBar.setPercentage(this.character.healthPoints)  
                 }
                 this.characterDied(loosesHp)
             });
     }
 
-    checkItemCollisions(){
-        this.bubbleItems.forEach((item, index) => {
-            if (item.isColliding(this.character)){
-                this.character.bubbles += 10
-                this.bubbleBar.percentage += 10
-                this.checkMaximumValue()
-                this.bubbleItems.splice(index, 1);
-                this.bubbleBar.setPercentage(this.character.bubbles)
-            }
-        })
-    }
-
-    checkMaximumValue(){
-        if (this.character.bubbles >= 100) {
-            this.character.bubbles = 100
-        }
-        if (this.bubbleBar.percentage >= 100) {
-            this.bubbleBar.percentage = 100
-        }
-    }
 
     despawnFloatingObjects(objArr, obj, index, value){
         if (obj.y <= value) {
@@ -186,10 +206,13 @@ class World {
         // Space for fixed objects
         this.addToMap(this.lifeBar);
         this.addToMap(this.bubbleBar);
+        this.addToMap(this.poisonBubbleBar);
         this.ctx.translate(this.camera_x, 0)
+
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.bubbleItems);
-        this.addObjectsToMap(this.droppedItems);
+        this.addObjectsToMap(this.poisonBubbleItems);
+        this.addObjectsToMap(this.heartItems);
         this.addObjectsToMap(this.shootableObjects);
 
         this.ctx.translate(-this.camera_x, 0)
