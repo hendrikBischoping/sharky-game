@@ -4,6 +4,7 @@ class LifeBar extends StatusBar {
     width = 50;
     height = 100
     percentage = 100;
+
     LIFE_BAR_IMAGES = [
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/Life/100_  copia 2.png',
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/Life/80_  copia 3.png',
@@ -23,14 +24,13 @@ class LifeBar extends StatusBar {
         this.setPercentage(this.percentage, this.LIFE_BAR_IMAGES);
     }
     
-    setPercentage(percentage, imageSet = this.LIFE_BAR_IMAGES){ //imageSet = this.IMAGES setzt "this.IMAGES" als default ein
+    setPercentage(percentage, imageSet = this.LIFE_BAR_IMAGES){
         this.percentage = percentage;
-        if (!imageSet || !Array.isArray(imageSet)) {    //prüft, ob "imageSet" definiert ist
-            console.error('Invalid image set:', imageSet); //error falls nicht definiert
+        if (!imageSet || !Array.isArray(imageSet)) {
+            console.error('Invalid image set:', imageSet);
             return;
         }
         let path = imageSet[this.resolveImageIndex(percentage)];
-        
         this.img = this.imageCache[path];
     }
 }

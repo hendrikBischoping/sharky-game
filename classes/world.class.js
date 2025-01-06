@@ -1,37 +1,34 @@
 class World {
+    canvas;
+    ctx;
+    keyboard;
+    camera_x = 200;
     backgrounds = level1.backgrounds;
     barriers = level1.barriers;
     enemies = level1.enemies;
     endboss = level1.endboss;
-    enemy = new Enemy();
     level = level1;
-    character = new Character();
-    lifeBar = new LifeBar();
-    bubbleBar = new BubbleBar();
-    bossBar = new BossBar();
-    poisonBubbleBar = new PoisonBubbleBar();
     movableObject = new MovableObject();
+    character = new Character();
+    enemy = new Enemy();
+    lifeBar = new LifeBar();
+    bossBar = new BossBar();
+    bubbleBar = new BubbleBar();
+    poisonBubbleBar = new PoisonBubbleBar();
     canShoot = true;
     canSpawn = true;
     dropIndex = 1;
-    //bubble = new ShootableAir();
-    //poisonBubble = new ShootablePoison();
     shootableAirBubbles = [];
     shootablePoisonBubbles = [];
-    bubbleItems = [];
     heartItems = [];
+    bubbleItems = [];
     poisonBubbleItems = [];
 
-    canvas;
-    ctx;    //definiert die Variable für den Context
-    keyboard;  // wird später genauer zugewiesen
-    camera_x = 200;
-
     constructor(canvas, keyboard){
-        this.ctx = canvas.getContext("2d"); //implementiert den 2-D-Context ist das canvas
+        this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.draw(); //führt die funktion 'draw()' von weiter unter aus
+        this.draw();
         this.setWorld();
         this.run();
         this.spawnBubbleItems();
@@ -58,11 +55,11 @@ class World {
     spawnBubbleItems(){
         setStoppableInterval(() => {
                 this.createBubbleItem()
-            }, 1000);
+            }, 500);
             
     }
 
-    checkBubbleItemCollisions(){    // wenn funktion veraltet => löschen (neue = checkItemCollisions())
+    checkBubbleItemCollisions(){
         this.bubbleItems.forEach((item, index) => {
             if (item.isColliding(this.character) && this.character.bubbles < 100 && this.bubbleBar.percentage < 100){
                 this.character.bubbles += 20
@@ -73,7 +70,7 @@ class World {
         })
     }
 
-    checkPoisonBubbleItemCollisions(){    // wenn funktion veraltet => löschen (neue = checkItemCollisions())
+    checkPoisonBubbleItemCollisions(){
         this.poisonBubbleItems.forEach((item, index) => {
             if (item.isColliding(this.character) && this.character.poisonBubbles < 100 && this.poisonBubbleBar.percentage < 100){
                 this.character.poisonBubbles += 20
@@ -84,7 +81,7 @@ class World {
         })
     }
 
-    checkHeartItemCollisions(){    // wenn funktion veraltet => löschen (neue = checkItemCollisions())
+    checkHeartItemCollisions(){
         this.heartItems.forEach((item, index) => {
             if (item.isColliding(this.character) && this.character.healthPoints < 100 && this.lifeBar.percentage < 100){
                 this.character.healthPoints += 20
@@ -96,7 +93,6 @@ class World {
     }
 
     createShootableAir(){
-        console.log('air-bubble');
         if (this.bubbleBar.percentage > 0) {
             this.bubbleBar.percentage -= 20;
             this.character.bubbles -= 20;
@@ -128,7 +124,6 @@ class World {
             this.canSpawn = false;
             let bubbleItem = new BubbleItem(200, 200);
             this.bubbleItems.push(bubbleItem);
-            
             setStoppableTimeout(() => {
                 this.canSpawn = true;
             }, 100);
@@ -136,12 +131,10 @@ class World {
 
     createRandomItem(enemy){
         let randomChoice = Math.random();
-        console.log(randomChoice);
-        
-        if (randomChoice <= 0.35) {
+        if (randomChoice <= 0.4) {
             this.createHeartItem(enemy);
         }
-        if(randomChoice >= 0.55) {
+        if(randomChoice >= 0.6) {
             this.createPoisonItem(enemy);
         }
     }
@@ -149,7 +142,6 @@ class World {
     createHeartItem(enemy) {
         let heartItem = new HeartItem(enemy.x, enemy.y);
         this.heartItems.push(heartItem);
-        
         setStoppableInterval(() => {
             this.checkHeartItemCollisions()
         }, 200);
@@ -158,7 +150,6 @@ class World {
     createPoisonItem(enemy){
         let poisonItem = new PoisonItem(enemy.x, enemy.y);
         this.poisonBubbleItems.push(poisonItem);
-        
         setStoppableInterval(() => {
         this.checkPoisonBubbleItemCollisions()
         }, 200);
@@ -170,12 +161,13 @@ class World {
             for (let j = this.shootableAirBubbles.length - 1; j >= 0; j--) {
                 let currentBubble = this.shootableAirBubbles[j];
                 if (currentBubble.isColliding(enemy)) {
-                    enemy.hit(currentBubble.attackPoints);
+                    let ap = currentBubble.attackPoints;
+                    enemy.hit(ap);                  
+                    this.updateEndbossBar(enemy, ap);
                     this.despawnFloatingObjects(this.shootableAirBubbles, currentBubble, j, currentBubble.y);
                 }
             }
             this.enemyDied(enemy, i);
-
         }
     }
 
@@ -185,12 +177,21 @@ class World {
             for (let j = this.shootablePoisonBubbles.length - 1; j >= 0; j--) {
                 let currentBubble = this.shootablePoisonBubbles[j];
                 if (currentBubble.isColliding(enemy) && enemy.endboss) {
-                    enemy.hit(currentBubble.attackPoints);
+                    let hp = enemy.healthPoints;
+                    let ap = currentBubble.attackPoints;
+                    enemy.hit(ap);
+                    this.updateEndbossBar(enemy,ap);
                     this.despawnFloatingObjects(this.shootablePoisonBubbles, currentBubble, j, currentBubble.y);
                 }
             }
             this.enemyDied(enemy, i);
+        }
+    }
 
+    updateEndbossBar(enemy, ap){
+        if (enemy.endboss){
+            this.bossBar.percentage -= ap/5;
+            this.bossBar.setPercentage(this.bossBar.percentage)
         }
     }
     
@@ -208,7 +209,6 @@ class World {
     }
 
     youWon(){
-        console.log('You are the Winner!');
         setStoppableInterval(() => {
             showWinnerScreen();
             stopGame();
@@ -223,7 +223,6 @@ class World {
     }
     
     gameOver(){
-        console.log('Game Over!');
         setStoppableInterval(() => {
             showGameOverScreen();
             stopGame();
@@ -232,7 +231,7 @@ class World {
 
     checkCharakterCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {                 //!!!!!!!!!!!  
+                if (this.character.isColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {
                     this.character.hit(enemy.attackPoints);
                     this.lifeBar.setPercentage(this.character.healthPoints)  
                 }
@@ -242,7 +241,6 @@ class World {
 
     checkForEndbossSpawn() {
             if (this.character.x >= 1400 && !enemies.endbossSpawned) {
-                console.log("Sharky.y is >= 190");
                 this.enemies.push(new Endboss)
                 enemies.endbossSpawned = true;
             }    
@@ -258,19 +256,16 @@ class World {
     }
     
     setWorld(){
-        this.character.world = this; // übergibt den Wert der Welt (in welcher sich "character" befindet, an "character", um auf dieser Ebene auf Informationen aus "world" zugreifen zu können, wie zb. "keyboard")
+        this.character.world = this;
     }
 
     draw(){        
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // löscht dein vormaligen Inhalt (frame/Bild) des Canvas, bevor der neue Inhalt geladen wird
-
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0)
-
         this.addObjectsToMap(this.backgrounds);
         this.addObjectsToMap(this.barriers);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0)
-        // Space for fixed objects
         this.addToMap(this.lifeBar);
         this.addToMap(this.bubbleBar);
         this.addToMap(this.poisonBubbleBar);
@@ -278,19 +273,16 @@ class World {
             this.addToMap(this.bossBar);
         }
         this.ctx.translate(this.camera_x, 0)
-
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.bubbleItems);
         this.addObjectsToMap(this.poisonBubbleItems);
         this.addObjectsToMap(this.heartItems);
         this.addObjectsToMap(this.shootableAirBubbles);
         this.addObjectsToMap(this.shootablePoisonBubbles);
-
         this.ctx.translate(-this.camera_x, 0)
-
         let self = this;
-        requestAnimationFrame(function() {  //läd die Funktion "draw()" relativ zur Leistung der Grafikkarte neu (FPS)
-            self.draw(); // funktionen innerhalb von methoden kennen kein "this" mehr, daher "let self = this"
+        requestAnimationFrame(function() {
+            self.draw();
         });
     }
 

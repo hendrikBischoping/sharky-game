@@ -66,21 +66,3 @@ canvas {
 .d_none {
     display: none;
 }
-
-#testFonts {
-    height: 50px;
-    width: 50px;
-    text-align: center;
-    background-color: rgb(127,255,224);
-    color: rgb(83,26,130);
-    font-size: 32px;
-}
-
-#testFonts2 {
-    height: 50px;
-    width: 450px;
-    text-align: center;
-    background-color: rgb(211, 211, 211);
-    color: rgb(255, 255, 255);
-    font-size: 32px;
-}

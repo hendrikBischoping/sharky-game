@@ -18,7 +18,7 @@ function setStoppableTimeout(fn, time){
     timeoutData.push({ id, fn, time, startTime });
 }
 
-function stopGame(){ //Intervalle und Timeouts beenden bzw. anhalten
+function stopGame(){
     pause = true;
     intervalData.forEach(data => clearInterval(data.id));
     timeoutData.forEach(data => {

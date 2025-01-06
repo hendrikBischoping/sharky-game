@@ -6,6 +6,14 @@ const level1 = new Level (
         new PufferFish(),
         new PufferFish(),
         new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new JellyFish(),
         new JellyFish(),
         new JellyFish(),
         new JellyFish(),
@@ -14,7 +22,9 @@ const level1 = new Level (
         new JellyFish(),
     ],
     [
-        new BarrierOne()
+        new BarrierOne(),
+        new BarrierOne(),
+        new BarrierOne(),
     ],
     [
         new BackgroundObject('./content/Alternative Grafiken - Sharkie/3. Background/Layers/5. Water/L.png', 0, 0, 0.01),
@@ -37,8 +47,5 @@ const level1 = new Level (
         new BackgroundObject('./content/Alternative Grafiken - Sharkie/3. Background/Layers/3.Fondo 1/L.png', 4319, 0, 0.03),
         new BackgroundObject('./content/Alternative Grafiken - Sharkie/3. Background/Layers/2. Floor/D.png', 4319, 0, 0.04),
         new BackgroundObject('./content/Alternative Grafiken - Sharkie/3. Background/Layers/1. Light/COMPLETO.png', 4319, 0, 0.035),
-    ],
-    items = [
-        new BubbleItem(),
     ],
 );

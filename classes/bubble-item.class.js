@@ -8,7 +8,6 @@ class BubbleItem extends CollectableItem{
     constructor(){
         super()
         this.loadImage('./content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
-        //this.loadImage('./content/Alternative Grafiken - Sharkie/4. Marcadores/green/100_  copia 3.png')
         this.enableBuoyancy()
     }
     

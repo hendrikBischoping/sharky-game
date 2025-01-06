@@ -2,6 +2,7 @@ class ShootableAir extends ShootableObject {
     x;
     y;
     attackPoints = 10;
+    
     constructor(x, y){
         super().loadImage('./content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
         this.x = x+180;

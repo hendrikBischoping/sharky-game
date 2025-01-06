@@ -23,5 +23,4 @@ class ShootableObject extends MovableObject {
             }
         }, 1000 / 25);
     }
-
 }

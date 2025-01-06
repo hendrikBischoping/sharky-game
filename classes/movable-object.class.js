@@ -35,7 +35,7 @@ class MovableObject extends DrawableObject{
         this.healthPoints -= attackPoints;
         
         if (this.healthPoints > 0) {
-            this.lastHit = new Date().getTime(); // speichert Zeit in Zahlenform                         
+            this.lastHit = new Date().getTime();                   
         }
         if (this.healthPoints <= 0){
             this.healthPoints = 0
@@ -43,23 +43,12 @@ class MovableObject extends DrawableObject{
     }
 
     isHurt(){
-        let timePassed = new Date().getTime() - this.lastHit; // Differenz in ms
-        timePassed = timePassed / 1000; // ms => s
-        return timePassed < 0.2;  // returnd true, wenn letzter Hit innerhalb der letzten 5 ms stattfand
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 1000;
+        return timePassed < 0.2;
     }
 
     isDead(){
         return this.healthPoints <= 0;
     }
-
-    startAnimation() {
-        console.log("Animation gestartet");
-        setStoppableTimeout(() => {
-
-            console.log("Animation Blow starten");
-        }, 200);
-    }
-    // despawnDeadEmeny(enemy){
-    //     this.level.enemies.splice(enemy, 1)
-    // }
 }

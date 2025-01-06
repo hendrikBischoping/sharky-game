@@ -15,9 +15,11 @@ class Character extends MovableObject {
     bubbles = 100;
     poisonBubbles = 0;
     animationRunning = false;
+    currentImage = 0;
+    currentImageStay = 0;
+    world;
 
-
-    SHARKY_SWIMMING = [                                                               //nach erstem 'super()' reicht für jedes weitere 'super()' ein 'this.'
+    SHARKY_SWIMMING = [
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/1.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/2.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/3.png',
@@ -26,7 +28,7 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/3.Swim/6.png'
     ];
 
-    SHARKY_STAYING = [                                                               //nach erstem 'super()' reicht für jedes weitere 'super()' ein 'this.'
+    SHARKY_STAYING = [
         './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/1.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/2.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/3.png',
@@ -46,12 +48,14 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/17.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/18.png'
     ];
+
     POISON_HIT = [
         './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/1.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/3.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/4.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/5.Hurt/1.Poisoned/5.png'
     ];
+
     FIN_HIT = [
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/1.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/3.png',
@@ -61,6 +65,7 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/7.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Fin slap/8.png',
     ];
+
     BLOWS_BUBBLE = [
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
@@ -71,6 +76,7 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
     ];
+
     DIES_OF_POISON = [
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00000.png',
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00001.png',
@@ -113,10 +119,6 @@ class Character extends MovableObject {
         './content/Alternative Grafiken - Sharkie/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png',
     ];
 
-    currentImage = 0;
-    currentImageStay = 0;
-    world;
-
     constructor(){
         super().loadImage('./content/Alternative Grafiken - Sharkie/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.SHARKY_SWIMMING);
@@ -125,7 +127,6 @@ class Character extends MovableObject {
         this.loadImages(this.POISON_HIT);
         this.loadImages(this.FIN_HIT);
         this.loadImages(this.BLOWS_BUBBLE);
-
         this.animate()
         this.applyGravity(310)
     }
@@ -155,12 +156,11 @@ class Character extends MovableObject {
                     {this.y = 309}
             }
             if (this.world.keyboard.b && this.world.canShoot && this.healthPoints > 0) {
-                this.world.createShootableAir()
+                this.world.createShootableAir();
                 
             }
             if (this.world.keyboard.f && this.world.canShoot && this.healthPoints > 0) {
-                this.world.createShootablePoison()
-                console.log('poison-bubble');
+                this.world.createShootablePoison();
                 
             }
             this.world.camera_x = -this.x;

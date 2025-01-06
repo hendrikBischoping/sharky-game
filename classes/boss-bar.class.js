@@ -3,7 +3,8 @@ class BossBar extends StatusBar{
     y = 10;
     width = 50;
     height = 100
-    percentage = 100;
+    percentage = 500;
+
     BOSS_LIFE_BAR_IMAGES = [
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/Life/100_  copia 2.png',
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/Life/80_  copia 3.png',
@@ -20,7 +21,7 @@ class BossBar extends StatusBar{
         this.y = 0;
         this.width = 50;
         this.height = 180;
-        this.setPercentage(this.percentage, this.BOSS_LIFE_BAR_IMAGES);
+        this.setPercentage(this.percentage/5, this.BOSS_LIFE_BAR_IMAGES);
     }
     
     setPercentage(percentage, imageSet = this.BOSS_LIFE_BAR_IMAGES){
@@ -30,7 +31,6 @@ class BossBar extends StatusBar{
             return;
         }
         let path = imageSet[this.resolveImageIndex(percentage)];
-        
         this.img = this.imageCache[path];
     }
 }

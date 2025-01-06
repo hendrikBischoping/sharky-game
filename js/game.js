@@ -6,7 +6,6 @@ let restartButton = document.getElementById('restartButton');
 function startGame(){
     let startScreen = document.getElementById('startScreen');
     let startButton = document.getElementById('startButton');
-
     startScreen.classList.add ('d_none');
     startButton.classList.add ('d_none');
     restartButton.classList.add ('d_none');
@@ -33,8 +32,7 @@ function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     
-    window.addEventListener('keydown', (e) => {     
-        console.log(e.keyCode);   
+    window.addEventListener('keydown', (e) => {
         if (e.keyCode == 39) {
             keyboard.right = true;        
         }
@@ -56,8 +54,8 @@ function init(){
         if (e.keyCode == 70) {
             keyboard.f = true;
         }
-        
     })
+
     window.addEventListener('keyup', (e) => {
         if (e.keyCode == 39) {
             keyboard.right = false;
@@ -85,6 +83,7 @@ function init(){
         }        
     })
 }
+
 setTimeout(() => {
     stopGame()
 }, 200);
