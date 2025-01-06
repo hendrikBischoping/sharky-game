@@ -9,11 +9,11 @@ class Character extends MovableObject {
     hitboxWidth = 61;
     hitboxHeigth = 153;
     speed = 8;
-    imgStay;
+    imgStay;f
     healthPoints = 100;
     attackPoints = 0;
-    bubbles = 40;
-    poisonBubbles = 0
+    bubbles = 100;
+    poisonBubbles = 0;
     animationRunning = false;
 
 
@@ -155,7 +155,13 @@ class Character extends MovableObject {
                     {this.y = 309}
             }
             if (this.world.keyboard.b && this.world.canShoot && this.healthPoints > 0) {
-                this.world.createShootableObject()
+                this.world.createShootableAir()
+                
+            }
+            if (this.world.keyboard.f && this.world.canShoot && this.healthPoints > 0) {
+                this.world.createShootablePoison()
+                console.log('poison-bubble');
+                
             }
             this.world.camera_x = -this.x;
         }, 1000 / 60)

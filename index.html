@@ -17,9 +17,14 @@
     </main>
     <img id="instructions" src="content/Alternative Grafiken - Sharkie/6.Botones/Instructions 1.png" alt="instructions">
     <img id="startScreen" src="content/Alternative Grafiken - Sharkie/7.Startscreen/Startscreen 1.png" alt="startscreen">
-    <img id="startButton" onclick="startGame()" src="./content/Alternative Grafiken - Sharkie/6.Botones/Start/2.png" alt="">
+    <img id="startButton" onclick="startGame()" src="./content/Alternative Grafiken - Sharkie/6.Botones/Start/2.png" alt="start">
     <img id="winnerScreen" class="d_none" src="content/Alternative Grafiken - Sharkie/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="winnerscreen">
-
+    <img id="gameOverScreen" class="d_none" src="content/Alternative Grafiken - Sharkie/6.Botones/Tittles/Game Over/Recurso 12.png" alt="loserscreen">
+    <img id="restartButton" onclick="restartGame()" class="d_none" src="./content/Alternative Grafiken - Sharkie/6.Botones/Try again/Recurso 17.png" alt="restart">
+    <div>
+        <p id="testFonts">Esc</p>
+        <p id="testFonts2">PAUSE/CONTINUE</p>
+    </div>
     <script src="stop-game.js"></script>
     <script src="classes/drawable-object.class.js"></script>
     <script src="classes/movable-object.class.js"></script>
@@ -35,6 +40,7 @@
     <script src="classes/level.class.js"></script>
     <script src="classes/status-bar.class.js"></script>
     <script src="classes/life-bar.class.js"></script>
+    <script src="classes/boss-bar.class.js"></script>
     <script src="classes/bubble-bar.class.js"></script>
     <script src="classes/poison-bubble-bar.class.js"></script>
     <script src="classes/collectable-item.class.js"></script>
@@ -42,6 +48,8 @@
     <script src="classes/poison-item.class.js"></script>
     <script src="classes/bubble-item.class.js"></script>
     <script src="classes/shootable-object.class.js "></script>
+    <script src="classes/shoot-air-bubble.class.js "></script>
+    <script src="classes/shoot-poison-bubble.class.js "></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
 </body>

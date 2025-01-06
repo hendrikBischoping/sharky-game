@@ -2,6 +2,7 @@ let intervalIds = [];
 let intervalData = [];
 let timeoutIds = [];
 let timeoutData = [];
+let pause = false;
 
 function setStoppableInterval(fn, time){
     let id = setInterval(fn, time);
@@ -18,6 +19,7 @@ function setStoppableTimeout(fn, time){
 }
 
 function stopGame(){ //Intervalle und Timeouts beenden bzw. anhalten
+    pause = true;
     intervalData.forEach(data => clearInterval(data.id));
     timeoutData.forEach(data => {
         let passed = Date.now() - data.startTime;
@@ -26,6 +28,7 @@ function stopGame(){ //Intervalle und Timeouts beenden bzw. anhalten
 }
 
 function resumeGame() {
+    pause = false;
     intervalData.forEach(data => {
         data.id = setInterval(data.fn, data.time);
     });
@@ -37,4 +40,12 @@ function resumeGame() {
         data.id = id;
         data.startTime = Date.now();
     });
+}
+
+function pauseAndContinue(){
+    if (!pause) {
+        stopGame();
+    } else {
+        resumeGame();
+    }
 }

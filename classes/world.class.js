@@ -8,13 +8,16 @@ class World {
     character = new Character();
     lifeBar = new LifeBar();
     bubbleBar = new BubbleBar();
+    bossBar = new BossBar();
     poisonBubbleBar = new PoisonBubbleBar();
     movableObject = new MovableObject();
     canShoot = true;
     canSpawn = true;
     dropIndex = 1;
-    bubble = new ShootableObject();
-    shootableObjects = [];
+    //bubble = new ShootableAir();
+    //poisonBubble = new ShootablePoison();
+    shootableAirBubbles = [];
+    shootablePoisonBubbles = [];
     bubbleItems = [];
     heartItems = [];
     poisonBubbleItems = [];
@@ -39,7 +42,10 @@ class World {
             this.checkCharakterCollisions(loosesHp);
         }, 1000);
         setStoppableInterval(() => {
-            this.checkBubbleCollision();
+            this.checkAirBubbleCollision();
+        }, 100);
+        setStoppableInterval(() => {
+            this.checkPoisonBubbleCollision();
         }, 100);
         setStoppableInterval(() => {
             this.checkBubbleItemCollisions();
@@ -89,14 +95,29 @@ class World {
         })
     }
 
-    createShootableObject(){
+    createShootableAir(){
+        console.log('air-bubble');
         if (this.bubbleBar.percentage > 0) {
             this.bubbleBar.percentage -= 20;
             this.character.bubbles -= 20;
             this.bubbleBar.setPercentage(this.bubbleBar.percentage);
             this.canShoot = false;
-            let bubble = new ShootableObject(this.character.x, this.character.y);
-            this.shootableObjects.push(bubble);
+            let bubble = new ShootableAir(this.character.x, this.character.y);
+            this.shootableAirBubbles.push(bubble);
+            setStoppableTimeout(() => {
+                this.canShoot = true;
+            }, 500);
+        }
+    }
+
+    createShootablePoison(){
+        if (this.poisonBubbleBar.percentage > 0) {
+            this.poisonBubbleBar.percentage -= 20;
+            this.character.poisonBubbles -= 20;
+            this.poisonBubbleBar.setPercentage(this.poisonBubbleBar.percentage);
+            this.canShoot = false;
+            let poisonBubble = new ShootablePoison(this.character.x, this.character.y);
+            this.shootablePoisonBubbles.push(poisonBubble);
             setStoppableTimeout(() => {
                 this.canShoot = true;
             }, 500);
@@ -117,10 +138,10 @@ class World {
         let randomChoice = Math.random();
         console.log(randomChoice);
         
-        if (randomChoice <= 0.3) {
+        if (randomChoice <= 0.35) {
             this.createHeartItem(enemy);
         }
-        if(randomChoice >= 0.7) {
+        if(randomChoice >= 0.55) {
             this.createPoisonItem(enemy);
         }
     }
@@ -143,14 +164,29 @@ class World {
         }, 200);
     }
 
-    checkBubbleCollision() {
+    checkAirBubbleCollision() {
         for (let i = this.level.enemies.length - 1; i >= 0; i--) {
             let enemy = this.level.enemies[i];
-            for (let j = this.shootableObjects.length - 1; j >= 0; j--) {
-                let currentBubble = this.shootableObjects[j];
+            for (let j = this.shootableAirBubbles.length - 1; j >= 0; j--) {
+                let currentBubble = this.shootableAirBubbles[j];
                 if (currentBubble.isColliding(enemy)) {
                     enemy.hit(currentBubble.attackPoints);
-                    this.despawnFloatingObjects(this.shootableObjects, currentBubble, j, currentBubble.y);
+                    this.despawnFloatingObjects(this.shootableAirBubbles, currentBubble, j, currentBubble.y);
+                }
+            }
+            this.enemyDied(enemy, i);
+
+        }
+    }
+
+    checkPoisonBubbleCollision() {
+        for (let i = this.level.enemies.length - 1; i >= 0; i--) {
+            let enemy = this.level.enemies[i];
+            for (let j = this.shootablePoisonBubbles.length - 1; j >= 0; j--) {
+                let currentBubble = this.shootablePoisonBubbles[j];
+                if (currentBubble.isColliding(enemy) && enemy.endboss) {
+                    enemy.hit(currentBubble.attackPoints);
+                    this.despawnFloatingObjects(this.shootablePoisonBubbles, currentBubble, j, currentBubble.y);
                 }
             }
             this.enemyDied(enemy, i);
@@ -167,27 +203,31 @@ class World {
             this.despawnFloatingObjects(this.level.enemies, enemy, index, -100);
         }
         if (enemy.healthPoints <= 0 && enemy.endboss) {
-            this.youWin();
+            this.youWon();
         }
     }
 
-    youWin(){
+    youWon(){
         console.log('You are the Winner!');
         setStoppableInterval(() => {
-            console.log('You are the Winner!');
             showWinnerScreen();
             stopGame();
         }, 1000);
     }
-    showWinnerScreen(){
-        let winnerScreen = document.getElementById('winnerScreen');
-        winnerScreen.classList.add ('d_none');
-    }
 
     characterDied(loosesHp){
         if (this.character.healthPoints <= 0) {
+            this.gameOver();
             clearInterval(loosesHp);
         }
+    }
+    
+    gameOver(){
+        console.log('Game Over!');
+        setStoppableInterval(() => {
+            showGameOverScreen();
+            stopGame();
+        }, 1000);
     }
 
     checkCharakterCollisions(loosesHp) {
@@ -234,13 +274,17 @@ class World {
         this.addToMap(this.lifeBar);
         this.addToMap(this.bubbleBar);
         this.addToMap(this.poisonBubbleBar);
+        if (enemies.endbossSpawned) {
+            this.addToMap(this.bossBar);
+        }
         this.ctx.translate(this.camera_x, 0)
 
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.bubbleItems);
         this.addObjectsToMap(this.poisonBubbleItems);
         this.addObjectsToMap(this.heartItems);
-        this.addObjectsToMap(this.shootableObjects);
+        this.addObjectsToMap(this.shootableAirBubbles);
+        this.addObjectsToMap(this.shootablePoisonBubbles);
 
         this.ctx.translate(-this.camera_x, 0)
 

@@ -1,6 +1,6 @@
 class BubbleBar extends StatusBar{
-    y = 30;
-    percentage = 60;
+    y = 330;
+    percentage = 100;
 
     BUBBLE_BAR_IMAGES = [
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/normal bubbles/100_ copia 4.png',

@@ -1,7 +1,7 @@
 class MovableObject extends DrawableObject{
     speed;
     otherDirection = false;
-    speedY = 0.1;
+    speedY = 0.05;
     healthPoints;
     attackPoints;
     lastHit = 0;

@@ -4,7 +4,7 @@ class Endboss extends Enemy {
     width = 300 * 1.5;
     height = 235 * 1.5;
     attackPoints = 15;
-    healthPoints = 20;
+    healthPoints = 100;
     currentImage = 0;
     canSpawn = false;
     endboss = true;

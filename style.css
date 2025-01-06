@@ -20,7 +20,7 @@ canvas {
 }
 
 #instructions {
-    height: 256px;
+    height: 200px;
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 32px;
 }
@@ -34,7 +34,7 @@ canvas {
     margin-top: 197px;
 }
 
-#winnerScreen {
+#winnerScreen{
     height: 480px;
     width: 720px;
     object-fit: cover;
@@ -43,16 +43,44 @@ canvas {
     margin-top: 197px;
 }
 
-#startButton {
+#gameOverScreen {
+    height: 82px;
+    width: 620px;
+    border-radius: 20px;
+    position: absolute;
+    margin-top: 330px;
+}
+
+#startButton,
+#restartButton{
     height: 64px;
     position: absolute;
     margin-top: 560px;
 }
 
-#startButton:hover {
+#startButton:hover,
+#restartButton:hover {
     cursor: pointer;
 }
 
 .d_none {
     display: none;
+}
+
+#testFonts {
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    background-color: rgb(127,255,224);
+    color: rgb(83,26,130);
+    font-size: 32px;
+}
+
+#testFonts2 {
+    height: 50px;
+    width: 450px;
+    text-align: center;
+    background-color: rgb(211, 211, 211);
+    color: rgb(255, 255, 255);
+    font-size: 32px;
 }

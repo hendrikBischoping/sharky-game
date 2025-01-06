@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let restartButton = document.getElementById('restartButton');
 
 function startGame(){
     let startScreen = document.getElementById('startScreen');
@@ -8,12 +9,24 @@ function startGame(){
 
     startScreen.classList.add ('d_none');
     startButton.classList.add ('d_none');
+    restartButton.classList.add ('d_none');
     resumeGame();
+}
+
+function restartGame(){
+    location.reload();
 }
 
 function showWinnerScreen(){
     let winnerScreen = document.getElementById('winnerScreen');
     winnerScreen.classList.remove ('d_none');
+    restartButton.classList.remove ('d_none');
+}
+
+function showGameOverScreen(){
+    let gameOverScreen = document.getElementById('gameOverScreen');
+    gameOverScreen.classList.remove ('d_none');
+    restartButton.classList.remove ('d_none');
 }
 
 function init(){
@@ -21,7 +34,7 @@ function init(){
     world = new World(canvas, keyboard);
     
     window.addEventListener('keydown', (e) => {     
-        //console.log(e.keyCode);   
+        console.log(e.keyCode);   
         if (e.keyCode == 39) {
             keyboard.right = true;        
         }
@@ -39,6 +52,9 @@ function init(){
         }
         if (e.keyCode == 68) {
             keyboard.b = true;
+        }
+        if (e.keyCode == 70) {
+            keyboard.f = true;
         }
         
     })
@@ -60,6 +76,12 @@ function init(){
         }
         if (e.keyCode == 68) {
             keyboard.b = false;
+        }
+        if (e.keyCode == 70) {
+            keyboard.f = false;
+        }
+        if (e.keyCode == 27) {
+            pauseAndContinue();
         }        
     })
 }
