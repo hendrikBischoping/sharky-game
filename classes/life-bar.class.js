@@ -4,7 +4,6 @@ class LifeBar extends StatusBar {
     width = 50;
     height = 100
     percentage = 100;
-
     LIFE_BAR_IMAGES = [
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/Life/100_  copia 2.png',
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/Life/80_  copia 3.png',

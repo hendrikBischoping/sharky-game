@@ -2,6 +2,7 @@ class World {
     backgrounds = level1.backgrounds;
     barriers = level1.barriers;
     enemies = level1.enemies;
+    endboss = level1.endboss;
     enemy = new Enemy();
     level = level1;
     character = new Character();
@@ -34,19 +35,22 @@ class World {
     }
 
     run(){
-        let loosesHp = setInterval(() => {
+        let loosesHp = setStoppableInterval(() => {
             this.checkCharakterCollisions(loosesHp);
         }, 1000);
-        setInterval(() => {
-            this.checkBubbleCollision(this.bubble);
+        setStoppableInterval(() => {
+            this.checkBubbleCollision();
         }, 100);
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.checkBubbleItemCollisions();
+        }, 200);
+        setStoppableInterval(() => {
+             this.checkForEndbossSpawn()
         }, 200);
     }
 
     spawnBubbleItems(){
-            setInterval(() => {
+        setStoppableInterval(() => {
                 this.createBubbleItem()
             }, 1000);
             
@@ -93,7 +97,7 @@ class World {
             this.canShoot = false;
             let bubble = new ShootableObject(this.character.x, this.character.y);
             this.shootableObjects.push(bubble);
-            setTimeout(() => {
+            setStoppableTimeout(() => {
                 this.canShoot = true;
             }, 500);
         }
@@ -104,7 +108,7 @@ class World {
             let bubbleItem = new BubbleItem(200, 200);
             this.bubbleItems.push(bubbleItem);
             
-            setTimeout(() => {
+            setStoppableTimeout(() => {
                 this.canSpawn = true;
             }, 100);
     }
@@ -125,7 +129,7 @@ class World {
         let heartItem = new HeartItem(enemy.x, enemy.y);
         this.heartItems.push(heartItem);
         
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.checkHeartItemCollisions()
         }, 200);
     }
@@ -134,7 +138,7 @@ class World {
         let poisonItem = new PoisonItem(enemy.x, enemy.y);
         this.poisonBubbleItems.push(poisonItem);
         
-       setInterval(() => {
+        setStoppableInterval(() => {
         this.checkPoisonBubbleItemCollisions()
         }, 200);
     }
@@ -155,13 +159,29 @@ class World {
     }
     
     enemyDied(enemy, index){
-        if (enemy.healthPoints <= 0 && !enemy.itemSpawned) {
+        if (enemy.healthPoints <= 0 && !enemy.itemSpawned && !enemy.endboss) {
             this.createRandomItem(enemy)
             enemy.itemSpawned = true;
         }
         if (enemy.healthPoints <= 0) {
-            this.despawnFloatingObjects(this.level.enemies, enemy, index, 10);
+            this.despawnFloatingObjects(this.level.enemies, enemy, index, -100);
         }
+        if (enemy.healthPoints <= 0 && enemy.endboss) {
+            this.youWin();
+        }
+    }
+
+    youWin(){
+        console.log('You are the Winner!');
+        setStoppableInterval(() => {
+            console.log('You are the Winner!');
+            showWinnerScreen();
+            stopGame();
+        }, 1000);
+    }
+    showWinnerScreen(){
+        let winnerScreen = document.getElementById('winnerScreen');
+        winnerScreen.classList.add ('d_none');
     }
 
     characterDied(loosesHp){
@@ -180,6 +200,13 @@ class World {
             });
     }
 
+    checkForEndbossSpawn() {
+            if (this.character.x >= 1400 && !enemies.endbossSpawned) {
+                console.log("Sharky.y is >= 190");
+                this.enemies.push(new Endboss)
+                enemies.endbossSpawned = true;
+            }    
+    }
 
     despawnFloatingObjects(objArr, obj, index, value){
         if (obj.y <= value) {

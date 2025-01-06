@@ -34,6 +34,15 @@ canvas {
     margin-top: 197px;
 }
 
+#winnerScreen {
+    height: 480px;
+    width: 720px;
+    object-fit: cover;
+    border-radius: 20px;
+    position: absolute;
+    margin-top: 197px;
+}
+
 #startButton {
     height: 64px;
     position: absolute;

@@ -13,7 +13,7 @@ class BubbleItem extends CollectableItem{
     }
     
     enableBuoyancy(){
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.y -= this.speedY;
         }, 100 / 25);
     }

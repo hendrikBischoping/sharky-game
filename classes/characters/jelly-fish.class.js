@@ -38,12 +38,12 @@ class JellyFish extends Enemy {
     animate(){
 
         this.swimLeft()
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isDead()) {
                 //this.applyBuoyancy();     swimLeft interval vorher beenden ?
                 this.playAnimation(this.JELLYFISH_DEAD);
                 this.raise()
-                setTimeout(() => {
+                setStoppableTimeout(() => {
                 }, 200);
             } else {
             this.playAnimation(this.JELLYFISH_SWIMMING)
@@ -54,7 +54,7 @@ class JellyFish extends Enemy {
 
 
     swimLeft(){
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.x -= 1;
         }, 1000 / 30)
     }

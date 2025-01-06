@@ -8,6 +8,12 @@ function startGame(){
 
     startScreen.classList.add ('d_none');
     startButton.classList.add ('d_none');
+    resumeGame();
+}
+
+function showWinnerScreen(){
+    let winnerScreen = document.getElementById('winnerScreen');
+    winnerScreen.classList.remove ('d_none');
 }
 
 function init(){
@@ -57,3 +63,6 @@ function init(){
         }        
     })
 }
+setTimeout(() => {
+    stopGame()
+}, 200);

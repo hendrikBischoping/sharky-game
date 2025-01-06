@@ -43,11 +43,11 @@ class PufferFish extends Enemy {
 
     animate(){
 
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.PUFFERFISH_DEAD);
                 this.raise()
-                setTimeout(() => {
+                setStoppableTimeout(() => {
                 }, 200);
             } else {this.playAnimation(this.PUFFERFISH_SWIMMING)}
         }, 10000 / 30);
@@ -56,7 +56,7 @@ class PufferFish extends Enemy {
     }
 
     swimLeft(){
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.x -= 0.7;
         }, 1000 / 30)
     }

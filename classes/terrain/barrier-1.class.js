@@ -9,7 +9,7 @@ class BarrierOne extends MovableObject {
     }
 
     driftLeft(){
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.x -= 0.5;
         }, 1000 / 60)
     }

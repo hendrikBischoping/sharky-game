@@ -129,8 +129,9 @@ class Character extends MovableObject {
         this.animate()
         this.applyGravity(310)
     }
+
     animate(){
-        setInterval(() => {
+        setStoppableInterval(() => {
             if(this.world.keyboard.right && this.healthPoints > 0){
                 this.x += this.speed;
                 this.otherDirection = false;
@@ -171,22 +172,7 @@ class Character extends MovableObject {
             this.imageCache[path] = img;
         });
         
-        setInterval(() => {
-
-
-                //here animationRunning is true
-
-
-            if (this.animationRunning) {
-                console.log('BLOOOW');
-                this.startAnimation()
-                this.playAnimation(this.BLOWS_BUBBLE)
-            }
-
-
-
-
-
+        setStoppableInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.DIES_OF_POISON)
             } else if(this.isHurt()) {
@@ -198,4 +184,4 @@ class Character extends MovableObject {
             }
         }, 140);
     }
-} 
+}

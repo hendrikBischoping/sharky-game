@@ -4,7 +4,7 @@ class Enemy extends MovableObject {
     }
     
     raise(){
-        setInterval(() => {{
+        setStoppableInterval(() => {{
                 this.y -=1
                 this.x *=0.9999999
             }

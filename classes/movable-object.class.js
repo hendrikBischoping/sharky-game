@@ -7,7 +7,7 @@ class MovableObject extends DrawableObject{
     lastHit = 0;
     
     applyGravity(heightDiff){
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isAboveGropund(heightDiff)) {
                 this.y += this.speedY;
             }
@@ -54,7 +54,7 @@ class MovableObject extends DrawableObject{
 
     startAnimation() {
         console.log("Animation gestartet");
-        setTimeout(() => {
+        setStoppableTimeout(() => {
 
             console.log("Animation Blow starten");
         }, 200);
