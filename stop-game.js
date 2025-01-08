@@ -43,9 +43,14 @@ function resumeGame() {
 }
 
 function pauseAndContinue(){
+    instructions.classList.toggle ('d_none')
     if (!pause) {
         stopGame();
+        openMenuBtn.classList.add('d_none')
+        closeMenuBtn.classList.remove('d_none')
     } else {
         resumeGame();
+        openMenuBtn.classList.remove('d_none')
+        closeMenuBtn.classList.add('d_none')
     }
 }

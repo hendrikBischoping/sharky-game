@@ -18,11 +18,17 @@ class World {
     canShoot = true;
     canSpawn = true;
     dropIndex = 1;
+    gameScreens = [];
     shootableAirBubbles = [];
     shootablePoisonBubbles = [];
     heartItems = [];
     bubbleItems = [];
     poisonBubbleItems = [];
+    bubbleShootAudio = new Audio('content/Sounds/bubbleshoot.mp3');
+    bubbleKillAudio = new Audio('content/Sounds/bubblekill.mp3');
+    bossHurtAudio = new Audio('content/Sounds/bossHurt.mp3');
+    sharkyHurtAudio = new Audio('content/Sounds/sharkyHurt.mp3');
+
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext("2d");
@@ -32,6 +38,8 @@ class World {
         this.setWorld();
         this.run();
         this.spawnBubbleItems();
+        this.gameStarted = false;
+        // this.showStartScreen()
     }
 
     run(){
@@ -100,6 +108,7 @@ class World {
             this.canShoot = false;
             let bubble = new ShootableAir(this.character.x, this.character.y);
             this.shootableAirBubbles.push(bubble);
+            this.bubbleShootAudio.play();
             setStoppableTimeout(() => {
                 this.canShoot = true;
             }, 500);
@@ -114,6 +123,7 @@ class World {
             this.canShoot = false;
             let poisonBubble = new ShootablePoison(this.character.x, this.character.y);
             this.shootablePoisonBubbles.push(poisonBubble);
+            this.bubbleShootAudio.play();
             setStoppableTimeout(() => {
                 this.canShoot = true;
             }, 500);
@@ -161,6 +171,9 @@ class World {
             for (let j = this.shootableAirBubbles.length - 1; j >= 0; j--) {
                 let currentBubble = this.shootableAirBubbles[j];
                 if (currentBubble.isColliding(enemy)) {
+                    if (enemy.endboss) {
+                        this.bossHurtAudio.play();
+                    }
                     let ap = currentBubble.attackPoints;
                     enemy.hit(ap);                  
                     this.updateEndbossBar(enemy, ap);
@@ -177,7 +190,7 @@ class World {
             for (let j = this.shootablePoisonBubbles.length - 1; j >= 0; j--) {
                 let currentBubble = this.shootablePoisonBubbles[j];
                 if (currentBubble.isColliding(enemy) && enemy.endboss) {
-                    let hp = enemy.healthPoints;
+                    this.bossHurtAudio.play();
                     let ap = currentBubble.attackPoints;
                     enemy.hit(ap);
                     this.updateEndbossBar(enemy,ap);
@@ -197,6 +210,7 @@ class World {
     
     enemyDied(enemy, index){
         if (enemy.healthPoints <= 0 && !enemy.itemSpawned && !enemy.endboss) {
+            this.bubbleKillAudio.play();
             this.createRandomItem(enemy)
             enemy.itemSpawned = true;
         }
@@ -216,8 +230,11 @@ class World {
     }
 
     characterDied(loosesHp){
-        if (this.character.healthPoints <= 0) {
+        if (this.character.healthPoints <= 0) {            
             this.gameOver();
+            console.log(this.gameIsRunning);
+            this.gameIsRunning = false;
+            console.log(this.gameIsRunning);
             clearInterval(loosesHp);
         }
     }
@@ -226,16 +243,19 @@ class World {
         setStoppableInterval(() => {
             showGameOverScreen();
             stopGame();
+            this.gameOver = true;
+            this.enemies.splice(new Endboss);
         }, 1000);
     }
 
     checkCharakterCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {
+                    this.sharkyHurtAudio.play();
                     this.character.hit(enemy.attackPoints);
-                    this.lifeBar.setPercentage(this.character.healthPoints)  
-                }
-                this.characterDied(loosesHp)
+                    this.lifeBar.setPercentage(this.character.healthPoints)                    
+                } 
+                else {this.characterDied(loosesHp)}  
             });
     }
 
@@ -265,6 +285,7 @@ class World {
         this.addObjectsToMap(this.backgrounds);
         this.addObjectsToMap(this.barriers);
         this.addToMap(this.character);
+
         this.ctx.translate(-this.camera_x, 0)
         this.addToMap(this.lifeBar);
         this.addToMap(this.bubbleBar);
@@ -273,6 +294,8 @@ class World {
             this.addToMap(this.bossBar);
         }
         this.ctx.translate(this.camera_x, 0)
+
+        // this.addObjectsToMap(this.gameScreens);
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.bubbleItems);
         this.addObjectsToMap(this.poisonBubbleItems);
@@ -285,6 +308,14 @@ class World {
             self.draw();
         });
     }
+
+    // drawStartScreen(){
+    //     let startScreenImage = new Image();
+    //     startScreenImage.src = './content/Alternative Grafiken - Sharkie/7.Startscreen/Startscreen 1.png';
+    //     startScreenImage.onload = () => {
+    //         this.ctx.drawImage(startScreenImage, 0, 0, this.canvas.width, this.canvas.height);
+    //     };
+    // }
 
     addObjectsToMap(objects){
         objects.forEach(object => {

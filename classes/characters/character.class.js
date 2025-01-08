@@ -10,7 +10,7 @@ class Character extends MovableObject {
     hitboxHeigth = 153;
     speed = 8;
     imgStay;f
-    healthPoints = 100;
+    healthPoints = 50;
     attackPoints = 0;
     bubbles = 100;
     poisonBubbles = 0;

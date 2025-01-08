@@ -5,6 +5,13 @@ class MovableObject extends DrawableObject{
     healthPoints;
     attackPoints;
     lastHit = 0;
+    gameIsRunning = true;
+    checkGameOver(){
+        if (this.gameIsRunning) {
+            console.log('GO');
+            //return
+        } else{console.log('STOP');}
+    }
     
     applyGravity(heightDiff){
         setStoppableInterval(() => {
