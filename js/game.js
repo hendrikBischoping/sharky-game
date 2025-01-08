@@ -7,6 +7,9 @@ let closeMenuBtn = document.getElementById('closeMenuBtn');
 let instructions = document.getElementById('instructions');
 let gameStarted = false;
 let gameOver = false;
+let isMuted = false;
+
+
 
 function startGame(){
     let startScreen = document.getElementById('startScreen');
@@ -34,6 +37,7 @@ function restartGame(){
 }
 
 function showWinnerScreen(){
+    world.youWinAudio.play();
     let winnerScreen = document.getElementById('winnerScreen');
     winnerScreen.classList.remove ('d_none');
     restartButton.classList.remove ('d_none');
@@ -41,10 +45,45 @@ function showWinnerScreen(){
 }
 
 function showGameOverScreen(){
+    world.gameOverAudio.play();
     let gameOverScreen = document.getElementById('gameOverScreen');
     gameOverScreen.classList.remove ('d_none');
     restartButton.classList.remove ('d_none');
     openMenuBtn.classList.add ('d_none')
+}
+
+function getAllAudios () {
+    if (!world) return [];
+    return [
+        world.underWaterAudio,
+        world.bubbleShootAudio,
+        world.bubbleKillAudio,
+        world.bossHurtAudio,
+        world.sharkyHurtAudio,
+        world.bossSpawnAudio,
+        world.itemCollectAudio,
+        world.youWinAudio,
+        world.gameOverAudio,
+    ];
+}
+
+function switchTollgeSoundBtn(){
+    let soundOn = document.getElementById('toggleSoundOnBtn');
+    let soundOff = document.getElementById('toggleSoundOffBtn');
+    console.log(isMuted);
+    soundOn.classList.toggle ('d_none', !isMuted);
+    soundOff.classList.toggle ('d_none', isMuted);
+    toggleSound()
+}
+
+function toggleSound(){
+    isMuted = !isMuted;
+    let allAudios = getAllAudios();
+    allAudios.forEach((audio) => {
+        if (audio) {
+            audio.muted = isMuted;
+        }
+    });
 }
 
 function init(){

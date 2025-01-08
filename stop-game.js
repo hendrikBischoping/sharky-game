@@ -3,6 +3,7 @@ let intervalData = [];
 let timeoutIds = [];
 let timeoutData = [];
 let pause = false;
+underWaterAudio = new Audio('content/Sounds/underWater.mp3');
 
 function setStoppableInterval(fn, time){
     let id = setInterval(fn, time);
@@ -20,6 +21,7 @@ function setStoppableTimeout(fn, time){
 
 function stopGame(){
     pause = true;
+    underWaterAudio.pause();
     intervalData.forEach(data => clearInterval(data.id));
     timeoutData.forEach(data => {
         let passed = Date.now() - data.startTime;
@@ -29,6 +31,7 @@ function stopGame(){
 
 function resumeGame() {
     pause = false;
+    underWaterAudio.play();
     intervalData.forEach(data => {
         data.id = setInterval(data.fn, data.time);
     });

@@ -4,11 +4,10 @@ class Endboss extends Enemy {
     width = 300 * 1.5;
     height = 235 * 1.5;
     attackPoints = 15;
-    healthPoints = 500;
+    healthPoints = 700;
     currentImage = 0;
     canSpawn = false;
     endboss = true;
-    bossSpawnAudio = new Audio('content/Sounds/bossSpawnt.mp3');
     bossAttackAudio = new Audio('content/Sounds/bossAttack.mp3');
     isAttacking = false;
 
@@ -97,7 +96,7 @@ class Endboss extends Enemy {
     }
 
     animate(){
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.ENDBOSS_DEAD)
                 this.y -= 10;
@@ -122,14 +121,12 @@ class Endboss extends Enemy {
     
     endbossAttacking(){
         let currentFrame = 0;
+        this.bossAttackAudio.play()
         let animationInterval = setInterval(() => {
-            // if (!gameOver) {
-                this.bossAttackAudio.play();
-            // }
             this.isAttacking = false;
             this.playAnimation(this.ENDBOSS_ATTACK);
             currentFrame++;
-            this.x -= 15;
+            // this.x -= 15;
             if (currentFrame >= this.ENDBOSS_ATTACK.length) {
 
                 clearInterval(animationInterval);

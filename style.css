@@ -5,6 +5,7 @@ body {
     background-image: url('content/Alternative Grafiken - Sharkie/3. Background/Dark/1.png');
     font-family: 'Luckiest Guy';
     color: white;
+    margin: 0;
 }
 
 h1 {
@@ -13,10 +14,22 @@ h1 {
 }
 
 canvas {
+    display: block;
     background-color: black;
-    border: 10px, solid, darkblue;
+    /* border: 10px, solid, darkblue; */
     border-radius: 32px;
     margin: 0px;
+}
+.screensAndButtons {
+    display: flex;
+    justify-content: center;
+    height: 480px;
+    width: 720px;
+    object-fit: cover;
+    border-radius: 20px;
+    position: absolute;
+    margin-top: -480px;
+    /* border: 10px, solid, rgb(155, 17, 17); */
 }
 
 #instructions {
@@ -25,25 +38,18 @@ canvas {
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 32px;
     position: absolute;
-    margin-top: 250px;
+    margin-top: 80px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#startScreen {
+#startScreen,
+#winnerScreen {
     height: 480px;
     width: 720px;
     object-fit: cover;
-    border-radius: 20px;
+    border-radius: 32px;
     position: absolute;
-    margin-top: 165px;
-}
-
-#winnerScreen{
-    height: 480px;
-    width: 720px;
-    object-fit: cover;
-    border-radius: 20px;
-    position: absolute;
-    margin-top: 165px;
 }
 
 #gameOverScreen {
@@ -51,20 +57,29 @@ canvas {
     width: 620px;
     border-radius: 20px;
     position: absolute;
-    margin-top: 330px;
+    margin-top: 180px;
 }
 
-#startButton,
+#startButton{
+    height: 64px;
+    position: absolute;
+    margin-top: 360px;
+    left: 50%;
+    right: 50%;
+}
+
 #restartButton{
     height: 64px;
     position: absolute;
-    margin-top: 560px;
+    margin-top: 360px;
 }
 
 #openMenuBtn,
 #closeMenuBtn{
     height: 32px;
     position: absolute;
+    top: -30%;
+    left: 50%;
     margin-top: 165px;
 }
 
