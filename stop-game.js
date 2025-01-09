@@ -5,12 +5,12 @@ let timeoutData = [];
 let pause = false;
 underWaterAudio = new Audio('content/Sounds/underWater.mp3');
 
-function setStoppableInterval(fn, time){
+function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
     intervalData.push({ id, fn, time });
 }
 
-function setStoppableTimeout(fn, time){
+function setStoppableTimeout(fn, time) {
     let startTime = Date.now();
     let id = setTimeout(() => {
         fn();
@@ -19,7 +19,7 @@ function setStoppableTimeout(fn, time){
     timeoutData.push({ id, fn, time, startTime });
 }
 
-function stopGame(){
+function stopGame() {
     pause = true;
     underWaterAudio.pause();
     intervalData.forEach(data => clearInterval(data.id));
@@ -31,7 +31,6 @@ function stopGame(){
 
 function resumeGame() {
     pause = false;
-    underWaterAudio.play();
     intervalData.forEach(data => {
         data.id = setInterval(data.fn, data.time);
     });
@@ -45,7 +44,7 @@ function resumeGame() {
     });
 }
 
-function pauseAndContinue(){
+function pauseAndContinue() {
     instructions.classList.toggle ('d_none')
     if (!pause) {
         stopGame();

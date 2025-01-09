@@ -60,7 +60,7 @@ canvas {
     margin-top: 180px;
 }
 
-#startButton{
+#startButton {
     height: 64px;
     position: absolute;
     margin-top: 360px;
@@ -68,18 +68,28 @@ canvas {
     right: 50%;
 }
 
-#restartButton{
+#restartButton {
     height: 64px;
     position: absolute;
     margin-top: 360px;
 }
 
 #openMenuBtn,
-#closeMenuBtn{
+#closeMenuBtn {
     height: 32px;
     position: absolute;
+    cursor: pointer;
     top: -30%;
     left: 50%;
+    margin-top: 165px;
+}
+
+.soundBtn {
+    height: 32px;
+    position: absolute;
+    cursor: pointer;
+    top: -30%;
+    left: 45%;
     margin-top: 165px;
 }
 

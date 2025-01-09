@@ -4,12 +4,12 @@ class Endboss extends Enemy {
     width = 300 * 1.5;
     height = 235 * 1.5;
     attackPoints = 15;
-    healthPoints = 700;
+    healthPoints = 500;
     currentImage = 0;
     canSpawn = false;
     endboss = true;
-    bossAttackAudio = new Audio('content/Sounds/bossAttack.mp3');
     isAttacking = false;
+    bossAttackAudio = new Audio('content/Sounds/bossAttack.mp3');
 
     ENDBOSS_SPAWNING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/1.png',
@@ -121,23 +121,18 @@ class Endboss extends Enemy {
     
     endbossAttacking(){
         let currentFrame = 0;
-        this.bossAttackAudio.play()
+        if (!isMuted) {
+            this.bossAttackAudio.play();
+        }
         let animationInterval = setInterval(() => {
             this.isAttacking = false;
             this.playAnimation(this.ENDBOSS_ATTACK);
             currentFrame++;
-            // this.x -= 15;
+            this.x -= 15;
             if (currentFrame >= this.ENDBOSS_ATTACK.length) {
 
                 clearInterval(animationInterval);
             }
         }, 100);
-    }
-
-    freezeBoss(){
-        if (gameOver) {
-            console.log('Over');
-            
-        }
     }
 }

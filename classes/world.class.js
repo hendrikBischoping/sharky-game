@@ -33,6 +33,7 @@ class World {
     itemCollectAudio = new Audio('content/Sounds/itemCollect.mp3');
     youWinAudio = new Audio('content/Sounds/youWin.mp3');
     gameOverAudio = new Audio('content/Sounds/gameOver.mp3');
+    bossAttackAudio = new Audio('content/Sounds/bossAttack.mp3');
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext("2d");
@@ -87,6 +88,9 @@ class World {
                 this.bubbleBar.setPercentage(this.bubbleBar.percentage)
             }
         })
+        if (!isMuted) {
+            this.underWaterAudio.play();
+        }
     }
 
     checkPoisonBubbleItemCollisions(){
@@ -157,7 +161,7 @@ class World {
         if (randomChoice <= 0.4) {
             this.createHeartItem(enemy);
         }
-        if(randomChoice >= 0.6) {
+        if(randomChoice >= 0.5) {
             this.createPoisonItem(enemy);
         }
     }

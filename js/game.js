@@ -37,7 +37,9 @@ function restartGame(){
 }
 
 function showWinnerScreen(){
-    world.youWinAudio.play();
+    if (!isMuted) {
+        world.youWinAudio.play();
+    }
     let winnerScreen = document.getElementById('winnerScreen');
     winnerScreen.classList.remove ('d_none');
     restartButton.classList.remove ('d_none');
@@ -45,7 +47,9 @@ function showWinnerScreen(){
 }
 
 function showGameOverScreen(){
-    world.gameOverAudio.play();
+    if (!isMuted) {
+        world.gameOverAudio.play();
+    }
     let gameOverScreen = document.getElementById('gameOverScreen');
     gameOverScreen.classList.remove ('d_none');
     restartButton.classList.remove ('d_none');
@@ -64,13 +68,13 @@ function getAllAudios () {
         world.itemCollectAudio,
         world.youWinAudio,
         world.gameOverAudio,
+        world.bossAttackAudio
     ];
 }
 
 function switchTollgeSoundBtn(){
     let soundOn = document.getElementById('toggleSoundOnBtn');
     let soundOff = document.getElementById('toggleSoundOffBtn');
-    console.log(isMuted);
     soundOn.classList.toggle ('d_none', !isMuted);
     soundOff.classList.toggle ('d_none', isMuted);
     toggleSound()
