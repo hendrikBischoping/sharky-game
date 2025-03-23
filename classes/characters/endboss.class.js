@@ -109,14 +109,14 @@ class Endboss extends Enemy {
     }
     endbossSwimming(){
         this.playAnimation(this.ENDBOSS_SWIMMING);
-        this.x-=5;
+        this.x-=10;
     }
 
     randomizeAttacking(){        
         setTimeout(() => {
             this.isAttacking = true;
             this.randomizeAttacking()
-        }, 3000 + Math.random() * 2000);
+        }, 3000 + Math.random() * 1600);
     }
     
     endbossAttacking(){
@@ -128,7 +128,7 @@ class Endboss extends Enemy {
             this.isAttacking = false;
             this.playAnimation(this.ENDBOSS_ATTACK);
             currentFrame++;
-            this.x -= 15;
+            this.x -= 30;
             if (currentFrame >= this.ENDBOSS_ATTACK.length) {
 
                 clearInterval(animationInterval);

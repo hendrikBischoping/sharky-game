@@ -16,25 +16,25 @@ class DrawableObject {
         this.img.src = path;
     }
 
-    draw(ctx){
+    draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.height, this.width)
     }
 
-    loadImages(arr){
+    // drawFrame(ctx){if (this instanceof Character) {
+    //     ctx.beginPath();
+    //     ctx.lineWidth = '2';
+    //     ctx.strokeStyle = 'red';
+    //     ctx.rect(this.x+50, this.y+110, this.width-80, this.height-180);
+    //     // ctx.rect(this.x, this.y, this.width, this.height);
+    //     ctx.stroke();
+    // }
+    // }
+
+    loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image()
-        img.src = path;
-        this.imageCache[path] = img;
+            img.src = path;
+            this.imageCache[path] = img;
         })
-    }
-
-    drawFrame(ctx){
-        if (this instanceof BossBar){
-            ctx.beginPath();
-            ctx.lineWidth = "-0";
-            ctx.strokeStyle = "lightblue";
-            ctx.rect(this.x, this.y, this.height, this.width);
-            ctx.stroke();
-        }
     }
 }

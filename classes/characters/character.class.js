@@ -4,12 +4,14 @@ class Character extends MovableObject {
     y = -80;
     offsetX = 107;
     offsetY = 49;
+    newX = 0;
+    newY = 0;
     width = 230;
     height = 250;
     hitboxWidth = 61;
     hitboxHeigth = 153;
     speed = 8;
-    imgStay;
+    imgStay;f
     healthPoints = 200;
     attackPoints = 0;
     bubbles = 100;
@@ -155,12 +157,16 @@ class Character extends MovableObject {
                 if(this.y > 310)
                     {this.y = 309}
             }
-            if (this.world.keyboard.b && this.world.canShoot && this.healthPoints > 0) {
-                this.world.createShootableAir();
+            if (this.world.keyboard.d && this.world.canShoot && this.healthPoints > 0) {
+                if (!this.otherDirection) {
+                    this.world.createShootableAir();                    
+                }
                 
             }
             if (this.world.keyboard.f && this.world.canShoot && this.healthPoints > 0) {
-                this.world.createShootablePoison();
+                if (!this.otherDirection) {
+                    this.world.createShootablePoison();                    
+                }
                 
             }
             this.world.camera_x = -this.x;

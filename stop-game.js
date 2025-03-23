@@ -50,9 +50,15 @@ function pauseAndContinue() {
         stopGame();
         openMenuBtn.classList.add('d_none')
         closeMenuBtn.classList.remove('d_none')
+        // if (!isMuted) {
+        //     switchTollgeSoundBtn();
+        // }
     } else {
         resumeGame();
         openMenuBtn.classList.remove('d_none')
         closeMenuBtn.classList.add('d_none')
+        // if (isMuted) {
+        //     switchTollgeSoundBtn();
+        // }
     }
 }

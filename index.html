@@ -1,33 +1,81 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sharky</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style copy.css">
     <link rel="stylesheet" href="fonts.css">
     <link rel="shortcut icon" href="./content/Alternative Grafiken - Sharkie/Favicon/favicon.ico" type="image/x-icon">
 </head>
+
 <body onload="init()">
     <header>
         <h1>Sharky</h1>
     </header>
-    <main>
+    <main id="canvasContent">
         <canvas id="canvas" height="480px" width="720px"></canvas>
-        <div class="screensAndButtons">
-            <img id="instructions" class="d_none" src="content/Alternative Grafiken - Sharkie/6.Botones/Instructions/Instructions 1.png" alt="instructions">
-            <img id="startScreen" src="content/Alternative Grafiken - Sharkie/7.Startscreen/Startscreen 1.png" alt="startscreen">
-            <img id="startButton" class="btn" onclick="startGame()" src="./content/Alternative Grafiken - Sharkie/6.Botones/Start/2.png" alt="start">
-            <img id="winnerScreen" class="d_none" src="content/Alternative Grafiken - Sharkie/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="winnerscreen">
-            <img id="gameOverScreen" class="d_none" src="content/Alternative Grafiken - Sharkie/6.Botones/Tittles/Game Over/Recurso 12.png" alt="loserscreen">
-            <img id="restartButton" class="btn d_none" onclick="restartGame()" src="./content/Alternative Grafiken - Sharkie/6.Botones/Try again/Recurso 17.png" alt="restart">
-            <img id="openMenuBtn" class="btn d_none" onclick="pauseAndContinue()" src="content/Alternative Grafiken - Sharkie/6.Botones/Instructions/open_menu-removebg-preview.png" alt="open_menu">
-            <img id="closeMenuBtn" class="btn d_none" onclick="pauseAndContinue()" src="content/Alternative Grafiken - Sharkie/6.Botones/Instructions/close_menu-removebg-preview.png" alt="close_menu">
-            <img id="toggleSoundOnBtn" class="soundBtn" onclick="switchTollgeSoundBtn()" src="./content/Alternative Grafiken - Sharkie/6.Botones/Sound/sound_on.png" alt="sound on">
-            <img id="toggleSoundOffBtn" class="soundBtn d_none" onclick="switchTollgeSoundBtn()" src="./content/Alternative Grafiken - Sharkie/6.Botones/Sound/sound_off.png" alt="sound off">
+        <div id="turnMobileAdvice" class="turnMobileAdvice d_none">
+            <p class="adviceMessage">
+                Bitte drehe das Gerät um 90°
+            </p>
+        </div>
+        <div id="screensAndButtons" class="screensAndButtons">
+            <div id="menuButtons">
+                <img id="toggleSoundOnBtn" class="soundBtn d_none" onclick="switchTollgeSoundBtn()"
+                    src="./content/Alternative Grafiken - Sharkie/6.Botones/Sound/sound_on.png" alt="sound on">
+                <img id="toggleSoundOffBtn" class="soundBtn d_none" onclick="switchTollgeSoundBtn()"
+                    src="./content/Alternative Grafiken - Sharkie/6.Botones/Sound/sound_off.png" alt="sound off">
+                <img id="openMenuBtn" class="btn d_none" onclick="pauseAndContinue()"
+                    src="content/Alternative Grafiken - Sharkie/6.Botones/Instructions/open_menu-removebg-preview.png"
+                    alt="open_menu">
+                <img id="closeMenuBtn" class="btn d_none" onclick="pauseAndContinue()"
+                    src="content/Alternative Grafiken - Sharkie/6.Botones/Instructions/close_menu-removebg-preview.png"
+                    alt="close_menu">
+                <img id="fullscreenOffBtn" class="btn d_none" onclick="switchToggleFullscreenBtn()"
+                    src="./content/Alternative Grafiken - Sharkie/6.Botones/Key/fullscreen-off.png"
+                    alt="fullscreen-off">
+                <img id="fullscreenOnBtn" class="btn d_none" onclick="switchToggleFullscreenBtn()"
+                    src="./content/Alternative Grafiken - Sharkie/6.Botones/Key/fullscreen.png" alt="fullscreen">
+            </div>
+            <div id="controlArrows" class="controll_arrows d_none">
+                <img class="mobile-btn" id="btnLeft" src="./content/Alternative Grafiken - Sharkie/6.Botones/Key/arrow-left.png"
+                    alt="left_key">
+                <img class="mobile-btn" id="btnDown" src="./content/Alternative Grafiken - Sharkie/6.Botones/Key/arrow-down.png"
+                    alt="down_key">
+                <img class="mobile-btn" id="btnRight" src="./content/Alternative Grafiken - Sharkie/6.Botones/Key/arrow-right.png"
+                    alt="right_key">
+                <img class="mobile-btn" id="btnUp" src="./content/Alternative Grafiken - Sharkie/6.Botones/Key/arrow-up.png"
+                    alt="up_key">
+            </div>
+            <div id="attackButtons" class="attack-buttons d_none">
+                <img class="mobile-btn" id="btnD" src="./content/Alternative Grafiken - Sharkie/6.Botones/Key/D key.png" alt="D-Key">
+                <img class="mobile-btn" id="btnF" src="./content/Alternative Grafiken - Sharkie/6.Botones/Key/F key.png" alt="F-key">
+            </div>
+            <img id="instructions"
+                src="content/Alternative Grafiken - Sharkie/6.Botones/Instructions/Instructions 1.png"
+                alt="instructions">
+            <img id="startScreen" src="content/Alternative Grafiken - Sharkie/7.Startscreen/Startscreen 1.png"
+                alt="startscreen">
+            <img id="startButton" class="btn" onclick="startGame()" onmouseenter="showInstructions()"
+                onmouseleave="hideInstructions()" src="./content/Alternative Grafiken - Sharkie/6.Botones/Start/2.png"
+                alt="start">
+            <div id="mainScreens" class="d_none">
+                <img id="winnerScreen" class="d_none"
+                    src="content/Alternative Grafiken - Sharkie/6.Botones/Tittles/You win/Mesa de trabajo 1.png"
+                    alt="winnerscreen">
+                <img id="gameOverScreen" class="d_none"
+                    src="content/Alternative Grafiken - Sharkie/6.Botones/Tittles/Game Over/Recurso 12.png"
+                    alt="loserscreen">
+                <img id="restartButton" class="btn d_none" onclick="restartGame()" ontouchend="restartGame()"
+                    src="./content/Alternative Grafiken - Sharkie/6.Botones/Try again/Recurso 17.png" alt="restart">
+            </div>
         </div>
     </main>
-
+    <footer>
+        <a href="impressum.html">Impressum</a>
+    </footer>
     <script src="stop-game.js"></script>
     <script src="classes/drawable-object.class.js"></script>
     <script src="classes/movable-object.class.js"></script>
@@ -56,4 +104,5 @@
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
 </body>
+
 </html>

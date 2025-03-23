@@ -1,12 +1,12 @@
-class MovableObject extends DrawableObject{
+class MovableObject extends DrawableObject {
     speed;
     otherDirection = false;
     speedY = 0.05;
     healthPoints;
     attackPoints;
     lastHit = 0;
-    
-    applyGravity(heightDiff){
+
+    applyGravity(heightDiff) {
         setStoppableInterval(() => {
             if (this.isAboveGropund(heightDiff)) {
                 this.y += this.speedY;
@@ -14,41 +14,49 @@ class MovableObject extends DrawableObject{
         }), 1000 / 4
     }
 
-    isAboveGropund(heightDiff){
+    isAboveGropund(heightDiff) {
         return (this.y < heightDiff)
     }
-        
-    playAnimation(images){
+
+    playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-    isColliding(mo){
-            return  (this.x + this.width) >= mo.x &&
-                    this.x <= (mo.x + mo.width) && 
-                    (this.y + this.height) >= mo.y &&
-                    (this.y) <= (mo.y + mo.height);
-        }
 
-    hit(attackPoints){
+    isColliding(mo) {
+        return (this.x + this.width) >= mo.x &&
+            this.x <= (mo.x + mo.width) &&
+            (this.y + this.height) >= mo.y &&
+            (this.y) <= (mo.y + mo.height);
+    }
+
+    sharkyIsColliding(mo) {
+        return (this.x + this.width - 30) >= mo.x &&
+            this.x + 50 <= (mo.x + mo.width) &&
+            (this.y + this.height - 70) >= mo.y &&
+            this.y + 110 <= (mo.y + mo.height);
+    }
+
+    hit(attackPoints) {
         this.healthPoints -= attackPoints;
-        
+
         if (this.healthPoints > 0) {
-            this.lastHit = new Date().getTime();                   
+            this.lastHit = new Date().getTime();
         }
-        if (this.healthPoints <= 0){
+        if (this.healthPoints <= 0) {
             this.healthPoints = 0
         }
     }
 
-    isHurt(){
+    isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         timePassed = timePassed / 1000;
         return timePassed < 0.2;
     }
 
-    isDead(){
+    isDead() {
         return this.healthPoints <= 0;
     }
 }

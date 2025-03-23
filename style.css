@@ -3,9 +3,40 @@ body {
     flex-direction: column;
     align-items: center;
     background-image: url('content/Alternative Grafiken - Sharkie/3. Background/Dark/1.png');
+    background-size: cover;
     font-family: 'Luckiest Guy';
     color: white;
     margin: 0;
+}
+
+.turnMobileAdvice {
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    top: 155px;
+    height: 480px;
+    width: 720px;
+    border-radius: 32px;
+    position: absolute;
+    @media (max-width: 730px), (max-height: 490px) {
+        height: calc(480px * 0.8);
+        width: calc(720px * 0.8);
+    }
+    @media (max-width: 600px), (max-height: 420px) {
+        height: calc(480px * 0.7);
+        width: calc(720px * 0.7);
+    }
+}
+
+.adviceMessage {
+    font-size: 24px;
+}
+
+main {
+    flex: 1;
 }
 
 h1 {
@@ -13,12 +44,52 @@ h1 {
     margin: 48px;
 }
 
-canvas {
+#canvasContent:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Spezifisch für Webkit-Browser (Chrome, Safari) */
+#canvasContent:-webkit-full-screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Canvas auf Bildschirmgröße skalieren, aber Seitenverhältnis beibehalten */
+#canvas {
+    width: 100%;
+    height: 100%;
+    /* object-fit: contain; Skaliert mit Beibehaltung des Aspekts */
+}
+
+.canvasDefault {
+    width: 720px;
+    height: 480px;
+}
+#canvas {
     display: block;
     background-color: black;
-    /* border: 10px, solid, darkblue; */
     border-radius: 32px;
     margin: 0px;
+    margin-bottom: 36px;
+    @media (max-width: 730px), (max-height: 490px) {
+        height: calc(480px * 0.8);
+        width: calc(720px * 0.8);
+    }
+    @media (max-width: 600px), (max-height: 420px) {
+        height: calc(480px * 0.7);
+        width: calc(720px * 0.7);
+    }
+    /* @media (max-height: 420px) {
+        height: calc(480px * 0.55);
+        width: calc(720px * 0.55);
+    } */
 }
 .screensAndButtons {
     display: flex;
@@ -28,19 +99,40 @@ canvas {
     object-fit: cover;
     border-radius: 20px;
     position: absolute;
-    margin-top: -480px;
-    /* border: 10px, solid, rgb(155, 17, 17); */
+    margin-top: -516px;
+    margin-bottom: 36px;
+    @media (max-width: 730px), (max-height: 490px) {
+        height: calc(480px * 0.8);
+        width: calc(720px * 0.8);
+        top: 671px;
+    }
+    @media (max-width: 600px), (max-height: 420px) {
+        height: calc(480px * 0.7);
+        width: calc(720px * 0.7);
+        top: 671px;
+    }
+}
+
+.fullWinnerScreen,
+.fullStartScreen {
+    width: 200%!important;
+    height: 200%!important;
 }
 
 #instructions {
     height: 300px;
-    width: 400;
+    width: 400px;
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 32px;
     position: absolute;
     margin-top: 80px;
     margin-left: auto;
     margin-right: auto;
+    @media (max-width: 730px), (max-height: 490px) {
+        height: calc(300px * 0.8);
+        width: calc(400px * 0.8);
+        margin-top:80px;
+    }
 }
 
 #startScreen,
@@ -50,6 +142,20 @@ canvas {
     object-fit: cover;
     border-radius: 32px;
     position: absolute;
+    @media (max-width: 730px), (max-height: 490px) {
+        height: calc(480px * 0.8);
+        width: calc(720px * 0.8);
+    }
+    @media (max-width: 600px), (max-height: 420px) {
+        height: calc(480px * 0.7);
+        width: calc(720px * 0.7);
+    }
+}
+
+.inscructionsOnHoverStart {
+    display: block;
+    scale: 0.8;
+    z-index: 2;
 }
 
 #gameOverScreen {
@@ -58,6 +164,16 @@ canvas {
     border-radius: 20px;
     position: absolute;
     margin-top: 180px;
+    @media (max-width: 730px), (max-height: 490px) {
+        height: calc(82px * 0.8);
+        width: calc(620px * 0.8);
+        margin-top: 140px;
+    }
+    @media (max-width: 600px), (max-height: 420px) {
+        height: calc(82px * 0.7);
+        width: calc(620px * 0.7);
+        margin-top: 100px;
+    }
 }
 
 #startButton {
@@ -66,12 +182,28 @@ canvas {
     margin-top: 360px;
     left: 50%;
     right: 50%;
+    @media (max-width: 730px), (max-height: 490px) {
+        margin-top: 280px;
+        height: calc(64px * 0.8);
+    }
+    @media (max-width: 600px), (max-height: 420px) {
+        height: calc(64px * 0.7);
+        margin-top: 250px;
+    }
 }
 
 #restartButton {
     height: 64px;
     position: absolute;
     margin-top: 360px;
+    @media (max-width: 730px) {
+        height: calc(64px * 0.8);
+        margin-top: 280px;
+    }
+    @media (max-width: 600px), (max-height: 420px) {
+        height: calc(64px * 0.7);
+        margin-top: 200px;
+    }
 }
 
 #openMenuBtn,
@@ -79,18 +211,43 @@ canvas {
     height: 32px;
     position: absolute;
     cursor: pointer;
-    top: -30%;
+    top: 5%;
     left: 50%;
-    margin-top: 165px;
+    @media (max-width: 730px), (max-height: 490px) {
+        margin-top: 220px;
+        margin-top: 0px;
+        left: 55%;
+    }
+    @media (max-width: 600px), (max-height: 420px) {
+        margin-top: 0px;
+        scale: 0.8;
+    }
+}
+
+#fullscreenOnBtn,
+#fullscreenOffBtn {
+    height: 32px;
+    position: absolute;
+    cursor: pointer;
+    right: 5%;
+    top: 5%;
 }
 
 .soundBtn {
     height: 32px;
     position: absolute;
     cursor: pointer;
-    top: -30%;
     left: 45%;
-    margin-top: 165px;
+    top: 5%;
+    @media (max-width: 724px) {
+        margin-top: 220px;
+        margin-top: 0px;
+    }
+    @media (max-width: 600px), (max-height: 420px) {
+        margin-top: 0px;
+        scale: 0.8;
+        left: 40%;
+    }
 }
 
 .btn {
@@ -98,9 +255,62 @@ canvas {
 }
 
 .d_none {
-    display: none;
+    display: none!important;
 }
 .t {
     background-color: rgb(194, 194, 194);
     padding: 10px;
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+}
+
+footer a {
+    padding: 8px;
+    color: rgb(127,255,224);
+    text-decoration: none;
+}
+
+footer a:hover {
+    padding: 8px;
+    text-decoration: underline;
+}
+
+.controll_arrows {
+    left: -25%;
+    bottom:-73%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap-reverse;
+    width: 26%; 
+    max-height: fit-content;
+    /* max-width: 30%;  */
+}
+
+.attack-buttons {
+    bottom:-85%;
+    left: 25%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    max-height: fit-content;
+}
+
+.mobile-btn {
+    /* filter: blur(6px); */
+    height: 10%;
+    margin: 4%;
 }
