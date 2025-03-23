@@ -7,6 +7,7 @@ class ShootableObject extends MovableObject {
         this.shoot()
     }
 
+    /** spawns and moves a shootable object (like bubbles) */
     shoot(){
         this.speedY = 8;
         this.applyBuoyancy();
@@ -15,6 +16,7 @@ class ShootableObject extends MovableObject {
         }, 1000 / 25)
     }
 
+    /** shootable objects buoyance more and more */
     applyBuoyancy(){
         setStoppableInterval(() => {
             if (this.isAboveGropund()+100 || this.speedY > 0){

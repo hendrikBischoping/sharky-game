@@ -1,12 +1,6 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let btnUp = document.getElementById('');
-let btnDown = document.getElementById('');
-let btnLeft = document.getElementById('');
-let btnRight = document.getElementById('');
-let btnD = document.getElementById('');
-let btnF = document.getElementById('');
 let restartButton = document.getElementById('restartButton');
 let openMenuBtn = document.getElementById('openMenuBtn');
 let closeMenuBtn = document.getElementById('closeMenuBtn');
@@ -29,6 +23,7 @@ let gameOver = false;
 let isMuted;
 let isFullscreen = false;
 
+/** checks if a mobile device is oriented in profile or landscape direction */
 function checkOrientation() {
     if (window.matchMedia("(orientation: portrait)").matches && window.innerWidth <= 768) {
         onPortraitMode();
@@ -37,11 +32,13 @@ function checkOrientation() {
     }
 }
 
+/** shows 'turn device message' when device is in portrait mode */
 function onPortraitMode() {
     let turnMobileAdvice = document.getElementById('turnMobileAdvice');
     turnMobileAdvice.classList.remove('d_none')
 }
 
+/** removes 'turn device message' and adds control buttons when device is in landscape mode */
 function onLandscapeMode() {
     let turnMobileAdvice = document.getElementById('turnMobileAdvice');
     turnMobileAdvice.classList.add('d_none');
@@ -55,6 +52,7 @@ function onLandscapeMode() {
     }
 }
 
+/** changes from start screen into new game */
 function startGame() {
     openMenuBtn.classList.remove('d_none');
     fullscreenOn.classList.remove('d_none');
@@ -64,10 +62,11 @@ function startGame() {
     restartButton.classList.add('d_none');
     if (!isMuted) {
         soundOn.classList.remove('d_none');
-    } else {soundOff.classList.remove('d_none');}
+    } else { soundOff.classList.remove('d_none'); }
     resumeGame();
 }
 
+/** pauses the game and shows instructions like button description */
 function openInstructions() {
     instructions.classList.remove('d_none')
     openMenuBtn.classList.add('d_none')
@@ -75,22 +74,27 @@ function openInstructions() {
     stopGame();
 }
 
+/** shows instructions on mouse over in start screen */
 function showInstructions() {
     instructions.classList.add('instructionsOnHoverStart');
 }
 
+/** hides instructions on mouse leave in start screen */
 function hideInstructions() {
     instructions.classList.remove('instructionsOnHoverStart');
 }
 
+/** resumes the game closes instructions*/
 function closeInstructions() {
     resumeGame();
 }
 
+/** starts a new game via page reload */
 function restartGame() {
     location.reload();
 }
 
+/** stops game and shows winner screen after win */
 function showWinnerScreen() {
     if (!isMuted) {
         world.youWinAudio.play();
@@ -104,6 +108,7 @@ function showWinnerScreen() {
     } else { winnerScreen.classList.remove('fullWinnerScreen') }
 }
 
+/** stops game and shows game over screen after death */
 function showGameOverScreen() {
     if (!isMuted) {
         world.gameOverAudio.play();
@@ -114,6 +119,7 @@ function showGameOverScreen() {
     openMenuBtn.classList.add('d_none')
 }
 
+/** addresses all sounds (to toggle mute) */
 function getAllAudios() {
     if (!world) return [];
     return [
@@ -130,21 +136,30 @@ function getAllAudios() {
     ];
 }
 
-function switchTollgeSoundBtn() {
+/** toggles visibility of un-/mute buttons*/
+function switchToggleSoundBtn() {
     soundOn.classList.toggle('d_none', !isMuted);
     soundOff.classList.toggle('d_none', isMuted);
     toggleSound();
 }
 
-function toggleSound() {
-    isMuted = !isMuted;
+/** toggles visibility of un-/mute buttons and saves mute status in local storage*/
+function saveSoundDataLocal() {
     if (isMuted) {
         soundOn.classList.add('d_none');
         soundOff.classList.remove('d_none');
         localStorage.setItem("isMuted", JSON.stringify(true));
-    } else {localStorage.setItem("isMuted", JSON.stringify(false));
+    } else {
+        localStorage.setItem("isMuted", JSON.stringify(false));
         soundOn.classList.remove('d_none');
-        soundOff.classList.add('d_none');}
+        soundOff.classList.add('d_none');
+    }
+}
+
+/** toggles all ingame sounds at once */
+function toggleSound() {
+    isMuted = !isMuted;
+    this.saveSoundDataLocal();
     let allAudios = getAllAudios();
     allAudios.forEach((audio) => {
         if (audio) {
@@ -153,8 +168,8 @@ function toggleSound() {
     });
 }
 
+/** toggles fullscreen on desktop-device */
 function switchToggleFullscreenBtn() {
-
     if (!isFullscreen) {
         openFullscreen(canvasContent);
         fullscreenOn.classList.add('d_none');
@@ -164,10 +179,10 @@ function switchToggleFullscreenBtn() {
         fullscreenOff.classList.add('d_none');
         fullscreenOn.classList.remove('d_none');
     }
-
-    isFullscreen = !isFullscreen; // Fullscreen-Status umschalten
+    isFullscreen = !isFullscreen;
 }
 
+/** enters fullscreen */
 function openFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -177,11 +192,10 @@ function openFullscreen(element) {
         element.msRequestFullscreen();
     }
     startScreen.classList.add('fullStartScreen')
-
-    resizeCanvasContent(); // Größe des Canvas anpassen
+    resizeCanvasContent();
 }
 
-/* Vollbildmodus verlassen */
+/** leaves fullscreen */
 function closeFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -192,165 +206,54 @@ function closeFullscreen() {
     }
     startScreen.classList.remove('fullStartScreen')
 
-    resetCanvasSize(); // Standardgröße wiederherstellen
+    resetCanvasSize();
 }
 
+/** resices content to fulscreen (height, width) */
 function resizeCanvasContent() {
     let canvas = document.getElementById('canvas');
-
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
-
     let aspectRatio = 720 / 480;
     let newWidth = screenWidth;
     let newHeight = newWidth / aspectRatio;
-
     if (newHeight > screenHeight) {
         newHeight = screenHeight;
         newWidth = newHeight * aspectRatio;
     }
-
     canvas.style.width = `${newWidth}px`;
     canvas.style.height = `${newHeight}px`;
 }
 
+/** resices content back to default size */
 function resetCanvasSize() {
     let canvas = document.getElementById('canvas');
     canvas.style.width = "720px";
     canvas.style.height = "480px";
 }
 
-function calcHitbox(x, y) {
-    this.calcNewX(x);
-    this.calcNewY(y);
-}
-
-function init() {
+/** queries the status of mute from local storage */
+function queryMuteStatusLocal() {
     if (localStorage.getItem("isMuted") === null) {
         localStorage.setItem("isMuted", JSON.stringify(false));
     }
     isMuted = JSON.parse(localStorage.getItem("isMuted"));
-    console.log(isMuted);    
+}
+
+/** initialises general content ob the page */
+function init() {
+    this.queryMuteStatusLocal();
+    console.log(isMuted);
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     setInterval(() => {
-
         checkOrientation();
-
     }, 500);
-    window.addEventListener('keydown', (e) => {
-        if (e.keyCode == 39) {
-            keyboard.right = true;
-        }
-        if (e.keyCode == 37) {
-            keyboard.left = true;
-        }
-        if (e.keyCode == 38) {
-            keyboard.up = true;
-        }
-        if (e.keyCode == 40) {
-            keyboard.down = true;
-        }
-        if (e.keyCode == 32) {
-            keyboard.space = true;
-        }
-        if (e.keyCode == 68) {
-            keyboard.d = true;
-        }
-        if (e.keyCode == 70) {
-            keyboard.f = true;
-        } if (e.keyCode == 27 && isFullscreen) {
-            startScreen.classList.remove('fullStartScreen');
-            canvas.classList.add('canvasDefault');
-            closeFullscreen();
-        }
-    });
-
-    window.addEventListener('keyup', (e) => {
-        if (e.keyCode == 39) {
-            keyboard.right = false;
-        }
-        if (e.keyCode == 37) {
-            keyboard.left = false;
-        }
-        if (e.keyCode == 38) {
-            keyboard.up = false
-        }
-        if (e.keyCode == 40) {
-            keyboard.down = false;
-        }
-        if (e.keyCode == 32) {
-            pauseAndContinue();
-        }
-        if (e.keyCode == 68) {
-            keyboard.d = false;
-        }
-        if (e.keyCode == 70) {
-            keyboard.f = false;
-        }
-    });
-
-    this.btnUp.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.up = true;
-    });
-
-    this.btnUp.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.up = false;
-    });
-
-    this.btnDown.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.down = true;
-    });
-
-    this.btnDown.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.down = false;
-    });
-
-    this.btnLeft.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.left = true;
-    });
-
-    this.btnLeft.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.left = false;
-    });
-
-    this.btnRight.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.right = true;
-    });
-
-    this.btnRight.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.right = false;
-    });
-
-    this.btnD.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.d = true;
-    });
-
-    this.btnD.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.d = false;
-    });
-
-    this.btnF.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.f = true;
-    });
-
-    this.btnF.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.f = false;
-    });
+    keyboard.observeKeysOnDown();
+    keyboard.observeKeysOnUp();
+    keyboard.observeControlButtonsMobile();
 }
 
 setTimeout(() => {
     stopGame()
-}, 200);
+}, 500);

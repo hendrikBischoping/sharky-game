@@ -46,6 +46,7 @@ class World {
         this.gameStarted = false;
     }
 
+    /** intervals thas observes their depenting status */
     run(){
         let loosesHp = setStoppableInterval(() => {
             this.checkCharakterCollisions(loosesHp);
@@ -64,17 +65,12 @@ class World {
         }, 200);
     }
     
+    /** returns a boolean-value depening on local storage to set/unset mute */
     getIsMuted() {
         return JSON.parse(localStorage.getItem("isMuted"));
     }
 
-    // toggleMute() {
-    //     this.isMuted = !this.isMuted;
-    //     this.allAudios.forEach(audio => {
-    //         audio.volume = isMuted ? 0 : 1;
-    //     });
-    // }
-
+    /** creates a bubble-item every 500ms */
     spawnBubbleItems(){
         setStoppableInterval(() => {
                 this.createBubbleItem();
@@ -82,6 +78,7 @@ class World {
             
     }
 
+    /** checks if any bubble item collides with Sharky so Sharky can collect it */
     checkBubbleItemCollisions(){
         this.bubbleItems.forEach((item, index) => {
             if (item.isColliding(this.character) && this.character.bubbles < 100 && this.bubbleBar.percentage < 100){
@@ -99,6 +96,7 @@ class World {
         }
     }
 
+    /** checks if any poison item collides with Sharky so Sharky can collect it */
     checkPoisonBubbleItemCollisions(){
         this.poisonBubbleItems.forEach((item, index) => {
             if (item.isColliding(this.character) && this.character.poisonBubbles < 100 && this.poisonBubbleBar.percentage < 100){
@@ -113,6 +111,7 @@ class World {
         })
     }
 
+    /** checks if any heart item collides with Sharky so Sharky can collect it */
     checkHeartItemCollisions(){
         this.heartItems.forEach((item, index) => {
             if (item.isColliding(this.character) && this.character.healthPoints < 100 && this.lifeBar.percentage < 100){
@@ -127,6 +126,15 @@ class World {
         })
     }
 
+    /** plays bubble shoot audio depending on mute */
+    checkBubbleShootAudio() {
+        if (!this.getIsMuted()) {
+            this.bubbleShootAudio.play();
+            console.log(this.getIsMuted());                
+        }
+    }
+
+    /** creates an air bubble in front of sharky and recalculates remaining shootable bubbles and bubble bar */
     createShootableAir(){
         if (this.bubbleBar.percentage > 0) {
             this.bubbleBar.percentage -= 20;
@@ -135,16 +143,14 @@ class World {
             this.canShoot = false;
             let bubble = new ShootableAir(this.character.x, this.character.y);
             this.shootableAirBubbles.push(bubble);
-            if (!this.getIsMuted()) {
-                this.bubbleShootAudio.play();
-                console.log(this.getIsMuted());                
-            }
+            this.checkBubbleShootAudio();
             setStoppableTimeout(() => {
                 this.canShoot = true;
             }, 500);
         }
     }
 
+    /** creates a poison bubble in front of sharky and recalculates remaining shootable poison bubbles and poison bubble bar */
     createShootablePoison(){
         if (this.poisonBubbleBar.percentage > 0) {
             this.poisonBubbleBar.percentage -= 20;
@@ -162,6 +168,7 @@ class World {
         }
     }
 
+    /** creates a new bubble item every 100 ms */
     createBubbleItem(){            
             this.canSpawn = false;
             let bubbleItem = new BubbleItem(200, 200);
@@ -171,6 +178,7 @@ class World {
             }, 100);
     }
 
+    /** randomises the dropped item when enemy dies (10% no item) */
     createRandomItem(enemy){
         let randomChoice = Math.random();
         if (randomChoice <= 0.4) {
@@ -181,6 +189,7 @@ class World {
         }
     }
     
+    /** lets an enemy drop a heart item */
     createHeartItem(enemy) {
         let heartItem = new HeartItem(enemy.x, enemy.y);
         this.heartItems.push(heartItem);
@@ -189,6 +198,7 @@ class World {
         }, 200);
     }
 
+    /** lets an enemy drop a poison item */
     createPoisonItem(enemy){
         let poisonItem = new PoisonItem(enemy.x, enemy.y);
         this.poisonBubbleItems.push(poisonItem);
@@ -197,6 +207,7 @@ class World {
         }, 200);
     }
 
+    /** checks if any enemy is colliding with a shot air bubble */
     checkAirBubbleCollision() {
         for (let i = this.level.enemies.length - 1; i >= 0; i--) {
             let enemy = this.level.enemies[i];
@@ -216,6 +227,7 @@ class World {
         }
     }
 
+    /** checks if endboss is colliding with a shot poison bubble */
     checkPoisonBubbleCollision() {
         for (let i = this.level.enemies.length - 1; i >= 0; i--) {
             let enemy = this.level.enemies[i];
@@ -235,6 +247,7 @@ class World {
         }
     }
 
+    /** spawns endboss depending on Sharkies x-coordinate (x >= 1400) */
     checkForEndbossSpawn() {
             if (this.character.x >= 1400 && !enemies.endbossSpawned) {
                 if (!this.getIsMuted()) {
@@ -245,6 +258,7 @@ class World {
             }
     }
 
+    /** renders boss bar frame depending on endboss health points */
     updateEndbossBar(enemy, ap){
         if (enemy.endboss){
             this.bossBar.percentage -= ap/5;
@@ -252,6 +266,7 @@ class World {
         }
     }
     
+    /** checks if any enemy has died to trigger another Function depending on enemy-type  */
     enemyDied(enemy, index){
         if (enemy.healthPoints <= 0 && !enemy.itemSpawned && !enemy.endboss) {
             if (!this.getIsMuted()) {
@@ -268,6 +283,7 @@ class World {
         }
     }
 
+    /** stops the game and renders 'winner screen' */
     youWon(){
         setStoppableInterval(() => {
             showWinnerScreen();
@@ -275,6 +291,7 @@ class World {
         }, 1000);
     }
 
+    /** checks Sharkies life-status depending on health points */
     characterDied(loosesHp){
         if (this.character.healthPoints <= 0) {            
             this.gameOver();
@@ -282,6 +299,7 @@ class World {
         }
     }
     
+    /** stops the game and renders 'game-over screen' */
     gameOver(){
         setStoppableInterval(() => {
             showGameOverScreen();
@@ -290,6 +308,7 @@ class World {
         }, 1000);
     }
 
+    /** checks if Sharky is colliding with any enemy to trigger depending functions */
     checkCharakterCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.sharkyIsColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {
@@ -303,6 +322,7 @@ class World {
             });
     }
 
+    /** despawns (splices) floating objects like dead enemies as soon as they leave the window */
     despawnFloatingObjects(objArr, obj, index, value){
         if (obj.y <= value) {
             objArr.splice(index, 1)
@@ -312,16 +332,16 @@ class World {
         }
     }
     
+    /** implements a world-object into Sharky */
     setWorld(){
         this.character.world = this;
     }
 
-    draw(){        
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    /** draws static content into Canvas (like backgrounds and status bars) */
+    drawStaticContent(){
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.backgrounds);
         this.addObjectsToMap(this.barriers);
-        this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0)
         this.addToMap(this.lifeBar);
         this.addToMap(this.bubbleBar);
@@ -329,6 +349,10 @@ class World {
         if (enemies.endbossSpawned) {
             this.addToMap(this.bossBar);
         }
+    }
+
+    /** draws dynamic content into Canvas (all movable objects) */
+    drawDynamicContent(){
         this.ctx.translate(this.camera_x, 0)
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.bubbleItems);
@@ -336,38 +360,48 @@ class World {
         this.addObjectsToMap(this.heartItems);
         this.addObjectsToMap(this.shootableAirBubbles);
         this.addObjectsToMap(this.shootablePoisonBubbles);
+        this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0)
+    }
+
+    /** contains functions to draws whole content into Canvas */
+    draw(){        
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawStaticContent();
+        this.drawDynamicContent();
         let self = this;
         requestAnimationFrame(function() {
             self.draw();
         });
     }
 
+    /** supportive function to draw multiple onjects into canvas */
     addObjectsToMap(objects){
         objects.forEach(object => {
             this.addToMap(object)
         });
     }
-
+    
+    /** supportive function to draw a single object into canvas */
     addToMap(mo){
         if (mo.otherDirection) {
         this.flipImage(mo);
         }
             mo.draw(this.ctx);
-            // mo.drawFrame(this.ctx);
-
         if (mo.otherDirection) {
             this.flipImageback(mo);
         }        
     }
 
+    /** mirrors images (when Sharky changes swim direction) */
     flipImage(mo){
         this.ctx.save();
         this.ctx.translate(mo.width, 0)
         this.ctx.scale(-1, 1);
         mo.x = mo.x *-1
     }
-
+    
+    /** mirrors images back into default (when Sharky changes swim direction again) */
     flipImageback(mo){
         mo.x = mo.x *-1
         this.ctx.restore();

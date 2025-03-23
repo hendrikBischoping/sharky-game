@@ -11,25 +11,18 @@ class DrawableObject {
     imageCache = {};
     imageCacheStay = {};
 
+    /** loads depending images for rendering into the canvas */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
+    /** draws/renders loaded images into the canvas */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.height, this.width)
     }
 
-    // drawFrame(ctx){if (this instanceof Character) {
-    //     ctx.beginPath();
-    //     ctx.lineWidth = '2';
-    //     ctx.strokeStyle = 'red';
-    //     ctx.rect(this.x+50, this.y+110, this.width-80, this.height-180);
-    //     // ctx.rect(this.x, this.y, this.width, this.height);
-    //     ctx.stroke();
-    // }
-    // }
-
+    /** loads depending images for rendering them as animation into the canvas */
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image()

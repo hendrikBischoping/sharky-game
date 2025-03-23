@@ -11,6 +11,7 @@ class PufferFish extends Enemy {
     attackPoints = 14;
     currentImage = 0;
 
+    /** animationframes of puffer-fish swimming*/
     PUFFERFISH_SWIMMING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png',
@@ -19,6 +20,7 @@ class PufferFish extends Enemy {
         './content/Alternative Grafiken - Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png',
     ];
 
+    /** animationframes of puffer-fish floating dead*/
     PUFFERFISH_DEAD = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 3 (can animate by going down to the floor after the Fin Slap attack).png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 2 (can animate by going down to the floor after the Fin Slap attack).png',
@@ -38,10 +40,10 @@ class PufferFish extends Enemy {
         this.y = 0 + Math.random() * 400;
         this.loadImages(this.PUFFERFISH_SWIMMING);
         this.loadImages(this.PUFFERFISH_DEAD);
-
         this.animate()
     }
 
+    /** collection of all puffer-fish-animations */
     animate(){
         setStoppableInterval(() => {
             if (this.isDead()) {
@@ -55,6 +57,7 @@ class PufferFish extends Enemy {
         this.swimLeft()
     }
 
+    /** default swim animation for puffer-fish */
     swimLeft(){
         setStoppableInterval(() => {
             this.x -= 1 + 1.5 * Math.random();

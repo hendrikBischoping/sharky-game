@@ -12,6 +12,7 @@ class JellyFish extends Enemy {
     name = 'Jelly Fish';
     currentImage = 0;
 
+    /** animationframes of jelly-fish swimming*/
     JELLYFISH_SWIMMING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 2.png',
@@ -19,6 +20,7 @@ class JellyFish extends Enemy {
         './content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 4.png',
     ];
 
+    /** animationframes of jelly-fish floating dead*/
     JELLYFISH_DEAD = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Dead/Lila/L1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Dead/Lila/L2.png',
@@ -28,20 +30,18 @@ class JellyFish extends Enemy {
 
     constructor(){
         super().loadImage('./content/Alternative Grafiken - Sharkie/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png');
-        
         this.x = 600 + Math.random() * 4000;
         this.y = 0 + Math.random() * 400;
         this.loadImages(this.JELLYFISH_SWIMMING);
         this.loadImages(this.JELLYFISH_DEAD);
-        
         this.animate()
     }
 
+    /** collection of all jelly-fish-animations */
     animate(){
         this.swimLeft()
         setStoppableInterval(() => {
             if (this.isDead()) {
-                //this.applyBuoyancy();     swimLeft interval vorher beenden ?
                 this.playAnimation(this.JELLYFISH_DEAD);
                 this.raise()
                 setStoppableTimeout(() => {
@@ -50,9 +50,9 @@ class JellyFish extends Enemy {
             this.playAnimation(this.JELLYFISH_SWIMMING)
         }
         }, 10000 / 40);
-
     }
 
+    /** default swim animation for jelly-fish */
     swimLeft(){
         setStoppableInterval(() => {
             this.x -= 1 + 1.1 * Math.random();

@@ -3,6 +3,7 @@ class Enemy extends MovableObject {
         super();
     }
     
+    /** lets dead enemies float upwards */
     raise(){
         setStoppableInterval(() => {{
                 this.y -=1

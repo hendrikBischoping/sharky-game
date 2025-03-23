@@ -2,6 +2,7 @@ class StatusBar extends DrawableObject{
     y;
     percentage;
 
+    /** renders any status bar depenting on its status percentage (life bar depenting on health points)*/
     setPercentage(percentage, imageSet){
         this.percentage = percentage;
         if (!imageSet || !Array.isArray(imageSet)) {
@@ -12,6 +13,7 @@ class StatusBar extends DrawableObject{
         this.img = this.imageCache[path];
     }
 
+    /** chooses the return value depenting on its status percentage */
     resolveImageIndex(percentage){
         if (percentage >=100) {
             return 0;

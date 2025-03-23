@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     attackPoints;
     lastHit = 0;
 
+    /** enables sinking of dropped items */
     applyGravity(heightDiff) {
         setStoppableInterval(() => {
             if (this.isAboveGropund(heightDiff)) {
@@ -14,10 +15,12 @@ class MovableObject extends DrawableObject {
         }), 1000 / 4
     }
 
+    /** checks height of objects, to prevent them falling out of the world */
     isAboveGropund(heightDiff) {
         return (this.y < heightDiff)
     }
 
+    /** plays an animation depenting of the gotten images as array */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -25,13 +28,15 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    /** checks if any type of movable object hits another one (hit box) */
     isColliding(mo) {
         return (this.x + this.width) >= mo.x &&
             this.x <= (mo.x + mo.width) &&
             (this.y + this.height) >= mo.y &&
             (this.y) <= (mo.y + mo.height);
     }
-
+    
+    /** checks if Sharky hits another movable object like item of enemy (smallers sharkies hitbox depenting of image-hight/-width) */
     sharkyIsColliding(mo) {
         return (this.x + this.width - 30) >= mo.x &&
             this.x + 50 <= (mo.x + mo.width) &&
@@ -39,6 +44,7 @@ class MovableObject extends DrawableObject {
             this.y + 110 <= (mo.y + mo.height);
     }
 
+    /** checks and recalculates health points of any charakter when gets hit */
     hit(attackPoints) {
         this.healthPoints -= attackPoints;
 
@@ -50,12 +56,14 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /** cooldown do not get hit frequently */
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         timePassed = timePassed / 1000;
         return timePassed < 0.2;
     }
 
+    /** changes status of any charakter to dead */
     isDead() {
         return this.healthPoints <= 0;
     }

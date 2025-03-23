@@ -11,6 +11,7 @@ class BubbleItem extends CollectableItem{
         this.enableBuoyancy()
     }
     
+    /** shooted bubbles buoyance upwards */
     enableBuoyancy(){
         setStoppableInterval(() => {
             this.y -= this.speedY;

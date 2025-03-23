@@ -15,17 +15,21 @@ body {
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-    top: 155px;
+    backdrop-filter: blur(0.625rem);
+    top: 0;
     height: 480px;
     width: 720px;
     border-radius: 32px;
     position: absolute;
-    @media (max-width: 730px), (max-height: 490px) {
+
+    @media screen and (max-width: 730px),
+    (max-height: 490px) {
         height: calc(480px * 0.8);
         width: calc(720px * 0.8);
     }
-    @media (max-width: 600px), (max-height: 420px) {
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
         height: calc(480px * 0.7);
         width: calc(720px * 0.7);
     }
@@ -44,79 +48,173 @@ h1 {
     margin: 48px;
 }
 
+#canvasContent {
+    position: relative;
+}
+
 #canvasContent:fullscreen {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Spezifisch für Webkit-Browser (Chrome, Safari) */
-#canvasContent:-webkit-full-screen {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Canvas auf Bildschirmgröße skalieren, aber Seitenverhältnis beibehalten */
-#canvas {
     width: 100%;
-    height: 100%;
-    /* object-fit: contain; Skaliert mit Beibehaltung des Aspekts */
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#canvasContent:-webkit-full-screen {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .canvasDefault {
     width: 720px;
     height: 480px;
 }
+
 #canvas {
+    width: 100%;
+    height: 100%;
     display: block;
     background-color: black;
     border-radius: 32px;
     margin: 0px;
     margin-bottom: 36px;
-    @media (max-width: 730px), (max-height: 490px) {
+
+    @media screen and (max-width: 730px),
+    (max-height: 490px) {
         height: calc(480px * 0.8);
         width: calc(720px * 0.8);
     }
-    @media (max-width: 600px), (max-height: 420px) {
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
         height: calc(480px * 0.7);
         width: calc(720px * 0.7);
     }
-    /* @media (max-height: 420px) {
-        height: calc(480px * 0.55);
-        width: calc(720px * 0.55);
-    } */
 }
+
 .screensAndButtons {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: flex-end;
     height: 480px;
     width: 720px;
-    object-fit: cover;
-    border-radius: 20px;
+    border-radius: 32px;
     position: absolute;
-    margin-top: -516px;
+    top: 0;
     margin-bottom: 36px;
-    @media (max-width: 730px), (max-height: 490px) {
+
+    @media screen and (max-width: 730px),
+    (max-height: 490px) {
         height: calc(480px * 0.8);
         width: calc(720px * 0.8);
-        top: 671px;
+        top: 0;
     }
-    @media (max-width: 600px), (max-height: 420px) {
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
         height: calc(480px * 0.7);
         width: calc(720px * 0.7);
-        top: 671px;
+        top: 0;
+    }
+}
+
+#menuButtons {
+    width: fit-content;
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+#openMenuBtn,
+#closeMenuBtn {
+    padding: 0.5rem;
+    height: 32px;
+    cursor: pointer;
+
+    @media screen and (max-width: 730px),
+    (max-height: 490px) {}
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
+        scale: 0.8;
+    }
+}
+
+#fullscreenOnBtn,
+#fullscreenOffBtn {
+    padding: 0.5rem;
+    height: 32px;
+    cursor: pointer;
+}
+
+.soundBtn {
+    padding: 0.5rem;
+    height: 32px;
+    cursor: pointer;
+
+    @media screen and (max-width: 724px) {}
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
+        scale: 0.8;
+    }
+}
+
+.controll_arrows {
+    left: 5%;
+    bottom: 5%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap-reverse;
+    width: 14rem;
+    max-height: fit-content;
+
+    @media screen and (max-width: 730px) {
+        width: calc(14rem * 0.8);
+    }
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
+        width: calc(14rem * 0.7);
+    }
+}
+
+.attack-buttons {
+    right: 5%;
+    bottom: 5%;
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 20%;
+    max-height: fit-content;
+}
+
+.mobile-btn {
+    height: 3rem;
+    margin: 0.5rem;
+
+    @media screen and (max-width: 730px) {
+        height: calc(3rem * 0.8);
+    }
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
+        height: calc(3rem * 0.7);
     }
 }
 
 .fullWinnerScreen,
 .fullStartScreen {
-    width: 200%!important;
-    height: 200%!important;
+    width: 200% !important;
+    height: 200% !important;
 }
 
 #instructions {
@@ -125,13 +223,14 @@ h1 {
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 32px;
     position: absolute;
-    margin-top: 80px;
-    margin-left: auto;
-    margin-right: auto;
-    @media (max-width: 730px), (max-height: 490px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @media (max-width: 730px),
+    (max-height: 490px) {
         height: calc(300px * 0.8);
         width: calc(400px * 0.8);
-        margin-top:80px;
     }
 }
 
@@ -142,18 +241,23 @@ h1 {
     object-fit: cover;
     border-radius: 32px;
     position: absolute;
-    @media (max-width: 730px), (max-height: 490px) {
+
+    @media screen and (max-width: 730px),
+    (max-height: 490px) {
         height: calc(480px * 0.8);
         width: calc(720px * 0.8);
     }
-    @media (max-width: 600px), (max-height: 420px) {
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
         height: calc(480px * 0.7);
         width: calc(720px * 0.7);
     }
 }
 
-.inscructionsOnHoverStart {
+.instructionsOnHoverStart {
     display: block;
+    top: 30% !important;
     scale: 0.8;
     z-index: 2;
 }
@@ -163,90 +267,61 @@ h1 {
     width: 620px;
     border-radius: 20px;
     position: absolute;
-    margin-top: 180px;
-    @media (max-width: 730px), (max-height: 490px) {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @media screen and (max-width: 730px),
+    (max-height: 490px) {
         height: calc(82px * 0.8);
         width: calc(620px * 0.8);
-        margin-top: 140px;
     }
-    @media (max-width: 600px), (max-height: 420px) {
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
         height: calc(82px * 0.7);
         width: calc(620px * 0.7);
-        margin-top: 100px;
     }
+}
+
+#mainScreens {
+    width: 100%;
+    height: calc(100%);
+    border-radius: 32px;
+    backdrop-filter: blur(0.625rem);
 }
 
 #startButton {
     height: 64px;
     position: absolute;
-    margin-top: 360px;
+    top: 70%;
     left: 50%;
-    right: 50%;
-    @media (max-width: 730px), (max-height: 490px) {
-        margin-top: 280px;
+
+    @media screen and (max-width: 730px),
+    (max-height: 490px) {
         height: calc(64px * 0.8);
     }
-    @media (max-width: 600px), (max-height: 420px) {
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
         height: calc(64px * 0.7);
-        margin-top: 250px;
     }
 }
 
 #restartButton {
     height: 64px;
     position: absolute;
-    margin-top: 360px;
-    @media (max-width: 730px) {
-        height: calc(64px * 0.8);
-        margin-top: 280px;
-    }
-    @media (max-width: 600px), (max-height: 420px) {
-        height: calc(64px * 0.7);
-        margin-top: 200px;
-    }
-}
-
-#openMenuBtn,
-#closeMenuBtn {
-    height: 32px;
-    position: absolute;
-    cursor: pointer;
-    top: 5%;
+    top: 80%;
     left: 50%;
-    @media (max-width: 730px), (max-height: 490px) {
-        margin-top: 220px;
-        margin-top: 0px;
-        left: 55%;
-    }
-    @media (max-width: 600px), (max-height: 420px) {
-        margin-top: 0px;
-        scale: 0.8;
-    }
-}
+    transform: translate(-50%, -50%);
 
-#fullscreenOnBtn,
-#fullscreenOffBtn {
-    height: 32px;
-    position: absolute;
-    cursor: pointer;
-    right: 5%;
-    top: 5%;
-}
-
-.soundBtn {
-    height: 32px;
-    position: absolute;
-    cursor: pointer;
-    left: 45%;
-    top: 5%;
-    @media (max-width: 724px) {
-        margin-top: 220px;
-        margin-top: 0px;
+    @media screen and (max-width: 730px) {
+        height: calc(64px * 0.8);
     }
-    @media (max-width: 600px), (max-height: 420px) {
-        margin-top: 0px;
-        scale: 0.8;
-        left: 40%;
+
+    @media screen and (max-width: 600px),
+    (max-height: 420px) {
+        height: calc(64px * 0.7);
     }
 }
 
@@ -255,11 +330,12 @@ h1 {
 }
 
 .d_none {
-    display: none!important;
+    display: none !important;
 }
+
 .t {
     background-color: rgb(194, 194, 194);
-    padding: 10px;
+    padding: 0.625rem;
 }
 
 footer {
@@ -276,41 +352,11 @@ footer {
 
 footer a {
     padding: 8px;
-    color: rgb(127,255,224);
+    color: rgb(127, 255, 224);
     text-decoration: none;
 }
 
 footer a:hover {
     padding: 8px;
     text-decoration: underline;
-}
-
-.controll_arrows {
-    left: -25%;
-    bottom:-73%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-flow: wrap-reverse;
-    width: 26%; 
-    max-height: fit-content;
-    /* max-width: 30%;  */
-}
-
-.attack-buttons {
-    bottom:-85%;
-    left: 25%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 20%;
-    max-height: fit-content;
-}
-
-.mobile-btn {
-    /* filter: blur(6px); */
-    height: 10%;
-    margin: 4%;
 }

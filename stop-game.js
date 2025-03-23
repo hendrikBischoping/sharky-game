@@ -5,11 +5,13 @@ let timeoutData = [];
 let pause = false;
 underWaterAudio = new Audio('content/Sounds/underWater.mp3');
 
+/** calls all setted intervals of the project to start/stop them at once */
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
     intervalData.push({ id, fn, time });
 }
 
+/** calls all setted timeouts of the project to start/stop them at once */
 function setStoppableTimeout(fn, time) {
     let startTime = Date.now();
     let id = setTimeout(() => {
@@ -19,6 +21,7 @@ function setStoppableTimeout(fn, time) {
     timeoutData.push({ id, fn, time, startTime });
 }
 
+/** pauses / stops the game */
 function stopGame() {
     pause = true;
     underWaterAudio.pause();
@@ -29,6 +32,7 @@ function stopGame() {
     });
 }
 
+/** resumes the game */
 function resumeGame() {
     pause = false;
     intervalData.forEach(data => {
@@ -44,21 +48,16 @@ function resumeGame() {
     });
 }
 
+/** toggles if the game is paused or not */
 function pauseAndContinue() {
     instructions.classList.toggle ('d_none')
     if (!pause) {
         stopGame();
         openMenuBtn.classList.add('d_none')
         closeMenuBtn.classList.remove('d_none')
-        // if (!isMuted) {
-        //     switchTollgeSoundBtn();
-        // }
     } else {
         resumeGame();
         openMenuBtn.classList.remove('d_none')
         closeMenuBtn.classList.add('d_none')
-        // if (isMuted) {
-        //     switchTollgeSoundBtn();
-        // }
     }
 }

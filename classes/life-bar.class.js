@@ -5,6 +5,7 @@ class LifeBar extends StatusBar {
     height = 100
     percentage = 100;
 
+    /** status frames of Sharkies life bar */
     LIFE_BAR_IMAGES = [
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/Life/100_  copia 2.png',
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/Life/80_  copia 3.png',
@@ -24,6 +25,7 @@ class LifeBar extends StatusBar {
         this.setPercentage(this.percentage, this.LIFE_BAR_IMAGES);
     }
     
+    /** renders the right status frames depending on Sharkies available health points */
     setPercentage(percentage, imageSet = this.LIFE_BAR_IMAGES){
         this.percentage = percentage;
         if (!imageSet || !Array.isArray(imageSet)) {

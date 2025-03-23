@@ -8,12 +8,5 @@ class BackgroundObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.drift = drift;
-        // this.driftLeft();
-    }
-
-    driftLeft(){
-        setStoppableInterval(() => {
-            this.x -= drift;
-        }, 1000 / 60)
     }
 }

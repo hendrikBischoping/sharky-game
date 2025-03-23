@@ -1,4 +1,5 @@
 const level1 = new Level (
+    /** contains all default rendered objects of level one */
     enemies = [
         new PufferFish(),
         new PufferFish(),

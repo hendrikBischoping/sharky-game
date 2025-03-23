@@ -2,6 +2,7 @@ class BubbleBar extends StatusBar{
     y = 30;
     percentage = 100;
 
+    /** status frames ob Sharkies bubble-bar */
     BUBBLE_BAR_IMAGES = [
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/normal bubbles/100_ copia 4.png',
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/normal bubbles/80_  copia 4.png',
@@ -21,6 +22,7 @@ class BubbleBar extends StatusBar{
         this.setPercentage(this.percentage, this.BUBBLE_BAR_IMAGES);
     }
     
+    /** renders the right status frames depending on Sharkies available air-bubbles */
     setPercentage(percentage, imageSet = this.BUBBLE_BAR_IMAGES){
         this.percentage = percentage;
         if (!imageSet || !Array.isArray(imageSet)) {

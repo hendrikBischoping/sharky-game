@@ -2,6 +2,7 @@ class PoisonBubbleBar extends StatusBar{
     y = 50;
     percentage = 100;
 
+    /** status frames ob Sharkies poison-bubble-bar */
     POISON_BUBBLE_BAR_IMAGES = [
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/poisoned bubbles/100_ copia 3.png',
         './content/Alternative Grafiken - Sharkie/4. Marcadores/green/poisoned bubbles/80_ copia 2.png',
@@ -21,6 +22,7 @@ class PoisonBubbleBar extends StatusBar{
         this.setPercentage(this.percentage, this.POISON_BUBBLE_BAR_IMAGES);
     }
     
+    /** renders the right status frames depending on Sharkies available poison-bubbles */
     setPercentage(percentage, imageSet = this.POISON_BUBBLE_BAR_IMAGES){
         this.percentage = percentage;
         if (!imageSet || !Array.isArray(imageSet)) {

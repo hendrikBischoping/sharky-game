@@ -11,6 +11,7 @@ class Endboss extends Enemy {
     isAttacking = false;
     bossAttackAudio = new Audio('content/Sounds/bossAttack.mp3');
 
+    /** animationframes of endboss spawning*/
     ENDBOSS_SPAWNING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/2.png',
@@ -24,6 +25,7 @@ class Endboss extends Enemy {
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/1.Introduce/10.png'
     ];
 
+    /** animationframes of endboss swimming (default)*/
     ENDBOSS_SWIMMING = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/2.floating/1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -40,6 +42,7 @@ class Endboss extends Enemy {
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/2.floating/13.png'
     ];
 
+    /** animationframes of endboss atacking sharkie*/
     ENDBOSS_ATTACK = [
         'content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Attack/1.png',
         'content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Attack/2.png',
@@ -49,6 +52,7 @@ class Endboss extends Enemy {
         'content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Attack/6.png',
     ]
 
+    /** animationframes of endboss gets hurt by sharkie/bubble*/
     ENDBOSS_HURT = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Hurt/1.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Hurt/2.png',
@@ -56,6 +60,7 @@ class Endboss extends Enemy {
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Hurt/4.png',
     ];
 
+    /** animationframes of endboss dying*/
     ENDBOSS_DEAD = [
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
@@ -71,7 +76,7 @@ class Endboss extends Enemy {
         './content/Alternative Grafiken - Sharkie/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
     ];
 
-    constructor(){
+    constructor() {
         super().loadImage(this.ENDBOSS_SPAWNING[0]);
         this.loadImages(this.ENDBOSS_SPAWNING);
         this.loadImages(this.ENDBOSS_SWIMMING);
@@ -82,6 +87,7 @@ class Endboss extends Enemy {
         this.spawnEndboss()
     }
 
+    /** plays animation of spawning endboss */
     spawnEndboss() {
         let currentFrame = 0;
         let spawningBoss = setInterval(() => {
@@ -95,31 +101,36 @@ class Endboss extends Enemy {
         }, 10000 / 140);
     }
 
-    animate(){
+    /**checks endboss status to play depending animation */
+    animate() {
         setStoppableInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.ENDBOSS_DEAD)
                 this.y -= 10;
             } else if (this.isHurt()) {
-                this.playAnimation(this.ENDBOSS_HURT)                
-            }else if (this.isAttacking) {
+                this.playAnimation(this.ENDBOSS_HURT)
+            } else if (this.isAttacking) {
                 this.endbossAttacking()
-            } else {this.endbossSwimming()}
+            } else { this.endbossSwimming() }
         }, 10000 / 70);
     }
-    endbossSwimming(){
+
+    /** swim-animation for sharkie */
+    endbossSwimming() {
         this.playAnimation(this.ENDBOSS_SWIMMING);
-        this.x-=10;
+        this.x -= 10;
     }
 
-    randomizeAttacking(){        
+    /**calcularot to randomize endboss attacking-interval */
+    randomizeAttacking() {
         setTimeout(() => {
             this.isAttacking = true;
             this.randomizeAttacking()
         }, 3000 + Math.random() * 1600);
     }
-    
-    endbossAttacking(){
+
+    /** attack-animation + sound for endboss */
+    endbossAttacking() {
         let currentFrame = 0;
         if (!isMuted) {
             this.bossAttackAudio.play();
@@ -130,7 +141,6 @@ class Endboss extends Enemy {
             currentFrame++;
             this.x -= 25;
             if (currentFrame >= this.ENDBOSS_ATTACK.length) {
-
                 clearInterval(animationInterval);
             }
         }, 100);
