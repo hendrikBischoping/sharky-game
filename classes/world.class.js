@@ -63,13 +63,17 @@ class World {
              this.checkForEndbossSpawn()
         }, 200);
     }
-
-    toggleMute() {
-        this.isMuted = !this.isMuted;
-        this.allAudios.forEach(audio => {
-            audio.volume = isMuted ? 0 : 1;
-        });
+    
+    getIsMuted() {
+        return JSON.parse(localStorage.getItem("isMuted"));
     }
+
+    // toggleMute() {
+    //     this.isMuted = !this.isMuted;
+    //     this.allAudios.forEach(audio => {
+    //         audio.volume = isMuted ? 0 : 1;
+    //     });
+    // }
 
     spawnBubbleItems(){
         setStoppableInterval(() => {
@@ -81,7 +85,7 @@ class World {
     checkBubbleItemCollisions(){
         this.bubbleItems.forEach((item, index) => {
             if (item.isColliding(this.character) && this.character.bubbles < 100 && this.bubbleBar.percentage < 100){
-                if (!this.isMuted) {
+                if (!this.getIsMuted()) {
                     this.itemCollectAudio.play();
                 }
                 this.character.bubbles += 20
@@ -90,7 +94,7 @@ class World {
                 this.bubbleBar.setPercentage(this.bubbleBar.percentage)
             }
         })
-        if (!isMuted) {
+        if (!this.getIsMuted()) {
             this.underWaterAudio.play();
         }
     }
@@ -98,7 +102,7 @@ class World {
     checkPoisonBubbleItemCollisions(){
         this.poisonBubbleItems.forEach((item, index) => {
             if (item.isColliding(this.character) && this.character.poisonBubbles < 100 && this.poisonBubbleBar.percentage < 100){
-                if (!this.isMuted) {
+                if (!this.getIsMuted()) {
                     this.itemCollectAudio.play();
                 }
                 this.character.poisonBubbles += 20
@@ -112,7 +116,7 @@ class World {
     checkHeartItemCollisions(){
         this.heartItems.forEach((item, index) => {
             if (item.isColliding(this.character) && this.character.healthPoints < 100 && this.lifeBar.percentage < 100){
-                if (!this.isMuted) {
+                if (!this.getIsMuted()) {
                     this.itemCollectAudio.play();
                 }
                 this.character.healthPoints += 20
@@ -131,8 +135,9 @@ class World {
             this.canShoot = false;
             let bubble = new ShootableAir(this.character.x, this.character.y);
             this.shootableAirBubbles.push(bubble);
-            if (!this.isMuted) {
+            if (!this.getIsMuted()) {
                 this.bubbleShootAudio.play();
+                console.log(this.getIsMuted());                
             }
             setStoppableTimeout(() => {
                 this.canShoot = true;
@@ -148,7 +153,7 @@ class World {
             this.canShoot = false;
             let poisonBubble = new ShootablePoison(this.character.x, this.character.y);
             this.shootablePoisonBubbles.push(poisonBubble);
-            if (!this.isMuted) {
+            if (!this.getIsMuted()) {
                 this.bubbleShootAudio.play();
             }
             setStoppableTimeout(() => {
@@ -198,7 +203,7 @@ class World {
             for (let j = this.shootableAirBubbles.length - 1; j >= 0; j--) {
                 let currentBubble = this.shootableAirBubbles[j];
                 if (currentBubble.isColliding(enemy)) {
-                    if (enemy.endboss && !this.isMuted) {
+                    if (enemy.endboss && !this.getIsMuted()) {
                         this.bossHurtAudio.play();
                     }
                     let ap = currentBubble.attackPoints;
@@ -217,7 +222,7 @@ class World {
             for (let j = this.shootablePoisonBubbles.length - 1; j >= 0; j--) {
                 let currentBubble = this.shootablePoisonBubbles[j];
                 if (currentBubble.isColliding(enemy) && enemy.endboss) {
-                    if (!this.isMuted) {
+                    if (!this.getIsMuted()) {
                         this.bossHurtAudio.play();
                     }
                     let ap = currentBubble.attackPoints;
@@ -232,7 +237,7 @@ class World {
 
     checkForEndbossSpawn() {
             if (this.character.x >= 1400 && !enemies.endbossSpawned) {
-                if (!this.isMuted) {
+                if (!this.getIsMuted()) {
                     this.bossSpawnAudio.play();
                 }
                     this.enemies.push(new Endboss)
@@ -249,7 +254,7 @@ class World {
     
     enemyDied(enemy, index){
         if (enemy.healthPoints <= 0 && !enemy.itemSpawned && !enemy.endboss) {
-            if (!this.isMuted) {
+            if (!this.getIsMuted()) {
                 this.bubbleKillAudio.play();
             }
             this.createRandomItem(enemy)
@@ -288,7 +293,7 @@ class World {
     checkCharakterCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.sharkyIsColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {
-                    if (!this.isMuted) {
+                    if (!this.getIsMuted()) {
                         this.sharkyHurtAudio.play();
                     }
                     this.character.hit(enemy.attackPoints);

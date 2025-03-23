@@ -3,7 +3,7 @@ class Endboss extends Enemy {
     y = 0;
     width = 300 * 1.5;
     height = 235 * 1.5;
-    attackPoints = 15;
+    attackPoints = 25;
     healthPoints = 500;
     currentImage = 0;
     canSpawn = false;
@@ -128,7 +128,7 @@ class Endboss extends Enemy {
             this.isAttacking = false;
             this.playAnimation(this.ENDBOSS_ATTACK);
             currentFrame++;
-            this.x -= 30;
+            this.x -= 25;
             if (currentFrame >= this.ENDBOSS_ATTACK.length) {
 
                 clearInterval(animationInterval);

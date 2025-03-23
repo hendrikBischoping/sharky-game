@@ -26,7 +26,7 @@ let controlArrows = document.getElementById('controlArrows');
 let attackButtons = document.getElementById('attackButtons');
 let gameStarted = false;
 let gameOver = false;
-let isMuted = JSON.parse(localStorage.getItem("isMuted"));
+let isMuted;
 let isFullscreen = false;
 
 function checkOrientation() {
@@ -225,9 +225,12 @@ function calcHitbox(x, y) {
     this.calcNewY(y);
 }
 
-function init() {if (localStorage.getItem("isMuted") === null) {
-    localStorage.setItem("isMuted", JSON.stringify(false));
-}
+function init() {
+    if (localStorage.getItem("isMuted") === null) {
+        localStorage.setItem("isMuted", JSON.stringify(false));
+    }
+    isMuted = JSON.parse(localStorage.getItem("isMuted"));
+    console.log(isMuted);    
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     setInterval(() => {
