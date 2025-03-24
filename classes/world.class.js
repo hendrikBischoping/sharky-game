@@ -129,8 +129,7 @@ class World {
     /** plays bubble shoot audio depending on mute */
     checkBubbleShootAudio() {
         if (!this.getIsMuted()) {
-            this.bubbleShootAudio.play();
-            console.log(this.getIsMuted());                
+            this.bubbleShootAudio.play();             
         }
     }
 
@@ -255,6 +254,10 @@ class World {
                 }
                     this.enemies.push(new Endboss)
                 enemies.endbossSpawned = true;
+                setTimeout(() => {
+                    this.gameOver()
+                    document.getElementById('endbossAway').classList.remove('d_none')
+                }, 22000);
             }
     }
 

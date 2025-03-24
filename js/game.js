@@ -6,8 +6,6 @@ let openMenuBtn = document.getElementById('openMenuBtn');
 let closeMenuBtn = document.getElementById('closeMenuBtn');
 let instructions = document.getElementById('instructions');
 let canvasContentRef = document.getElementById('canvasContent')
-let fullscreenOn = document.getElementById('fullscreenOnBtn');
-let fullscreenOff = document.getElementById('fullscreenOffBtn');
 let canvasContent = document.getElementById('canvasContent');
 let mainScreens = document.getElementById('mainScreens');
 let winnerScreen = document.getElementById('winnerScreen');
@@ -21,11 +19,10 @@ let attackButtons = document.getElementById('attackButtons');
 let gameStarted = false;
 let gameOver = false;
 let isMuted;
-let isFullscreen = false;
 
 /** checks if a mobile device is oriented in profile or landscape direction */
 function checkOrientation() {
-    if (window.matchMedia("(orientation: portrait)").matches && window.innerWidth <= 768) {
+    if (window.matchMedia("(orientation: portrait)").matches && window.innerWidth <= 900) {
         onPortraitMode();
     } else {
         onLandscapeMode();
@@ -42,8 +39,7 @@ function onPortraitMode() {
 function onLandscapeMode() {
     let turnMobileAdvice = document.getElementById('turnMobileAdvice');
     turnMobileAdvice.classList.add('d_none');
-    if (window.innerWidth <= 768) {
-        fullscreenOn.classList.add('d_none');
+    if (window.innerWidth <= 900) {
         attackButtons.classList.remove('d_none');
         controlArrows.classList.remove('d_none');
     } else {
@@ -55,7 +51,6 @@ function onLandscapeMode() {
 /** changes from start screen into new game */
 function startGame() {
     openMenuBtn.classList.remove('d_none');
-    fullscreenOn.classList.remove('d_none');
     instructions.classList.add('d_none')
     startScreen.classList.add('d_none');
     startButton.classList.add('d_none');
@@ -103,9 +98,6 @@ function showWinnerScreen() {
     winnerScreen.classList.remove('d_none');
     restartButton.classList.remove('d_none');
     openMenuBtn.classList.add('d_none')
-    if (isFullscreen) {
-        winnerScreen.classList.add('fullWinnerScreen')
-    } else { winnerScreen.classList.remove('fullWinnerScreen') }
 }
 
 /** stops game and shows game over screen after death */
@@ -168,70 +160,6 @@ function toggleSound() {
     });
 }
 
-/** toggles fullscreen on desktop-device */
-function switchToggleFullscreenBtn() {
-    if (!isFullscreen) {
-        openFullscreen(canvasContent);
-        fullscreenOn.classList.add('d_none');
-        fullscreenOff.classList.remove('d_none');
-    } else {
-        closeFullscreen();
-        fullscreenOff.classList.add('d_none');
-        fullscreenOn.classList.remove('d_none');
-    }
-    isFullscreen = !isFullscreen;
-}
-
-/** enters fullscreen */
-function openFullscreen(element) {
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.webkitRequestFullscreen) { /* Safari */
-        element.webkitRequestFullscreen();
-    } else if (element.msRequestFullscreen) { /* IE11 */
-        element.msRequestFullscreen();
-    }
-    startScreen.classList.add('fullStartScreen')
-    resizeCanvasContent();
-}
-
-/** leaves fullscreen */
-function closeFullscreen() {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { /* Safari */
-        document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* IE11 */
-        document.msExitFullscreen();
-    }
-    startScreen.classList.remove('fullStartScreen')
-
-    resetCanvasSize();
-}
-
-/** resices content to fulscreen (height, width) */
-function resizeCanvasContent() {
-    let canvas = document.getElementById('canvas');
-    let screenWidth = window.innerWidth;
-    let screenHeight = window.innerHeight;
-    let aspectRatio = 720 / 480;
-    let newWidth = screenWidth;
-    let newHeight = newWidth / aspectRatio;
-    if (newHeight > screenHeight) {
-        newHeight = screenHeight;
-        newWidth = newHeight * aspectRatio;
-    }
-    canvas.style.width = `${newWidth}px`;
-    canvas.style.height = `${newHeight}px`;
-}
-
-/** resices content back to default size */
-function resetCanvasSize() {
-    let canvas = document.getElementById('canvas');
-    canvas.style.width = "720px";
-    canvas.style.height = "480px";
-}
-
 /** queries the status of mute from local storage */
 function queryMuteStatusLocal() {
     if (localStorage.getItem("isMuted") === null) {
@@ -243,7 +171,6 @@ function queryMuteStatusLocal() {
 /** initialises general content ob the page */
 function init() {
     this.queryMuteStatusLocal();
-    console.log(isMuted);
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     setInterval(() => {

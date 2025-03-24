@@ -7,6 +7,13 @@ body {
     font-family: 'Luckiest Guy';
     color: white;
     margin: 0;
+    @media screen and (max-width: 730px),
+    (max-height: 490px) {margin-top: 32px;}
+}
+
+header {
+    @media screen and (max-width: 730px),
+    (max-height: 490px) {display: none;}
 }
 
 .turnMobileAdvice {
@@ -27,12 +34,18 @@ body {
         height: calc(480px * 0.8);
         width: calc(720px * 0.8);
     }
-
+    
     @media screen and (max-width: 600px),
     (max-height: 420px) {
         height: calc(480px * 0.7);
         width: calc(720px * 0.7);
     }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        height: calc(480px * 0.6);
+        width: calc(720px * 0.6);
+    }
+
 }
 
 .adviceMessage {
@@ -93,6 +106,11 @@ h1 {
         height: calc(480px * 0.7);
         width: calc(720px * 0.7);
     }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        height: calc(480px * 0.6);
+        width: calc(720px * 0.6);
+    }
 }
 
 .screensAndButtons {
@@ -119,6 +137,11 @@ h1 {
         width: calc(720px * 0.7);
         top: 0;
     }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        height: calc(480px * 0.6);
+        width: calc(720px * 0.6);
+    }
 }
 
 #menuButtons {
@@ -143,6 +166,10 @@ h1 {
     (max-height: 420px) {
         scale: 0.8;
     }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        scale: 0.7;
+    }
 }
 
 #fullscreenOnBtn,
@@ -156,12 +183,16 @@ h1 {
     padding: 0.5rem;
     height: 32px;
     cursor: pointer;
-
+    
     @media screen and (max-width: 724px) {}
-
+    
     @media screen and (max-width: 600px),
     (max-height: 420px) {
         scale: 0.8;
+    }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        scale: 0.7;
     }
 }
 
@@ -183,6 +214,10 @@ h1 {
     @media screen and (max-width: 600px),
     (max-height: 420px) {
         width: calc(14rem * 0.7);
+    }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        width: calc(19rem * 0.5);
     }
 }
 
@@ -209,6 +244,10 @@ h1 {
     (max-height: 420px) {
         height: calc(3rem * 0.7);
     }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        height: calc(3rem * 0.7);
+    }
 }
 
 .fullWinnerScreen,
@@ -232,6 +271,11 @@ h1 {
         height: calc(300px * 0.8);
         width: calc(400px * 0.8);
     }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        height: calc(300px * 0.6);
+        width: calc(400px * 0.6);
+    }
 }
 
 #startScreen,
@@ -252,6 +296,11 @@ h1 {
     (max-height: 420px) {
         height: calc(480px * 0.7);
         width: calc(720px * 0.7);
+    }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        height: calc(480px * 0.6);
+        width: calc(720px * 0.6);
     }
 }
 
@@ -282,9 +331,15 @@ h1 {
         height: calc(82px * 0.7);
         width: calc(620px * 0.7);
     }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        height: calc(82px * 0.6);
+        width: calc(620px * 0.6);
+    }
 }
 
 #mainScreens {
+    position: relative;
     width: 100%;
     height: calc(100%);
     border-radius: 32px;
@@ -306,6 +361,10 @@ h1 {
     (max-height: 420px) {
         height: calc(64px * 0.7);
     }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        height: calc(64px * 0.6);
+    }
 }
 
 #restartButton {
@@ -314,14 +373,36 @@ h1 {
     top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
-
+    
     @media screen and (max-width: 730px) {
         height: calc(64px * 0.8);
     }
-
+    
     @media screen and (max-width: 600px),
     (max-height: 420px) {
         height: calc(64px * 0.7);
+    }
+    @media screen and (max-width: 550px),
+    (max-height: 390px) {
+        height: calc(64px * 0.6);
+    }
+}
+
+#endbossAway {
+    font-size: 18px;
+    position: absolute;
+    white-space: nowrap;
+    top: 60%;
+    left: 50%;
+    color: rgb(95, 0, 0);
+    padding: 12px;
+    background-color: red;
+    border-radius: 16px;
+    animation: fadeScaleIn 4s forwards;
+
+    @media screen and (max-width: 730px) {
+    font-size: 16px;
+    padding: 8px;
     }
 }
 
@@ -360,3 +441,22 @@ footer a:hover {
     padding: 8px;
     text-decoration: underline;
 }
+
+@keyframes fadeScaleIn {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    25% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    60% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
