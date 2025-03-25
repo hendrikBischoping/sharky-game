@@ -22,7 +22,12 @@ class BubbleBar extends StatusBar{
         this.setPercentage(this.percentage, this.BUBBLE_BAR_IMAGES);
     }
     
-    /** renders the right status frames depending on Sharkies available air-bubbles */
+    /**
+     * renders the right status frames depending on Sharkies available air-bubbles 
+     * @param {number} percentage - available air-bubbles in percent
+     * @param {object} imageSet - image of status bar relative to percentage
+     * @returns - stops function in case of error
+     */
     setPercentage(percentage, imageSet = this.BUBBLE_BAR_IMAGES){
         this.percentage = percentage;
         if (!imageSet || !Array.isArray(imageSet)) {

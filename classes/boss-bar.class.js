@@ -25,7 +25,12 @@ class BossBar extends StatusBar{
         this.setPercentage(this.percentage/5, this.BOSS_LIFE_BAR_IMAGES);
     }
     
-    /** renders the right status frames depending on endboss healthpoints */
+    /**
+     * renders the right status frames depending on endboss healthpoints 
+     * @param {number} percentage - available health in percent
+     * @param {boolean} imageSet - image of status bar relative to percentage
+     * @returns - stops function in case of error
+     */
     setPercentage(percentage, imageSet = this.BOSS_LIFE_BAR_IMAGES){
         this.percentage = percentage;
         if (!imageSet || !Array.isArray(imageSet)) {

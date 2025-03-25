@@ -16,6 +16,13 @@ header {
     (max-height: 490px) {display: none;}
 }
 
+.imprint {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .turnMobileAdvice {
     z-index: 10;
     display: flex;

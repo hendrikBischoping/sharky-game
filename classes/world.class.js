@@ -177,7 +177,10 @@ class World {
             }, 100);
     }
 
-    /** randomises the dropped item when enemy dies (10% no item) */
+    /**
+     * randomises the dropped item when enemy dies (10% no item)
+     * @param {object} enemy - every enemy that got killed by sharky (except endboss)
+     */
     createRandomItem(enemy){
         let randomChoice = Math.random();
         if (randomChoice <= 0.4) {
@@ -188,7 +191,10 @@ class World {
         }
     }
     
-    /** lets an enemy drop a heart item */
+    /**
+     * lets an enemy drop a heart item
+     * @param {object} enemy - every enemy that got killed by sharky (except endboss)
+     */
     createHeartItem(enemy) {
         let heartItem = new HeartItem(enemy.x, enemy.y);
         this.heartItems.push(heartItem);
@@ -197,7 +203,10 @@ class World {
         }, 200);
     }
 
-    /** lets an enemy drop a poison item */
+    /**
+     * lets an enemy drop a poison item 
+     * @param {object} enemy - every enemy that got killed by sharky (except endboss)
+     */
     createPoisonItem(enemy){
         let poisonItem = new PoisonItem(enemy.x, enemy.y);
         this.poisonBubbleItems.push(poisonItem);
@@ -261,7 +270,11 @@ class World {
             }
     }
 
-    /** renders boss bar frame depending on endboss health points */
+    /**
+     * renders boss bar frame depending on endboss health points
+     * @param {array} enemy - contains all enemies of level 1
+     * @param {*} ap - attackpoints of sharkies poison bubbles
+     */
     updateEndbossBar(enemy, ap){
         if (enemy.endboss){
             this.bossBar.percentage -= ap/5;
@@ -269,7 +282,11 @@ class World {
         }
     }
     
-    /** checks if any enemy has died to trigger another Function depending on enemy-type  */
+    /**
+     * checks if any enemy has died to trigger another Function depending on enemy-type
+     * @param {array} enemy - contains all enemies of level 1
+     * @param {*} index - individual index of the depending enemy to splice it at a certant level
+     */
     enemyDied(enemy, index){
         if (enemy.healthPoints <= 0 && !enemy.itemSpawned && !enemy.endboss) {
             if (!this.getIsMuted()) {
@@ -294,7 +311,10 @@ class World {
         }, 1000);
     }
 
-    /** checks Sharkies life-status depending on health points */
+    /**
+     * checks Sharkies life-status depending on health points
+     * @param {number} loosesHp - amount of health points sharky lost by a hit
+     */
     characterDied(loosesHp){
         if (this.character.healthPoints <= 0) {            
             this.gameOver();
@@ -311,7 +331,10 @@ class World {
         }, 1000);
     }
 
-    /** checks if Sharky is colliding with any enemy to trigger depending functions */
+    /**
+     * checks if Sharky is colliding with any enemy to trigger depending functions
+     * @param {number} loosesHp - amount of health points sharky lost by a hit
+     */
     checkCharakterCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.sharkyIsColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {
@@ -325,7 +348,13 @@ class World {
             });
     }
 
-    /** despawns (splices) floating objects like dead enemies as soon as they leave the window */
+    /**
+     * despawns (splices) floating objects like dead enemies as soon as they leave the window
+     * @param {array} objArr - contains all enemies of level 1
+     * @param {object} obj - single enemy that got killed
+     * @param {number} index - individual index of the depending enemy to splice it at a certant level
+     * @param {number} value - value of the increasing y-coordinate of a dead enemy
+     */
     despawnFloatingObjects(objArr, obj, index, value){
         if (obj.y <= value) {
             objArr.splice(index, 1)
@@ -378,14 +407,20 @@ class World {
         });
     }
 
-    /** supportive function to draw multiple onjects into canvas */
+    /**
+     * supportive function to draw multiple onjects into canvas
+     * @param {array} objects - array of all different objects that need to be added into the canvas
+     */
     addObjectsToMap(objects){
         objects.forEach(object => {
             this.addToMap(object)
         });
     }
     
-    /** supportive function to draw a single object into canvas */
+    /**
+     * supportive function to draw a single object into canvas
+     * @param {object} mo - a single objects that need to be added into the canvas
+     */
     addToMap(mo){
         if (mo.otherDirection) {
         this.flipImage(mo);
@@ -396,7 +431,10 @@ class World {
         }        
     }
 
-    /** mirrors images (when Sharky changes swim direction) */
+    /**
+     * mirrors images (when Sharky changes swim direction)
+     * @param {object} mo - any movable object that can change its direction
+     */
     flipImage(mo){
         this.ctx.save();
         this.ctx.translate(mo.width, 0)
@@ -404,7 +442,10 @@ class World {
         mo.x = mo.x *-1
     }
     
-    /** mirrors images back into default (when Sharky changes swim direction again) */
+    /**
+     * mirrors images back into default (when Sharky changes swim direction again)
+     * @param {object} mo - any movable object that can change its direction
+     */
     flipImageback(mo){
         mo.x = mo.x *-1
         this.ctx.restore();

@@ -25,7 +25,12 @@ class LifeBar extends StatusBar {
         this.setPercentage(this.percentage, this.LIFE_BAR_IMAGES);
     }
     
-    /** renders the right status frames depending on Sharkies available health points */
+    /**
+     * renders the right status frames depending on Sharkies available health points 
+     * @param {number} percentage - available health points in percent
+     * @param {object} imageSet - image of life bar relative to percentage
+     * @returns - stops function in case of error
+     */
     setPercentage(percentage, imageSet = this.LIFE_BAR_IMAGES){
         this.percentage = percentage;
         if (!imageSet || !Array.isArray(imageSet)) {

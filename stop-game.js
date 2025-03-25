@@ -5,13 +5,22 @@ let timeoutData = [];
 let pause = false;
 underWaterAudio = new Audio('content/Sounds/underWater.mp3');
 
-/** calls all setted intervals of the project to start/stop them at once */
+/**
+ * calls all setted intervals of the project to start/stop them at once
+ * @param {function} fn - any function that contains a setted interval
+ * @param {number} time - the exact timestamp when the interval got stopped to continue from there later
+ */
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
     intervalData.push({ id, fn, time });
+    
 }
 
-/** calls all setted timeouts of the project to start/stop them at once */
+/**
+ * calls all setted timeouts of the project to start/stop them at once
+ * @param {function} fn - any function that contains a setted timeout
+ * @param {number} time - the exact timestamp when the timeout got stopped to continue from there later
+ */
 function setStoppableTimeout(fn, time) {
     let startTime = Date.now();
     let id = setTimeout(() => {

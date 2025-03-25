@@ -22,7 +22,12 @@ class PoisonBubbleBar extends StatusBar{
         this.setPercentage(this.percentage, this.POISON_BUBBLE_BAR_IMAGES);
     }
     
-    /** renders the right status frames depending on Sharkies available poison-bubbles */
+    /**
+     * renders the right status frames depending on Sharkies available poison-bubbles
+     * @param {number} percentage - available poison-bubbles in percent
+     * @param {object} imageSet - image of poison-bubble-bar relative to percentage
+     * @returns - stops function in case of error
+     */
     setPercentage(percentage, imageSet = this.POISON_BUBBLE_BAR_IMAGES){
         this.percentage = percentage;
         if (!imageSet || !Array.isArray(imageSet)) {

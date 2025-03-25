@@ -28,49 +28,70 @@ class Keyboard {
         });
     }
 
-    /** observes key on down */
+    /**
+     * observes key on down
+     * @param {object} e - contains the information that the event keydown is fired
+     */
     observeRightOnDown(e) {
         if (e.keyCode == 39) {
             this.right = true;
         }
     }
 
-    /** observes key on down */
+    /**
+     * observes key on down
+     * @param {object} e - contains the information that the event keydown is fired
+     */
     observeLeftOnDown(e) {
         if (e.keyCode == 37) {
             this.left = true;
         }
     }
 
-    /** observes key on down */
+    /**
+     * observes key on down
+     * @param {object} e - contains the information that the event keydown is fired
+     */
     observeUpOnDown(e) {
         if (e.keyCode == 38) {
             this.up = true;
         }
     }
 
-    /** observes key on down */
+    /**
+     * observes key on down
+     * @param {object} e - contains the information that the event keydown is fired
+     */
     observeDownOnDown(e) {
         if (e.keyCode == 40) {
             this.down = true;
         }
     }
 
-    /** observes key on down */
+    /**
+     * observes key on down
+     * @param {object} e - contains the information that the event keydown is fired
+     */
     observeSpaceOnDown(e) {
         if (e.keyCode == 32) {
             this.space = true;
         }
     }
 
-    /** observes key on down */
+    /**
+     * observes key on down
+     * @param {object} e - contains the information that the event keydown is fired
+     */
     observeDOnDown(e) {
         if (e.keyCode == 68) {
             this.d = true;
         }
     }
 
-    /** observes key on down */
+    /**
+     * observes key on down
+     * @param {object} e - contains the information that the event keydown is fired
+     */
     observeFOnDown(e) {
         if (e.keyCode == 70) {
             this.f = true;
@@ -98,49 +119,70 @@ class Keyboard {
         });
     }
 
-    /** observes key on up */
+    /**
+     * observes key on up
+     * @param {object} e - contains the information that the event keyup is fired
+     */
     observeRightOnUp(e) {
         if (e.keyCode == 39) {
             this.right = false;
         }
     }
 
-    /** observes key on up */
+    /**
+     * observes key on up
+     * @param {object} e - contains the information that the event keyup is fired
+     */
     observeLeftOnUp(e) {
         if (e.keyCode == 37) {
             this.left = false;
         }
     }
 
-    /** observes key on up */
+    /**
+     * observes key on up
+     * @param {object} e - contains the information that the event keyup is fired
+     */
     observeUpOnUp(e) {
         if (e.keyCode == 38) {
             this.up = false;
         }
     }
 
-    /** observes key on up */
+    /**
+     * observes key on up
+     * @param {object} e - contains the information that the event keyup is fired
+     */
     observeDownOnUp(e) {
         if (e.keyCode == 40) {
             this.down = false;
         }
     }
 
-    /** observes key on up */
+    /**
+     * observes key on up
+     * @param {object} e - contains the information that the event keyup is fired
+     */
     observeSpaceOnUp(e) {
         if (e.keyCode == 32) {
             pauseAndContinue();
         }
     }
 
-    /** observes key on up */
+    /**
+     * observes key on up
+     * @param {object} e - contains the information that the event keyup is fired
+     */
     observeDOnUp(e) {
         if (e.keyCode == 68) {
             this.d = false;
         }
     }
 
-    /** observes key on up */
+    /**
+     * observes key on up
+     * @param {object} e - contains the information that the event keyup is fired
+     */
     observeFOnUp(e) {
         if (e.keyCode == 70) {
             this.f = false;
