@@ -4,9 +4,12 @@ body {
     align-items: center;
     background-image: url('content/Alternative Grafiken - Sharkie/3. Background/Dark/1.png');
     background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
     font-family: 'Luckiest Guy';
     color: white;
     margin: 0;
+    min-height: 100vh;
     @media screen and (max-width: 730px),
     (max-height: 490px) {margin-top: 32px;}
 }

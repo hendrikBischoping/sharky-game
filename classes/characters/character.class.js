@@ -225,6 +225,7 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.DIES_OF_POISON)
             } else if (this.isHurt()) {
+                this.hitable = false;
                 this.playAnimation(this.POISON_HIT)
             } else if (this.world.keyboard.right || this.world.keyboard.left || this.world.keyboard.up || this.world.keyboard.down) {
                 this.playAnimation(this.SHARKY_SWIMMING)

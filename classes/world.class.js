@@ -15,8 +15,10 @@ class World {
     bossBar = new BossBar();
     bubbleBar = new BubbleBar();
     poisonBubbleBar = new PoisonBubbleBar();
+    gameStarted = false;
     canShoot = true;
     canSpawn = true;
+    hitable = true;
     dropIndex = 1;
     gameScreens = [];
     shootableAirBubbles = [];
@@ -24,7 +26,6 @@ class World {
     heartItems = [];
     bubbleItems = [];
     poisonBubbleItems = [];
-    underWaterAudio = new Audio('content/Sounds/underWater.mp3');
     bubbleShootAudio = new Audio('content/Sounds/bubbleshoot.mp3');
     bubbleKillAudio = new Audio('content/Sounds/bubblekill.mp3');
     bossHurtAudio = new Audio('content/Sounds/bossHurt.mp3');
@@ -34,6 +35,7 @@ class World {
     youWinAudio = new Audio('content/Sounds/youWin.mp3');
     gameOverAudio = new Audio('content/Sounds/gameOver.mp3');
     bossAttackAudio = new Audio('content/Sounds/bossAttack.mp3');
+    underWaterAudio = new Audio('content/Sounds/underWater.mp3');
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext("2d");
@@ -50,7 +52,7 @@ class World {
     run(){
         let loosesHp = setStoppableInterval(() => {
             this.checkCharakterCollisions(loosesHp);
-        }, 1000);
+        }, 50);
         setStoppableInterval(() => {
             this.checkAirBubbleCollision();
         }, 100);
@@ -75,7 +77,6 @@ class World {
         setStoppableInterval(() => {
                 this.createBubbleItem();
             }, 500);
-            
     }
 
     /** checks if any bubble item collides with Sharky so Sharky can collect it */
@@ -91,9 +92,6 @@ class World {
                 this.bubbleBar.setPercentage(this.bubbleBar.percentage)
             }
         })
-        if (!this.getIsMuted()) {
-            this.underWaterAudio.play();
-        }
     }
 
     /** checks if any poison item collides with Sharky so Sharky can collect it */
@@ -337,12 +335,16 @@ class World {
      */
     checkCharakterCollisions(loosesHp) {
             this.level.enemies.forEach((enemy) => {
-                if (this.character.sharkyIsColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0) {
+                if (this.character.sharkyIsColliding(enemy) && this.character.healthPoints > 0 && enemy.healthPoints > 0 && this.hitable) {
+                    this.hitable = false;
                     if (!this.getIsMuted()) {
                         this.sharkyHurtAudio.play();
                     }
                     this.character.hit(enemy.attackPoints);
-                    this.lifeBar.setPercentage(this.character.healthPoints)                    
+                    this.lifeBar.setPercentage(this.character.healthPoints);
+                    setTimeout(() => {
+                        this.hitable = true;
+                    }, 800);
                 } 
                 else {this.characterDied(loosesHp)}  
             });

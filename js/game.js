@@ -56,6 +56,9 @@ function startGame() {
     startButton.classList.add('d_none');
     restartButton.classList.add('d_none');
     if (!isMuted) {
+        world.underWaterAudio.play();
+    }
+    if (!isMuted) {
         soundOn.classList.remove('d_none');
     } else { soundOff.classList.remove('d_none'); }
     resumeGame();
@@ -158,6 +161,20 @@ function toggleSound() {
             audio.muted = isMuted;
         }
     });
+    checkBackgroundSound()
+}
+
+/**
+ * checks mute status to toggle background sound automatically
+ */
+function checkBackgroundSound() {
+    if (isMuted) {
+        setTimeout(() => {
+            this.checkBackgroundSound();
+        }, 1000);
+    } else {
+        world.underWaterAudio.play();
+    }
 }
 
 /** queries the status of mute from local storage */
