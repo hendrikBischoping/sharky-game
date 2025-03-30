@@ -37,10 +37,11 @@ class World {
     bossAttackAudio = new Audio('content/Sounds/bossAttack.mp3');
     underWaterAudio = new Audio('content/Sounds/underWater.mp3');
 
-    constructor(canvas, keyboard){
+    constructor(canvas, keyboard, endboss){
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.endboss = endboss;
         this.draw();
         this.setWorld();
         this.run();
@@ -259,12 +260,18 @@ class World {
                 if (!this.getIsMuted()) {
                     this.bossSpawnAudio.play();
                 }
-                    this.enemies.push(new Endboss)
+                    this.enemies.push(new Endboss);
+                    setInterval(() => {
+                        console.log(); 
+                    }, 500);
+                    
                 enemies.endbossSpawned = true;
-                setTimeout(() => {
-                    this.gameOver()
-                    document.getElementById('endbossAway').classList.remove('d_none')
-                }, 22000);
+                setStoppableInterval(() =>{
+                    if (this.enemies[enemies.length - 1].x < -180) {
+                        this.gameOver();
+                        document.getElementById('endbossAway').classList.remove('d_none');
+                    }
+                }, 500)
             }
     }
 

@@ -22,7 +22,7 @@ let isMuted;
 
 /** checks if a mobile device is oriented in profile or landscape direction */
 function checkOrientation() {
-    if (window.matchMedia("(orientation: portrait)").matches && window.innerWidth <= 900) {
+    if (window.matchMedia("(orientation: portrait)").matches && window.innerWidth <= 1380) {
         onPortraitMode();
     } else {
         onLandscapeMode();
@@ -39,7 +39,7 @@ function onPortraitMode() {
 function onLandscapeMode() {
     let turnMobileAdvice = document.getElementById('turnMobileAdvice');
     turnMobileAdvice.classList.add('d_none');
-    if (window.innerWidth <= 900) {
+    if (window.innerWidth <= 1380) {
         attackButtons.classList.remove('d_none');
         controlArrows.classList.remove('d_none');
     } else {

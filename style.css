@@ -55,11 +55,21 @@ header {
         height: calc(480px * 0.6);
         width: calc(720px * 0.6);
     }
-
+    @media screen and (max-width: 500px) {
+        height: calc(480px * 0.5);
+        width: calc(720px * 0.5);
+    }
+    @media screen and (max-width: 400px) {
+        height: calc(480px * 0.4);
+        width: calc(720px * 0.4);
+    }
 }
 
 .adviceMessage {
     font-size: 24px;
+    @media screen and (max-width: 500px) {
+        font-size: 16px;
+    }
 }
 
 main {
@@ -121,6 +131,14 @@ h1 {
         height: calc(480px * 0.6);
         width: calc(720px * 0.6);
     }
+    @media screen and (max-width: 500px) {
+        height: calc(480px * 0.5);
+        width: calc(720px * 0.5);
+    }
+    @media screen and (max-width: 400px) {
+        height: calc(480px * 0.4);
+        width: calc(720px * 0.4);
+    }
 }
 
 .screensAndButtons {
@@ -151,6 +169,14 @@ h1 {
     (max-height: 390px) {
         height: calc(480px * 0.6);
         width: calc(720px * 0.6);
+    }
+    @media screen and (max-width: 500px) {
+        height: calc(480px * 0.5);
+        width: calc(720px * 0.5);
+    }
+    @media screen and (max-width: 400px) {
+        height: calc(480px * 0.4);
+        width: calc(720px * 0.4);
     }
 }
 
@@ -256,7 +282,13 @@ h1 {
     }
     @media screen and (max-width: 550px),
     (max-height: 390px) {
-        height: calc(3rem * 0.7);
+        height: calc(3rem * 0.6);
+    }
+    @media screen and (max-width: 500px) {
+        height: calc(3rem * 0.5);
+    }
+    @media screen and (max-width: 400px) {
+        height: calc(3rem * 0.48);
     }
 }
 
@@ -286,6 +318,14 @@ h1 {
         height: calc(300px * 0.6);
         width: calc(400px * 0.6);
     }
+    @media screen and (max-width: 500px) {
+        height: calc(300px * 0.5);
+        width: calc(400px * 0.5);
+    }
+    @media screen and (max-width: 400px) {
+        height: calc(300px * 0.4);
+        width: calc(400px * 0.4);
+    }
 }
 
 #startScreen,
@@ -311,6 +351,14 @@ h1 {
     (max-height: 390px) {
         height: calc(480px * 0.6);
         width: calc(720px * 0.6);
+    }
+    @media screen and (max-width: 500px) {
+        height: calc(480px * 0.5);
+        width: calc(720px * 0.5);
+    }
+    @media screen and (max-width: 400px) {
+        height: calc(480px * 0.4);
+        width: calc(720px * 0.4);
     }
 }
 
@@ -346,6 +394,14 @@ h1 {
         height: calc(82px * 0.6);
         width: calc(620px * 0.6);
     }
+    @media screen and (max-width: 500px) {
+        height: calc(82px * 0.5);
+        width: calc(620px * 0.5);
+    }
+    @media screen and (max-width:4500px) {
+        height: calc(82px * 0.4);
+        width: calc(620px * 0.4);
+    }
 }
 
 #mainScreens {
@@ -375,7 +431,12 @@ h1 {
     (max-height: 390px) {
         height: calc(64px * 0.6);
     }
-}
+    @media screen and (max-width: 500px) {
+        height: calc(64px * 0.5);
+    }
+    @media screen and (max-width: 400px) {
+        height: calc(64px * 0.4);
+    }}
 
 #restartButton {
     height: 64px;
@@ -395,6 +456,12 @@ h1 {
     @media screen and (max-width: 550px),
     (max-height: 390px) {
         height: calc(64px * 0.6);
+    }
+    @media screen and (max-width: 500px) {
+        height: calc(64px * 0.3);
+    }
+    @media screen and (max-width: 400px) {
+        height: calc(64px * 0.4);
     }
 }
 

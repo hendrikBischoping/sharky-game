@@ -10,6 +10,7 @@ class Endboss extends Enemy {
     endboss = true;
     isAttacking = false;
     bossAttackAudio = new Audio('content/Sounds/bossAttack.mp3');
+    endbossAway = document.getElementById('endbossAway');
 
     /** animationframes of endboss spawning*/
     ENDBOSS_SPAWNING = [
