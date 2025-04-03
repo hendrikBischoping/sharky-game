@@ -16,6 +16,7 @@ let soundOn = document.getElementById('toggleSoundOnBtn');
 let soundOff = document.getElementById('toggleSoundOffBtn');
 let controlArrows = document.getElementById('controlArrows');
 let attackButtons = document.getElementById('attackButtons');
+let footer = document.getElementById('footer');
 let gameStarted = false;
 let gameOver = false;
 let isMuted;
@@ -55,6 +56,7 @@ function startGame() {
     startScreen.classList.add('d_none');
     startButton.classList.add('d_none');
     restartButton.classList.add('d_none');
+    footer.classList.add('d_none');
     if (!isMuted) {
         world.underWaterAudio.play();
     }

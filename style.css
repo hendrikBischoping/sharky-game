@@ -11,7 +11,7 @@ body {
     margin: 0;
     min-height: 100vh;
     @media screen and (max-width: 730px),
-    (max-height: 490px) {margin-top: 32px;}
+    (max-height: 490px) {margin-top: 5vh; overflow: hidden;}
 }
 
 header {
@@ -505,7 +505,6 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-
 }
 
 footer a {

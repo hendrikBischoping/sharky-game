@@ -32,6 +32,7 @@ function setStoppableTimeout(fn, time) {
 
 /** pauses / stops the game */
 function stopGame() {
+    footer.classList.remove('d_none');
     pause = true;
     underWaterAudio.pause();
     intervalData.forEach(data => clearInterval(data.id));
@@ -43,6 +44,7 @@ function stopGame() {
 
 /** resumes the game */
 function resumeGame() {
+    footer.classList.add('d_none');
     pause = false;
     intervalData.forEach(data => {
         data.id = setInterval(data.fn, data.time);
